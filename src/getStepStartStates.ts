@@ -117,6 +117,13 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
+import {
+  STEP_BILLING_BUDGETS,
+  STEP_BUILD_ACCOUNT_BUDGET,
+  STEP_BUILD_ADDITIONAL_PROJECT_BUDGET,
+  STEP_BUILD_PROJECT_BUDGET,
+} from './steps/billing-budgets/constants';
+import { STEP_BILLING_ACCOUNTS } from './steps/cloud-billing/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -394,6 +401,21 @@ export default async function getStepStartStates(
     ),
     [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
+    ),
+    [STEP_BILLING_BUDGETS]: createStepStartState(
+      ServiceUsageName.BILLING_BUDGET,
+    ),
+    [STEP_BUILD_ACCOUNT_BUDGET]: createStepStartState(
+      ServiceUsageName.BILLING_BUDGET,
+    ),
+    [STEP_BUILD_PROJECT_BUDGET]: createStepStartState(
+      ServiceUsageName.BILLING_BUDGET,
+    ),
+    [STEP_BUILD_ADDITIONAL_PROJECT_BUDGET]: config.configureOrganizationProjects
+      ? createStepStartState(ServiceUsageName.BILLING_BUDGET)
+      : { disabled: true },
+    [STEP_BILLING_ACCOUNTS]: createStepStartState(
+      ServiceUsageName.CLOUD_BILLING,
     ),
   };
 
