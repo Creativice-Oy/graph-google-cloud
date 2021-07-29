@@ -45,6 +45,8 @@ export const serializedIntegrationConfig: SerializedIntegrationConfig = {
     JSON.stringify(DEFAULT_INTEGRATION_CONFIG_SERVICE_ACCOUNT_KEY_FILE),
   organizationId: '958457776463',
   configureOrganizationProjects: true,
+  billingAccountId:
+    process.env.BILLING_ACCOUNT_ID || 'sample-billing-account-id',
 };
 
 export const integrationConfig: IntegrationConfig =

@@ -22,6 +22,7 @@ export interface SerializedIntegrationConfig extends IntegrationInstanceConfig {
    */
   projectId?: string;
   configureOrganizationProjects?: boolean;
+  billingAccountId?: string;
 }
 
 export interface IntegrationConfig extends SerializedIntegrationConfig {

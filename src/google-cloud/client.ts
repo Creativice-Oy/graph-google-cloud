@@ -20,6 +20,7 @@ export interface ClientOptions {
    */
   projectId?: string;
   organizationId?: string;
+  billingAccountId?: string;
 }
 
 export interface PageableResponse {
@@ -48,12 +49,18 @@ export async function iterateApi<T>(
 export class Client {
   readonly projectId: string;
   readonly organizationId?: string;
+  readonly billingAccountId?: string;
   readonly iterateApi = iterateApi;
 
   private credentials: CredentialBody;
   private auth: BaseExternalAccountClient;
 
-  constructor({ config, projectId, organizationId }: ClientOptions) {
+  constructor({
+    config,
+    projectId,
+    organizationId,
+    billingAccountId,
+  }: ClientOptions) {
     this.projectId =
       projectId ||
       config.projectId ||
@@ -63,6 +70,7 @@ export class Client {
       client_email: config.serviceAccountKeyConfig.client_email,
       private_key: config.serviceAccountKeyConfig.private_key,
     };
+    this.billingAccountId = billingAccountId || config.billingAccountId;
   }
 
   private async getClient(): Promise<BaseExternalAccountClient> {

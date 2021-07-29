@@ -49,6 +49,9 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
         type: 'boolean',
         mask: false,
       },
+      billingAccountId: {
+        type: 'string',
+      },
     },
     getStepStartStates,
     integrationSteps: [
