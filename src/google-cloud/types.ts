@@ -30,4 +30,5 @@ export enum ServiceUsageName {
   API_GATEWAY = 'apigateway.googleapis.com',
   PRIVATE_CA = 'privateca.googleapis.com',
   ACCESS_CONTEXT_MANAGER = 'accesscontextmanager.googleapis.com',
+  BILLING_BUDGET = 'billingbudgets.googleapis.com',
 }

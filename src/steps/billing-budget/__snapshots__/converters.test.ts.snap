@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createBinaryAuthorizationPolicy should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Entity",
+  ],
+  "_key": "sample-name",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "displayName": "sample-display-name",
+        "name": "sample-name",
+      },
+    },
+  ],
+  "_type": "google_billing_budget",
+  "createdOn": undefined,
+  "displayName": "sample-display-name",
+  "name": "sample-name",
+}
+`;

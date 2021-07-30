@@ -23,6 +23,7 @@ import {
   privateca_v1beta1,
   cloudresourcemanager_v3,
   accesscontextmanager_v1,
+  billingbudgets_v1,
 } from 'googleapis';
 import { BigQueryTable } from '../src/steps/big-query/client';
 
@@ -2124,6 +2125,16 @@ export function getMockServicePerimeterMethodSelector(
 ): accesscontextmanager_v1.Schema$MethodSelector {
   return {
     method: '*',
+    ...partial,
+  };
+}
+
+export function getMockBillingBudget(
+  partial?: Partial<billingbudgets_v1.Schema$GoogleCloudBillingBudgetsV1Budget>,
+): billingbudgets_v1.Schema$GoogleCloudBillingBudgetsV1Budget {
+  return {
+    name: 'sample-name',
+    displayName: 'sample-display-name',
     ...partial,
   };
 }

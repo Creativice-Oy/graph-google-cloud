@@ -119,6 +119,7 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
+import { STEP_BILLING_BUDGET } from './steps/billing-budget/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -409,6 +410,9 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: false,
+      },
+      [STEP_BILLING_BUDGET]: {
+        disabled: true,
       },
     };
 
