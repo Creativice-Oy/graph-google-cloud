@@ -37,5 +37,7 @@ describe('#fetchBillingBudget', () => {
     });
 
     await fetchBillingBudget(context);
+
+    console.log('entities', context.jobState.collectedEntities);
   });
 });

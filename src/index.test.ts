@@ -119,7 +119,7 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
-import { STEP_BILLING_BUDGET } from './steps/billing-budget/constants';
+import { STEP_BILLING_BUDGET } from './steps/cloud-billing/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;

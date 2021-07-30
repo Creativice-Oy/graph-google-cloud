@@ -23,7 +23,7 @@ export async function fetchBillingBudget(
   });
 }
 
-export const billingBudgetSteps: IntegrationStep<IntegrationConfig>[] = [
+export const cloudBillingSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BILLING_BUDGET,
     name: 'Billing Budget',
