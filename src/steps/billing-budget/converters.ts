@@ -17,6 +17,16 @@ export function createBillingBudgetEntity(
         _key: data.name as string,
         name: data.name,
         displayName: data.displayName as string,
+        specifiedAmoutCurrencyCode: data.amount?.specifiedAmount?.currencyCode,
+        specifiedAmoutUnits: data.amount?.specifiedAmount?.units,
+        specifiedAmoutNanos: data.amount?.specifiedAmount?.nanos,
+        pubsubTopic: data.notificationsRule?.pubsubTopic,
+        schemaVersion: data.notificationsRule?.schemaVersion,
+        monitoringNotificationChannels:
+          data.notificationsRule?.monitoringNotificationChannels,
+        disableDefaultIamRecipients:
+          data.notificationsRule?.disableDefaultIamRecipients,
+        etag: data.etag,
       },
     },
   });

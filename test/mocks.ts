@@ -2135,6 +2135,20 @@ export function getMockBillingBudget(
   return {
     name: 'sample-name',
     displayName: 'sample-display-name',
+    etag: 'sample-etag',
+    amount: {
+      specifiedAmount: {
+        currencyCode: 'USD',
+        units: '1',
+        nanos: 750000000,
+      },
+    },
+    notificationsRule: {
+      pubsubTopic: 'sample-pubsub-topic',
+      schemaVersion: 'sample-schema-version',
+      monitoringNotificationChannels: ['channel-1', 'channel-2'],
+      disableDefaultIamRecipients: true,
+    },
     ...partial,
   };
 }
