@@ -117,6 +117,10 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
+import {
+  STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_OPERATIONS,
+} from './steps/big-table/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -394,6 +398,12 @@ export default async function getStepStartStates(
     ),
     [STEP_PRIVATE_CA_CERTIFICATES]: createStepStartState(
       ServiceUsageName.PRIVATE_CA,
+    ),
+    [STEP_BIG_TABLE_OPERATIONS]: createStepStartState(
+      ServiceUsageName.BIG_TABLE,
+    ),
+    [STEP_BIG_TABLE_INSTANCES]: createStepStartState(
+      ServiceUsageName.BIG_TABLE,
     ),
   };
 

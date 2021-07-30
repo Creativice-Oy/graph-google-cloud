@@ -31,6 +31,7 @@ import { accessPoliciesSteps } from './steps/access-context-manager';
 
 import { Client } from './google-cloud/client';
 import { cloudAssetSteps } from './steps/cloud-asset';
+import { bigTableSteps } from './steps/big-table';
 
 export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
   {
@@ -76,6 +77,7 @@ export const invocationConfig: IntegrationInvocationConfig<IntegrationConfig> =
       ...apiGatewaySteps,
       ...privateCaSteps,
       ...accessPoliciesSteps,
+      ...bigTableSteps,
     ],
     dependencyGraphOrder: ['last'],
     beforeAddEntity(context, entity: Entity): Entity {

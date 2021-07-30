@@ -294,6 +294,8 @@ The following entities are created:
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
 | Big Query Table                                          | `google_bigquery_table`                                           | `DataCollection`                   |
+| Bigtable Instance                                        | `google_cloud_bigtable_instance`                                  | `Database`                         |
+| Bigtable Operation                                       | `google_cloud_bigtable_operation`                                 | `Task`                             |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
 | Cloud API Service                                        | `google_cloud_api_service`                                        | `Service`                          |
 | Cloud Function                                           | `google_cloud_function`                                           | `Function`                         |
