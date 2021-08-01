@@ -18,9 +18,17 @@ export async function fetchOperations(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = instance.config.projectId;
+  // FIX: it's best to access the projectId by using the following
+  // client.projectId (existing code always uses this pattern)
+  // const projectId = instance.config.projectId;
+  const projectId = client.projectId;
+
+  // FIX: by default we don't use try/catch here always
+  // Errors handling happen somewhere above this
+  // However there are times where we want to handle some step-specific errors more precisely
+  // And then we use the try/catch in the steps (you can take a look at existing code)
   try {
-    await client.iterateOperations(context, async (operation) => {
+    await client.iterateOperations(async (operation) => {
       const _key = buildOperationKey({ operation, projectId });
 
       await jobState.addEntity(
@@ -41,9 +49,13 @@ export async function fetchInstances(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = instance.config.projectId;
+  // FIX: it's best to access the projectId by using the following
+  // client.projectId (existing code always uses this pattern)
+  // const projectId = instance.config.projectId;
+  const projectId = client.projectId;
+
   try {
-    await client.iterateInstances(context, async (instance) => {
+    await client.iterateInstances(async (instance) => {
       const _key = buildInstanceKey({ instance, projectId });
 
       await jobState.addEntity(

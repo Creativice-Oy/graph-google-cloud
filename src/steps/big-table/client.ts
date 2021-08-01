@@ -1,12 +1,10 @@
 import { bigtableadmin_v2, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
-import { IntegrationStepContext } from '../../types';
 
 export class BigTableClient extends Client {
   private client = google.bigtableadmin('v2');
 
   async iterateOperations(
-    context: IntegrationStepContext,
     callback: (data: bigtableadmin_v2.Schema$Operation) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
@@ -17,7 +15,8 @@ export class BigTableClient extends Client {
           auth,
           pageSize: 500, // 500 is the max
           pageToken: nextPageToken,
-          name: `operations/projects/${context.instance.config.projectId}`,
+          // FIX: we can access projectIds like this in the client methods
+          name: `operations/projects/${this.projectId}`,
         });
       },
       async (data: bigtableadmin_v2.Schema$ListOperationsResponse) => {
@@ -29,7 +28,6 @@ export class BigTableClient extends Client {
   }
 
   async iterateInstances(
-    context: IntegrationStepContext,
     callback: (data: bigtableadmin_v2.Schema$Instance) => Promise<void>,
   ): Promise<void> {
     const auth = await this.getAuthenticatedServiceClient();
@@ -39,7 +37,7 @@ export class BigTableClient extends Client {
         return await this.client.projects.instances.list({
           auth,
           pageToken: nextPageToken,
-          parent: `projects/${context.instance.config.projectId}`,
+          parent: `projects/${this.projectId}`,
         });
       },
       async (data: bigtableadmin_v2.Schema$ListInstancesResponse) => {
