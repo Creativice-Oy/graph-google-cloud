@@ -17,6 +17,7 @@ export function createBillingBudgetEntity(
         _key: data.name as string,
         name: data.name,
         displayName: data.displayName as string,
+        projects: data.budgetFilter?.projects,
         specifiedAmoutCurrencyCode: data.amount?.specifiedAmount?.currencyCode,
         specifiedAmoutUnits: data.amount?.specifiedAmount?.units,
         specifiedAmoutNanos: data.amount?.specifiedAmount?.nanos,

@@ -106,7 +106,10 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
-import { STEP_BILLING_BUDGET } from './steps/cloud-billing/constants';
+import {
+  STEP_BILLING_BUDGET,
+  STEP_BUILD_PROJECT_BUDGET,
+} from './steps/cloud-billing/constants';
 
 function validateInvocationConfig(
   context: IntegrationExecutionContext<SerializedIntegrationConfig>,
@@ -357,6 +360,9 @@ export default async function getStepStartStates(
       ServiceUsageName.PRIVATE_CA,
     ),
     [STEP_BILLING_BUDGET]: createStepStartState(
+      ServiceUsageName.BILLING_BUDGET,
+    ),
+    [STEP_BUILD_PROJECT_BUDGET]: createStepStartState(
       ServiceUsageName.BILLING_BUDGET,
     ),
   };

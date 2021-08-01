@@ -119,7 +119,10 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
-import { STEP_BILLING_BUDGET } from './steps/cloud-billing/constants';
+import {
+  STEP_BILLING_BUDGET,
+  STEP_BUILD_PROJECT_BUDGET,
+} from './steps/cloud-billing/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -412,6 +415,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BILLING_BUDGET]: {
+        disabled: true,
+      },
+      [STEP_BUILD_PROJECT_BUDGET]: {
         disabled: true,
       },
     };

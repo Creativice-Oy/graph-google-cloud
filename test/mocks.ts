@@ -2136,6 +2136,9 @@ export function getMockBillingBudget(
     name: 'sample-name',
     displayName: 'sample-display-name',
     etag: 'sample-etag',
+    budgetFilter: {
+      projects: ['project/project-1', 'project/project-2'],
+    },
     amount: {
       specifiedAmount: {
         currencyCode: 'USD',

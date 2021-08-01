@@ -6,6 +6,7 @@ import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import { fetchBillingBudget } from '.';
+// import { fetchResourceManagerProject } from '../resource-manager/index';
 
 describe('#fetchBillingBudget', () => {
   let recording: Recording;
@@ -36,8 +37,15 @@ describe('#fetchBillingBudget', () => {
       },
     });
 
+    // await fetchResourceManagerProject(context);
     await fetchBillingBudget(context);
 
-    console.log('entities', context.jobState.collectedEntities);
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
   });
 });

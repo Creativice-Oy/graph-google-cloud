@@ -17,6 +17,12 @@ Object {
             "units": "1",
           },
         },
+        "budgetFilter": Object {
+          "projects": Array [
+            "project/project-1",
+            "project/project-2",
+          ],
+        },
         "displayName": "sample-display-name",
         "etag": "sample-etag",
         "name": "sample-name",
@@ -42,6 +48,10 @@ Object {
     "channel-2",
   ],
   "name": "sample-name",
+  "projects": Array [
+    "project/project-1",
+    "project/project-2",
+  ],
   "pubsubTopic": "sample-pubsub-topic",
   "schemaVersion": "sample-schema-version",
   "specifiedAmoutCurrencyCode": "USD",
