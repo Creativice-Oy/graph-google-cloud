@@ -1,7 +1,9 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
@@ -47,7 +49,6 @@ export async function buildProjectBudgetRelationships(
       _type: ENTITY_TYPE_BILLING_BUDGET,
     },
     async (budgetEntity) => {
-      console.log('budgetEntity', budgetEntity);
       if (budgetEntity.project) {
         for (const project of budgetEntity.projects as string[]) {
           if (project === projectName) {
@@ -56,6 +57,23 @@ export async function buildProjectBudgetRelationships(
                 _class: RelationshipClass.HAS,
                 from: projectEntity,
                 to: budgetEntity,
+              }),
+            );
+          } else {
+            await jobState.addRelationship(
+              createMappedRelationship({
+                _class: RelationshipClass.HAS,
+                _type: RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
+                _mapping: {
+                  relationshipDirection: RelationshipDirection.FORWARD,
+                  sourceEntityKey: projectEntity._key,
+                  targetFilterKeys: [['_type', '_key']],
+                  skipTargetCreation: true,
+                  targetEntity: {
+                    _type: ENTITY_TYPE_BILLING_BUDGET,
+                    _key: budgetEntity._key,
+                  },
+                },
               }),
             );
           }
@@ -86,7 +104,7 @@ export const cloudBillingSteps: IntegrationStep<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
-    dependsOn: [],
+    dependsOn: [STEP_RESOURCE_MANAGER_PROJECT],
     executionHandler: fetchBillingBudget,
   },
   {
