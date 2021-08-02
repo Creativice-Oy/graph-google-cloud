@@ -113,4 +113,26 @@ export class BigTableClient extends Client {
       },
     );
   }
+
+  async iterateTables(
+    instanceId: string,
+    callback: (data: bigtableadmin_v2.Schema$Table) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return await this.client.projects.instances.tables.list({
+          auth,
+          pageToken: nextPageToken,
+          parent: `projects/${this.projectId}/instances/${instanceId}`,
+        });
+      },
+      async (data: bigtableadmin_v2.Schema$ListTablesResponse) => {
+        for (const tableResult of data.tables || []) {
+          await callback(tableResult);
+        }
+      },
+    );
+  }
 }

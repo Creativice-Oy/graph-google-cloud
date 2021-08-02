@@ -25,6 +25,10 @@ export function getBackupKey(backup: bigtableadmin_v2.Schema$Backup) {
   return `bigtable_backup:${backup.name}`;
 }
 
+export function getTableKey(table: bigtableadmin_v2.Schema$Table) {
+  return `bigtable_table:${table.name}`;
+}
+
 export function createOperationEntity({
   operation,
   projectId,
@@ -156,6 +160,33 @@ export function createBackupEntity({
         state: backup.state,
         encryptionType: backup.encryptionInfo?.encryptionType,
         kmsKeyVersion: backup.encryptionInfo?.kmsKeyVersion,
+      },
+    },
+  });
+}
+
+export function createTableEntity({
+  table,
+  projectId,
+  instanceId,
+}: {
+  table: bigtableadmin_v2.Schema$Table;
+  projectId: string | undefined | null;
+  instanceId: string | undefined | null;
+}) {
+  return createGoogleCloudIntegrationEntity(table, {
+    entityData: {
+      source: table,
+      assign: {
+        _class: bigTableEntities.TABLES._class,
+        _type: bigTableEntities.TABLES._type,
+        _key: getTableKey(table),
+        name: table.name,
+        projectId,
+        instanceId,
+        granularity: table.granularity,
+        sourceType: table.restoreInfo?.sourceType,
+        backup: table.restoreInfo?.backupInfo?.backup,
       },
     },
   });
