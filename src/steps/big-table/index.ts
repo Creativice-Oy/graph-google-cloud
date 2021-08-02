@@ -7,15 +7,18 @@ import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { BigTableClient } from './client';
 import {
   bigTableEntities,
+  RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
   RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
   RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
   STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_BACKUPS,
   STEP_BIG_TABLE_CLUSTERS,
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_OPERATIONS,
 } from './constants';
 import {
   createAppProfileEntity,
+  createBackupEntity,
   createClusterEntity,
   createInstanceEntity,
   createOperationEntity,
@@ -123,6 +126,42 @@ export async function fetchClusters(
   );
 }
 
+export async function fetchBackups(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { instance, jobState } = context;
+  const client = new BigTableClient({ config: instance.config });
+  const projectId = client.projectId;
+
+  await jobState.iterateEntities(
+    { _type: bigTableEntities.CLUSTERS._type },
+    async (clusterEntity) => {
+      await client.iterateBackups(
+        clusterEntity.instanceId as string,
+        clusterEntity.name as string,
+        async (backup) => {
+          const backupEntity = createBackupEntity({
+            backup,
+            projectId,
+            instanceId: clusterEntity.instanceId as string,
+            clusterId: clusterEntity.name as string,
+          });
+
+          await jobState.addEntity(backupEntity);
+
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: clusterEntity,
+              to: backupEntity,
+            }),
+          );
+        },
+      );
+    },
+  );
+}
+
 export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_OPERATIONS,
@@ -169,5 +208,20 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchClusters,
+  },
+  {
+    id: STEP_BIG_TABLE_BACKUPS,
+    name: 'Bigtable Backups',
+    entities: [bigTableEntities.BACKUPS],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
+        sourceType: bigTableEntities.CLUSTERS._type,
+        targetType: bigTableEntities.BACKUPS._type,
+      },
+    ],
+    dependsOn: [STEP_BIG_TABLE_CLUSTERS, STEP_BIG_TABLE_INSTANCES],
+    executionHandler: fetchBackups,
   },
 ];

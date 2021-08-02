@@ -21,6 +21,10 @@ export function getClusterKey(cluster: bigtableadmin_v2.Schema$Cluster) {
   return `bigtable_cluster:${cluster.name}`;
 }
 
+export function getBackupKey(backup: bigtableadmin_v2.Schema$Backup) {
+  return `bigtable_backup:${backup.name}`;
+}
+
 export function createOperationEntity({
   operation,
   projectId,
@@ -117,6 +121,41 @@ export function createClusterEntity({
         defaultStorageType: cluster.defaultStorageType,
         location: cluster.location,
         kmsKeyName: cluster.encryptionConfig?.kmsKeyName,
+      },
+    },
+  });
+}
+
+export function createBackupEntity({
+  backup,
+  projectId,
+  instanceId,
+  clusterId,
+}: {
+  backup: bigtableadmin_v2.Schema$Backup;
+  projectId: string | undefined | null;
+  instanceId: string | undefined | null;
+  clusterId: string | undefined | null;
+}) {
+  return createGoogleCloudIntegrationEntity(backup, {
+    entityData: {
+      source: backup,
+      assign: {
+        _class: bigTableEntities.BACKUPS._class,
+        _type: bigTableEntities.BACKUPS._type,
+        _key: getBackupKey(backup),
+        name: backup.name,
+        projectId,
+        instanceId,
+        clusterId,
+        sourceTable: backup.sourceTable,
+        expireTime: backup.expireTime,
+        startTime: backup.startTime,
+        endTime: backup.endTime,
+        sizeBytes: backup.sizeBytes,
+        state: backup.state,
+        encryptionType: backup.encryptionInfo?.encryptionType,
+        kmsKeyVersion: backup.encryptionInfo?.kmsKeyVersion,
       },
     },
   });
