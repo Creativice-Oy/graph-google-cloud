@@ -48,7 +48,10 @@ export async function buildProjectBudgetRelationships(
       _type: ENTITY_TYPE_BILLING_BUDGET,
     },
     async (budgetEntity) => {
-      if (budgetEntity.project) {
+      console.log('budgetEntity', budgetEntity);
+      // FIX: I don't think budgetEntity.project exists
+      // Did you mean budgetEntity.projects?
+      if (budgetEntity.projects) {
         for (const project of budgetEntity.projects as string[]) {
           if (project === projectName) {
             await jobState.addRelationship(
@@ -65,12 +68,21 @@ export async function buildProjectBudgetRelationships(
                 _type: RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
                 _mapping: {
                   relationshipDirection: RelationshipDirection.FORWARD,
-                  sourceEntityKey: projectEntity._key,
+                  // FIX: this should have key of each projects in that array (from the loop)
+                  // Right now this will just make connection between the current project and the budget
+                  // OLD: sourceEntityKey: projectEntity._key,
+                  // Luckily the project's key fits this mold: _key: 'projects/167984947943',
+                  // So we can just use the content from the 'project' var
+                  sourceEntityKey: project,
                   targetFilterKeys: [['_type', '_key']],
                   skipTargetCreation: true,
                   targetEntity: {
-                    _type: ENTITY_TYPE_BILLING_BUDGET,
-                    _key: budgetEntity._key,
+                    // _type: ENTITY_TYPE_BILLING_BUDGET,
+                    // _key: budgetEntity._key,
+                    // Since we already have budgetEntity built, we can just pass it here
+                    ...budgetEntity,
+                    // We however don't want rawData in these mapped relationships
+                    _rawData: undefined,
                   },
                 },
               }),
@@ -79,13 +91,23 @@ export async function buildProjectBudgetRelationships(
         }
       } else {
         // no budgetEntity.project means budget applies to all projects
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.HAS,
-            from: projectEntity,
-            to: budgetEntity,
-          }),
-        );
+        // This is tricky...
+        // We could have a util function that stores all the traversed projects in some list (jobState.setData)
+        // In here: buildOrgFolderProjectMappedRelationships (search for that)
+        // However, whenever I create a new budget, if I want to leave all projects be selected the UI mentions (4/4 selected)
+        // Meanwhile there are a lot more projects in the jupiterone.dev organization
+        // So if we were to do this, we'd wrongly create multiple relationships :/
+        // Spend very small amount of time trying to see if there's any requirement for a project to be selectable for the budget
+        // If we figure out the criteria we might be able to narrow it down, but even without this case we're probably good to go
+        // for a first PR version
+        // Just clean up all of these comments once you've read them :)
+        // await jobState.addRelationship(
+        //   createDirectRelationship({
+        //     _class: RelationshipClass.HAS,
+        //     from: projectEntity,
+        //     to: budgetEntity,
+        //   }),
+        // );
       }
     },
   );
