@@ -42,7 +42,6 @@ export async function buildProjectBudgetRelationships(
 
   const projectEntity = await getProjectEntity(jobState);
   const projectName = projectEntity.name;
-  console.log('projectName', projectName);
 
   await jobState.iterateEntities(
     {
