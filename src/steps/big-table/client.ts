@@ -15,7 +15,6 @@ export class BigTableClient extends Client {
           auth,
           pageSize: 500, // 500 is the max
           pageToken: nextPageToken,
-          // FIX: we can access projectIds like this in the client methods
           name: `operations/projects/${this.projectId}`,
         });
       },
@@ -43,6 +42,28 @@ export class BigTableClient extends Client {
       async (data: bigtableadmin_v2.Schema$ListInstancesResponse) => {
         for (const instanceResult of data.instances || []) {
           await callback(instanceResult);
+        }
+      },
+    );
+  }
+
+  async iterateAppProfiles(
+    instanceId: string,
+    callback: (data: bigtableadmin_v2.Schema$AppProfile) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return await this.client.projects.instances.appProfiles.list({
+          auth,
+          pageToken: nextPageToken,
+          parent: `projects/${this.projectId}/instances/${instanceId}`,
+        });
+      },
+      async (data: bigtableadmin_v2.Schema$ListAppProfilesResponse) => {
+        for (const appProfileResult of data.appProfiles || []) {
+          await callback(appProfileResult);
         }
       },
     );
