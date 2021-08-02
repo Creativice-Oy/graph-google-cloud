@@ -295,6 +295,7 @@ The following entities are created:
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
 | Big Query Table                                          | `google_bigquery_table`                                           | `DataCollection`                   |
 | Bigtable AppProfile                                      | `google_bigtable_app_profile`                                     | `Configuration`                    |
+| Bigtable Cluster                                         | `google_bigtable_cluster`                                         | `Cluster`                          |
 | Bigtable Instance                                        | `google_bigtable_instance`                                        | `Database`                         |
 | Bigtable Operation                                       | `google_bigtable_operation`                                       | `Task`                             |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |
@@ -382,6 +383,7 @@ The following relationships are created/mapped:
 | `google_bigquery_dataset`                                        | **HAS**               | `google_bigquery_table`                                           |
 | `google_bigquery_dataset`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_app_profile`                                     |
+| `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_cluster`                                         |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |

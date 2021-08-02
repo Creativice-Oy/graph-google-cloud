@@ -8,12 +8,15 @@ import { BigTableClient } from './client';
 import {
   bigTableEntities,
   RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
+  RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
   STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_CLUSTERS,
   STEP_BIG_TABLE_INSTANCES,
   STEP_BIG_TABLE_OPERATIONS,
 } from './constants';
 import {
   createAppProfileEntity,
+  createClusterEntity,
   createInstanceEntity,
   createOperationEntity,
 } from './converters';
@@ -86,6 +89,40 @@ export async function fetchAppProfiles(
   );
 }
 
+export async function fetchClusters(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { instance, jobState } = context;
+  const client = new BigTableClient({ config: instance.config });
+  const projectId = client.projectId;
+
+  await jobState.iterateEntities(
+    { _type: bigTableEntities.INSTANCES._type },
+    async (instanceEntity) => {
+      await client.iterateClusters(
+        instanceEntity.name as string,
+        async (cluster) => {
+          const clusterEntity = createClusterEntity({
+            cluster,
+            projectId,
+            instanceId: instanceEntity.name as string,
+          });
+
+          await jobState.addEntity(clusterEntity);
+
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: instanceEntity,
+              to: clusterEntity,
+            }),
+          );
+        },
+      );
+    },
+  );
+}
+
 export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_OPERATIONS,
@@ -115,7 +152,22 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: bigTableEntities.APP_PROFILES._type,
       },
     ],
-    dependsOn: [],
+    dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchAppProfiles,
+  },
+  {
+    id: STEP_BIG_TABLE_CLUSTERS,
+    name: 'Bigtable Clusters',
+    entities: [bigTableEntities.CLUSTERS],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
+        sourceType: bigTableEntities.INSTANCES._type,
+        targetType: bigTableEntities.CLUSTERS._type,
+      },
+    ],
+    dependsOn: [STEP_BIG_TABLE_INSTANCES],
+    executionHandler: fetchClusters,
   },
 ];

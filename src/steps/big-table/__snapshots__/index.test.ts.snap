@@ -10,6 +10,16 @@ Object {
 }
 `;
 
+exports[`#fetchClusters should collect data 1`] = `
+Object {
+  "collectedEntities": Array [],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [],
+  "numCollectedEntities": 0,
+  "numCollectedRelationships": 0,
+}
+`;
+
 exports[`#fetchInstances should collect data 1`] = `
 Object {
   "collectedEntities": Array [],

@@ -17,6 +17,10 @@ export function getAppProfileKey(
   return `bigtable_appProfile:${appProfile.name}`;
 }
 
+export function getClusterKey(cluster: bigtableadmin_v2.Schema$Cluster) {
+  return `bigtable_cluster:${cluster.name}`;
+}
+
 export function createOperationEntity({
   operation,
   projectId,
@@ -84,6 +88,35 @@ export function createAppProfileEntity({
         instanceId,
         etag: appProfile.etag,
         description: appProfile.description,
+      },
+    },
+  });
+}
+
+export function createClusterEntity({
+  cluster,
+  projectId,
+  instanceId,
+}: {
+  cluster: bigtableadmin_v2.Schema$Cluster;
+  projectId: string | undefined | null;
+  instanceId: string | undefined | null;
+}) {
+  return createGoogleCloudIntegrationEntity(cluster, {
+    entityData: {
+      source: cluster,
+      assign: {
+        _class: bigTableEntities.CLUSTERS._class,
+        _type: bigTableEntities.CLUSTERS._type,
+        _key: getClusterKey(cluster),
+        name: cluster.name,
+        projectId,
+        instanceId,
+        state: cluster.state,
+        serveNodes: cluster.serveNodes,
+        defaultStorageType: cluster.defaultStorageType,
+        location: cluster.location,
+        kmsKeyName: cluster.encryptionConfig?.kmsKeyName,
       },
     },
   });

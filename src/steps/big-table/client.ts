@@ -68,4 +68,26 @@ export class BigTableClient extends Client {
       },
     );
   }
+
+  async iterateClusters(
+    instanceId: string,
+    callback: (data: bigtableadmin_v2.Schema$Cluster) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return await this.client.projects.instances.clusters.list({
+          auth,
+          pageToken: nextPageToken,
+          parent: `projects/${this.projectId}/instances/${instanceId}`,
+        });
+      },
+      async (data: bigtableadmin_v2.Schema$ListClustersResponse) => {
+        for (const clusterResult of data.clusters || []) {
+          await callback(clusterResult);
+        }
+      },
+    );
+  }
 }

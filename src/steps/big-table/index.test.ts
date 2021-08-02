@@ -2,13 +2,19 @@ import {
   createMockStepExecutionContext,
   Recording,
 } from '@jupiterone/integration-sdk-testing';
-import { fetchAppProfiles, fetchInstances, fetchOperations } from '.';
+import {
+  fetchAppProfiles,
+  fetchClusters,
+  fetchInstances,
+  fetchOperations,
+} from '.';
 import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import {
   bigTableEntities,
   RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
+  RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
 } from './constants';
 
 describe('#fetchOperations', () => {
@@ -166,6 +172,74 @@ describe('#fetchAppProfiles', () => {
           _class: { const: 'HAS' },
           _type: {
             const: 'google_bigtable_instance_has_app_profile',
+          },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchClusters', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchClusters',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchClusters(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e.type === bigTableEntities.CLUSTERS._type,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Cluster'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_bigtable_cluster' },
+          name: { type: 'string' },
+          projectId: { type: 'string' },
+          instanceId: { type: 'string' },
+          state: { type: 'string' },
+          location: { type: 'string' },
+          defaultStorageType: { type: 'string' },
+          serveNodes: { type: 'number' },
+          kmsKeyName: { type: 'string' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_bigtable_instance_has_cluster',
           },
         },
       },
