@@ -29,6 +29,10 @@ export function getTableKey(table: bigtableadmin_v2.Schema$Table) {
   return `bigtable_table:${table.name}`;
 }
 
+export function getLocationKey(location: bigtableadmin_v2.Schema$Location) {
+  return `bigtable_location:${location.locationId}`;
+}
+
 export function createOperationEntity({
   operation,
   projectId,
@@ -187,6 +191,29 @@ export function createTableEntity({
         granularity: table.granularity,
         sourceType: table.restoreInfo?.sourceType,
         backup: table.restoreInfo?.backupInfo?.backup,
+      },
+    },
+  });
+}
+
+export function createLocationEntity({
+  location,
+  projectId,
+}: {
+  location: bigtableadmin_v2.Schema$Location;
+  projectId: string | undefined | null;
+}) {
+  return createGoogleCloudIntegrationEntity(location, {
+    entityData: {
+      source: location,
+      assign: {
+        _class: bigTableEntities.LOCATIONS._class,
+        _type: bigTableEntities.LOCATIONS._type,
+        _key: getLocationKey(location),
+        name: location.name,
+        projectId,
+        locationId: location.locationId,
+        displayName: location.displayName ? location.displayName : undefined,
       },
     },
   });

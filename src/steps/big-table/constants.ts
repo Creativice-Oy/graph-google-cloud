@@ -4,6 +4,7 @@ export const STEP_BIG_TABLE_APP_PROFILES = 'fetch-bigtable-app-profiles';
 export const STEP_BIG_TABLE_CLUSTERS = 'fetch-bigtable-clusters';
 export const STEP_BIG_TABLE_BACKUPS = 'fetch-bigtable-backups';
 export const STEP_BIG_TABLE_TABLES = 'fetch-bigtable-tables';
+export const STEP_BIG_TABLE_LOCATIONS = 'fetch-bigtable-locations';
 
 export const RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE =
   'google_bigtable_instance_has_app_profile';
@@ -47,5 +48,10 @@ export const bigTableEntities = {
     _type: 'google_bigtable_table',
     _class: ['DataCollection'],
     resourceName: 'Bigtable Table',
+  },
+  LOCATIONS: {
+    _type: 'google_bigtable_location',
+    _class: ['Site'],
+    resourceName: 'Bigtable Location',
   },
 };

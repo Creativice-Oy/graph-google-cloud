@@ -7,6 +7,7 @@ import {
   fetchBackups,
   fetchClusters,
   fetchInstances,
+  fetchLocations,
   fetchOperations,
   fetchTables,
 } from '.';
@@ -373,7 +374,7 @@ describe('#fetchTables', () => {
 
     expect(
       context.jobState.collectedRelationships.filter(
-        (e) => e._type === RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
+        (e) => e._type === RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE,
       ),
     ).toMatchDirectRelationshipSchema({
       schema: {
@@ -382,6 +383,55 @@ describe('#fetchTables', () => {
           _type: {
             const: 'google_bigtable_instance_has_table',
           },
+        },
+      },
+    });
+  });
+});
+
+describe('#fetchLocations', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchLocations',
+    });
+  });
+
+  afterEach(async () => {
+    await recording.stop();
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: integrationConfig,
+    });
+
+    await fetchLocations(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e.type === bigTableEntities.LOCATIONS._type,
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Site'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_bigtable_location' },
+          name: { type: 'string' },
+          projectId: { type: 'string' },
+          locationId: { type: 'string' },
+          displayName: { type: 'string' },
         },
       },
     });

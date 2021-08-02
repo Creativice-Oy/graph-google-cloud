@@ -135,4 +135,25 @@ export class BigTableClient extends Client {
       },
     );
   }
+
+  async iterateLocations(
+    callback: (data: bigtableadmin_v2.Schema$Location) => Promise<void>,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    await this.iterateApi(
+      async (nextPageToken) => {
+        return await this.client.projects.locations.list({
+          auth,
+          pageToken: nextPageToken,
+          name: `projects/${this.projectId}`,
+        });
+      },
+      async (data: bigtableadmin_v2.Schema$ListLocationsResponse) => {
+        for (const locationResult of data.locations || []) {
+          await callback(locationResult);
+        }
+      },
+    );
+  }
 }

@@ -15,6 +15,7 @@ import {
   STEP_BIG_TABLE_BACKUPS,
   STEP_BIG_TABLE_CLUSTERS,
   STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_LOCATIONS,
   STEP_BIG_TABLE_OPERATIONS,
   STEP_BIG_TABLE_TABLES,
 } from './constants';
@@ -23,6 +24,7 @@ import {
   createBackupEntity,
   createClusterEntity,
   createInstanceEntity,
+  createLocationEntity,
   createOperationEntity,
   createTableEntity,
 } from './converters';
@@ -199,6 +201,23 @@ export async function fetchTables(
   );
 }
 
+export async function fetchLocations(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const { instance, jobState } = context;
+  const client = new BigTableClient({ config: instance.config });
+  const projectId = client.projectId;
+
+  await client.iterateLocations(async (location) => {
+    await jobState.addEntity(
+      createLocationEntity({
+        location,
+        projectId,
+      }),
+    );
+  });
+}
+
 export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_OPERATIONS,
@@ -275,5 +294,13 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchTables,
+  },
+  {
+    id: STEP_BIG_TABLE_LOCATIONS,
+    name: 'Bigtable Locations',
+    entities: [bigTableEntities.LOCATIONS],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchLocations,
   },
 ];
