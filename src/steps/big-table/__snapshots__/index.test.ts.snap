@@ -32,20 +32,2661 @@ Object {
 
 exports[`#fetchInstances should collect data 1`] = `
 Object {
-  "collectedEntities": Array [],
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Database",
+      ],
+      "_key": "bigtable_instance:projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "j1-test-instance",
+            "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+            "state": "READY",
+            "type": "PRODUCTION",
+          },
+        },
+      ],
+      "_type": "google_bigtable_instance",
+      "createdOn": undefined,
+      "displayName": "j1-test-instance",
+      "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+      "projectId": "j1-gc-integration-dev-v3",
+      "state": "READY",
+      "type": "PRODUCTION",
+    },
+  ],
   "collectedRelationships": Array [],
-  "encounteredTypes": Array [],
-  "numCollectedEntities": 0,
+  "encounteredTypes": Array [
+    "google_bigtable_instance",
+  ],
+  "numCollectedEntities": 1,
+  "numCollectedRelationships": 0,
+}
+`;
+
+exports[`#fetchLocations should collect data 1`] = `
+Object {
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-east1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Taiwan",
+            "labels": Object {
+              "cloud.googleapis.com/country": "TW",
+              "cloud.googleapis.com/location": "asia-east1-a",
+              "cloud.googleapis.com/region": "asia-east1",
+            },
+            "locationId": "asia-east1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Taiwan",
+      "locationId": "asia-east1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "TW",
+      "tag.cloud.googleapis.com/location": "asia-east1-a",
+      "tag.cloud.googleapis.com/region": "asia-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-east1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Taiwan",
+            "labels": Object {
+              "cloud.googleapis.com/country": "TW",
+              "cloud.googleapis.com/location": "asia-east1-b",
+              "cloud.googleapis.com/region": "asia-east1",
+            },
+            "locationId": "asia-east1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Taiwan",
+      "locationId": "asia-east1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "TW",
+      "tag.cloud.googleapis.com/location": "asia-east1-b",
+      "tag.cloud.googleapis.com/region": "asia-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-east1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Taiwan",
+            "labels": Object {
+              "cloud.googleapis.com/country": "TW",
+              "cloud.googleapis.com/location": "asia-east1-c",
+              "cloud.googleapis.com/region": "asia-east1",
+            },
+            "locationId": "asia-east1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Taiwan",
+      "locationId": "asia-east1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "TW",
+      "tag.cloud.googleapis.com/location": "asia-east1-c",
+      "tag.cloud.googleapis.com/region": "asia-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-east2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Hong Kong",
+            "labels": Object {
+              "cloud.googleapis.com/country": "HK",
+              "cloud.googleapis.com/location": "asia-east2-a",
+              "cloud.googleapis.com/region": "asia-east2",
+            },
+            "locationId": "asia-east2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-east2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Hong Kong",
+      "locationId": "asia-east2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-east2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "HK",
+      "tag.cloud.googleapis.com/location": "asia-east2-a",
+      "tag.cloud.googleapis.com/region": "asia-east2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-east2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Hong Kong",
+            "labels": Object {
+              "cloud.googleapis.com/country": "HK",
+              "cloud.googleapis.com/location": "asia-east2-b",
+              "cloud.googleapis.com/region": "asia-east2",
+            },
+            "locationId": "asia-east2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-east2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Hong Kong",
+      "locationId": "asia-east2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-east2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "HK",
+      "tag.cloud.googleapis.com/location": "asia-east2-b",
+      "tag.cloud.googleapis.com/region": "asia-east2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-east2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Hong Kong",
+            "labels": Object {
+              "cloud.googleapis.com/country": "HK",
+              "cloud.googleapis.com/location": "asia-east2-c",
+              "cloud.googleapis.com/region": "asia-east2",
+            },
+            "locationId": "asia-east2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-east2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Hong Kong",
+      "locationId": "asia-east2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-east2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "HK",
+      "tag.cloud.googleapis.com/location": "asia-east2-c",
+      "tag.cloud.googleapis.com/region": "asia-east2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Tokyo",
+            "labels": Object {
+              "cloud.googleapis.com/country": "JP",
+              "cloud.googleapis.com/location": "asia-northeast1-a",
+              "cloud.googleapis.com/region": "asia-northeast1",
+            },
+            "locationId": "asia-northeast1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Tokyo",
+      "locationId": "asia-northeast1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "JP",
+      "tag.cloud.googleapis.com/location": "asia-northeast1-a",
+      "tag.cloud.googleapis.com/region": "asia-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Tokyo",
+            "labels": Object {
+              "cloud.googleapis.com/country": "JP",
+              "cloud.googleapis.com/location": "asia-northeast1-b",
+              "cloud.googleapis.com/region": "asia-northeast1",
+            },
+            "locationId": "asia-northeast1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Tokyo",
+      "locationId": "asia-northeast1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "JP",
+      "tag.cloud.googleapis.com/location": "asia-northeast1-b",
+      "tag.cloud.googleapis.com/region": "asia-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Tokyo",
+            "labels": Object {
+              "cloud.googleapis.com/country": "JP",
+              "cloud.googleapis.com/location": "asia-northeast1-c",
+              "cloud.googleapis.com/region": "asia-northeast1",
+            },
+            "locationId": "asia-northeast1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Tokyo",
+      "locationId": "asia-northeast1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "JP",
+      "tag.cloud.googleapis.com/location": "asia-northeast1-c",
+      "tag.cloud.googleapis.com/region": "asia-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Osaka",
+            "labels": Object {
+              "cloud.googleapis.com/country": "JP",
+              "cloud.googleapis.com/location": "asia-northeast2-a",
+              "cloud.googleapis.com/region": "asia-northeast2",
+            },
+            "locationId": "asia-northeast2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Osaka",
+      "locationId": "asia-northeast2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "JP",
+      "tag.cloud.googleapis.com/location": "asia-northeast2-a",
+      "tag.cloud.googleapis.com/region": "asia-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Osaka",
+            "labels": Object {
+              "cloud.googleapis.com/country": "JP",
+              "cloud.googleapis.com/location": "asia-northeast2-b",
+              "cloud.googleapis.com/region": "asia-northeast2",
+            },
+            "locationId": "asia-northeast2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Osaka",
+      "locationId": "asia-northeast2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "JP",
+      "tag.cloud.googleapis.com/location": "asia-northeast2-b",
+      "tag.cloud.googleapis.com/region": "asia-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Osaka",
+            "labels": Object {
+              "cloud.googleapis.com/country": "JP",
+              "cloud.googleapis.com/location": "asia-northeast2-c",
+              "cloud.googleapis.com/region": "asia-northeast2",
+            },
+            "locationId": "asia-northeast2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Osaka",
+      "locationId": "asia-northeast2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "JP",
+      "tag.cloud.googleapis.com/location": "asia-northeast2-c",
+      "tag.cloud.googleapis.com/region": "asia-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast3-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Seoul",
+            "labels": Object {
+              "cloud.googleapis.com/country": "KR",
+              "cloud.googleapis.com/location": "asia-northeast3-a",
+              "cloud.googleapis.com/region": "asia-northeast3",
+            },
+            "locationId": "asia-northeast3-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast3-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Seoul",
+      "locationId": "asia-northeast3-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast3-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "KR",
+      "tag.cloud.googleapis.com/location": "asia-northeast3-a",
+      "tag.cloud.googleapis.com/region": "asia-northeast3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast3-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Seoul",
+            "labels": Object {
+              "cloud.googleapis.com/country": "KR",
+              "cloud.googleapis.com/location": "asia-northeast3-b",
+              "cloud.googleapis.com/region": "asia-northeast3",
+            },
+            "locationId": "asia-northeast3-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast3-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Seoul",
+      "locationId": "asia-northeast3-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast3-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "KR",
+      "tag.cloud.googleapis.com/location": "asia-northeast3-b",
+      "tag.cloud.googleapis.com/region": "asia-northeast3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-northeast3-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Seoul",
+            "labels": Object {
+              "cloud.googleapis.com/country": "KR",
+              "cloud.googleapis.com/location": "asia-northeast3-c",
+              "cloud.googleapis.com/region": "asia-northeast3",
+            },
+            "locationId": "asia-northeast3-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast3-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Seoul",
+      "locationId": "asia-northeast3-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-northeast3-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "KR",
+      "tag.cloud.googleapis.com/location": "asia-northeast3-c",
+      "tag.cloud.googleapis.com/region": "asia-northeast3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-south1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Mumbai",
+            "labels": Object {
+              "cloud.googleapis.com/country": "IN",
+              "cloud.googleapis.com/location": "asia-south1-a",
+              "cloud.googleapis.com/region": "asia-south1",
+            },
+            "locationId": "asia-south1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-south1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Mumbai",
+      "locationId": "asia-south1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-south1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "IN",
+      "tag.cloud.googleapis.com/location": "asia-south1-a",
+      "tag.cloud.googleapis.com/region": "asia-south1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-south1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Mumbai",
+            "labels": Object {
+              "cloud.googleapis.com/country": "IN",
+              "cloud.googleapis.com/location": "asia-south1-b",
+              "cloud.googleapis.com/region": "asia-south1",
+            },
+            "locationId": "asia-south1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-south1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Mumbai",
+      "locationId": "asia-south1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-south1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "IN",
+      "tag.cloud.googleapis.com/location": "asia-south1-b",
+      "tag.cloud.googleapis.com/region": "asia-south1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-south1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Mumbai",
+            "labels": Object {
+              "cloud.googleapis.com/country": "IN",
+              "cloud.googleapis.com/location": "asia-south1-c",
+              "cloud.googleapis.com/region": "asia-south1",
+            },
+            "locationId": "asia-south1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-south1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Mumbai",
+      "locationId": "asia-south1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-south1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "IN",
+      "tag.cloud.googleapis.com/location": "asia-south1-c",
+      "tag.cloud.googleapis.com/region": "asia-south1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-south2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Delhi",
+            "labels": Object {
+              "cloud.googleapis.com/country": "IN",
+              "cloud.googleapis.com/location": "asia-south2-a",
+              "cloud.googleapis.com/region": "asia-south2",
+            },
+            "locationId": "asia-south2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-south2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Delhi",
+      "locationId": "asia-south2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-south2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "IN",
+      "tag.cloud.googleapis.com/location": "asia-south2-a",
+      "tag.cloud.googleapis.com/region": "asia-south2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-south2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Delhi",
+            "labels": Object {
+              "cloud.googleapis.com/country": "IN",
+              "cloud.googleapis.com/location": "asia-south2-b",
+              "cloud.googleapis.com/region": "asia-south2",
+            },
+            "locationId": "asia-south2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-south2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Delhi",
+      "locationId": "asia-south2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-south2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "IN",
+      "tag.cloud.googleapis.com/location": "asia-south2-b",
+      "tag.cloud.googleapis.com/region": "asia-south2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-south2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Delhi",
+            "labels": Object {
+              "cloud.googleapis.com/country": "IN",
+              "cloud.googleapis.com/location": "asia-south2-c",
+              "cloud.googleapis.com/region": "asia-south2",
+            },
+            "locationId": "asia-south2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-south2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Delhi",
+      "locationId": "asia-south2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-south2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "IN",
+      "tag.cloud.googleapis.com/location": "asia-south2-c",
+      "tag.cloud.googleapis.com/region": "asia-south2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-southeast1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Singapore",
+            "labels": Object {
+              "cloud.googleapis.com/country": "SG",
+              "cloud.googleapis.com/location": "asia-southeast1-a",
+              "cloud.googleapis.com/region": "asia-southeast1",
+            },
+            "locationId": "asia-southeast1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Singapore",
+      "locationId": "asia-southeast1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "SG",
+      "tag.cloud.googleapis.com/location": "asia-southeast1-a",
+      "tag.cloud.googleapis.com/region": "asia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-southeast1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Singapore",
+            "labels": Object {
+              "cloud.googleapis.com/country": "SG",
+              "cloud.googleapis.com/location": "asia-southeast1-b",
+              "cloud.googleapis.com/region": "asia-southeast1",
+            },
+            "locationId": "asia-southeast1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Singapore",
+      "locationId": "asia-southeast1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "SG",
+      "tag.cloud.googleapis.com/location": "asia-southeast1-b",
+      "tag.cloud.googleapis.com/region": "asia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-southeast1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Singapore",
+            "labels": Object {
+              "cloud.googleapis.com/country": "SG",
+              "cloud.googleapis.com/location": "asia-southeast1-c",
+              "cloud.googleapis.com/region": "asia-southeast1",
+            },
+            "locationId": "asia-southeast1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Singapore",
+      "locationId": "asia-southeast1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "SG",
+      "tag.cloud.googleapis.com/location": "asia-southeast1-c",
+      "tag.cloud.googleapis.com/region": "asia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-southeast2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Jakarta",
+            "labels": Object {
+              "cloud.googleapis.com/country": "ID",
+              "cloud.googleapis.com/location": "asia-southeast2-a",
+              "cloud.googleapis.com/region": "asia-southeast2",
+            },
+            "locationId": "asia-southeast2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Jakarta",
+      "locationId": "asia-southeast2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "ID",
+      "tag.cloud.googleapis.com/location": "asia-southeast2-a",
+      "tag.cloud.googleapis.com/region": "asia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-southeast2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Jakarta",
+            "labels": Object {
+              "cloud.googleapis.com/country": "ID",
+              "cloud.googleapis.com/location": "asia-southeast2-b",
+              "cloud.googleapis.com/region": "asia-southeast2",
+            },
+            "locationId": "asia-southeast2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Jakarta",
+      "locationId": "asia-southeast2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "ID",
+      "tag.cloud.googleapis.com/location": "asia-southeast2-b",
+      "tag.cloud.googleapis.com/region": "asia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:asia-southeast2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Jakarta",
+            "labels": Object {
+              "cloud.googleapis.com/country": "ID",
+              "cloud.googleapis.com/location": "asia-southeast2-c",
+              "cloud.googleapis.com/region": "asia-southeast2",
+            },
+            "locationId": "asia-southeast2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Jakarta",
+      "locationId": "asia-southeast2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/asia-southeast2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "ID",
+      "tag.cloud.googleapis.com/location": "asia-southeast2-c",
+      "tag.cloud.googleapis.com/region": "asia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:australia-southeast1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Sydney",
+            "labels": Object {
+              "cloud.googleapis.com/country": "AU",
+              "cloud.googleapis.com/location": "australia-southeast1-a",
+              "cloud.googleapis.com/region": "australia-southeast1",
+            },
+            "locationId": "australia-southeast1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Sydney",
+      "locationId": "australia-southeast1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "AU",
+      "tag.cloud.googleapis.com/location": "australia-southeast1-a",
+      "tag.cloud.googleapis.com/region": "australia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:australia-southeast1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Sydney",
+            "labels": Object {
+              "cloud.googleapis.com/country": "AU",
+              "cloud.googleapis.com/location": "australia-southeast1-b",
+              "cloud.googleapis.com/region": "australia-southeast1",
+            },
+            "locationId": "australia-southeast1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Sydney",
+      "locationId": "australia-southeast1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "AU",
+      "tag.cloud.googleapis.com/location": "australia-southeast1-b",
+      "tag.cloud.googleapis.com/region": "australia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:australia-southeast1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Sydney",
+            "labels": Object {
+              "cloud.googleapis.com/country": "AU",
+              "cloud.googleapis.com/location": "australia-southeast1-c",
+              "cloud.googleapis.com/region": "australia-southeast1",
+            },
+            "locationId": "australia-southeast1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Sydney",
+      "locationId": "australia-southeast1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "AU",
+      "tag.cloud.googleapis.com/location": "australia-southeast1-c",
+      "tag.cloud.googleapis.com/region": "australia-southeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:australia-southeast2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Melbourne",
+            "labels": Object {
+              "cloud.googleapis.com/country": "AU",
+              "cloud.googleapis.com/location": "australia-southeast2-a",
+              "cloud.googleapis.com/region": "australia-southeast2",
+            },
+            "locationId": "australia-southeast2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Melbourne",
+      "locationId": "australia-southeast2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "AU",
+      "tag.cloud.googleapis.com/location": "australia-southeast2-a",
+      "tag.cloud.googleapis.com/region": "australia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:australia-southeast2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Melbourne",
+            "labels": Object {
+              "cloud.googleapis.com/country": "AU",
+              "cloud.googleapis.com/location": "australia-southeast2-b",
+              "cloud.googleapis.com/region": "australia-southeast2",
+            },
+            "locationId": "australia-southeast2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Melbourne",
+      "locationId": "australia-southeast2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "AU",
+      "tag.cloud.googleapis.com/location": "australia-southeast2-b",
+      "tag.cloud.googleapis.com/region": "australia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:australia-southeast2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Melbourne",
+            "labels": Object {
+              "cloud.googleapis.com/country": "AU",
+              "cloud.googleapis.com/location": "australia-southeast2-c",
+              "cloud.googleapis.com/region": "australia-southeast2",
+            },
+            "locationId": "australia-southeast2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Melbourne",
+      "locationId": "australia-southeast2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/australia-southeast2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "AU",
+      "tag.cloud.googleapis.com/location": "australia-southeast2-c",
+      "tag.cloud.googleapis.com/region": "australia-southeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-central2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Warsaw",
+            "labels": Object {
+              "cloud.googleapis.com/country": "PL",
+              "cloud.googleapis.com/location": "europe-central2-a",
+              "cloud.googleapis.com/region": "europe-central2",
+            },
+            "locationId": "europe-central2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-central2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Warsaw",
+      "locationId": "europe-central2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-central2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "PL",
+      "tag.cloud.googleapis.com/location": "europe-central2-a",
+      "tag.cloud.googleapis.com/region": "europe-central2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-central2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Warsaw",
+            "labels": Object {
+              "cloud.googleapis.com/country": "PL",
+              "cloud.googleapis.com/location": "europe-central2-b",
+              "cloud.googleapis.com/region": "europe-central2",
+            },
+            "locationId": "europe-central2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-central2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Warsaw",
+      "locationId": "europe-central2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-central2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "PL",
+      "tag.cloud.googleapis.com/location": "europe-central2-b",
+      "tag.cloud.googleapis.com/region": "europe-central2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-central2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Warsaw",
+            "labels": Object {
+              "cloud.googleapis.com/country": "PL",
+              "cloud.googleapis.com/location": "europe-central2-c",
+              "cloud.googleapis.com/region": "europe-central2",
+            },
+            "locationId": "europe-central2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-central2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Warsaw",
+      "locationId": "europe-central2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-central2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "PL",
+      "tag.cloud.googleapis.com/location": "europe-central2-c",
+      "tag.cloud.googleapis.com/region": "europe-central2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-north1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Finland",
+            "labels": Object {
+              "cloud.googleapis.com/country": "FI",
+              "cloud.googleapis.com/location": "europe-north1-a",
+              "cloud.googleapis.com/region": "europe-north1",
+            },
+            "locationId": "europe-north1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-north1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Finland",
+      "locationId": "europe-north1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-north1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "FI",
+      "tag.cloud.googleapis.com/location": "europe-north1-a",
+      "tag.cloud.googleapis.com/region": "europe-north1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-north1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Finland",
+            "labels": Object {
+              "cloud.googleapis.com/country": "FI",
+              "cloud.googleapis.com/location": "europe-north1-b",
+              "cloud.googleapis.com/region": "europe-north1",
+            },
+            "locationId": "europe-north1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-north1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Finland",
+      "locationId": "europe-north1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-north1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "FI",
+      "tag.cloud.googleapis.com/location": "europe-north1-b",
+      "tag.cloud.googleapis.com/region": "europe-north1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-north1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Finland",
+            "labels": Object {
+              "cloud.googleapis.com/country": "FI",
+              "cloud.googleapis.com/location": "europe-north1-c",
+              "cloud.googleapis.com/region": "europe-north1",
+            },
+            "locationId": "europe-north1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-north1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Finland",
+      "locationId": "europe-north1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-north1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "FI",
+      "tag.cloud.googleapis.com/location": "europe-north1-c",
+      "tag.cloud.googleapis.com/region": "europe-north1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Belgium",
+            "labels": Object {
+              "cloud.googleapis.com/country": "BE",
+              "cloud.googleapis.com/location": "europe-west1-b",
+              "cloud.googleapis.com/region": "europe-west1",
+            },
+            "locationId": "europe-west1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Belgium",
+      "locationId": "europe-west1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "BE",
+      "tag.cloud.googleapis.com/location": "europe-west1-b",
+      "tag.cloud.googleapis.com/region": "europe-west1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Belgium",
+            "labels": Object {
+              "cloud.googleapis.com/country": "BE",
+              "cloud.googleapis.com/location": "europe-west1-c",
+              "cloud.googleapis.com/region": "europe-west1",
+            },
+            "locationId": "europe-west1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Belgium",
+      "locationId": "europe-west1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "BE",
+      "tag.cloud.googleapis.com/location": "europe-west1-c",
+      "tag.cloud.googleapis.com/region": "europe-west1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west1-d",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Belgium",
+            "labels": Object {
+              "cloud.googleapis.com/country": "BE",
+              "cloud.googleapis.com/location": "europe-west1-d",
+              "cloud.googleapis.com/region": "europe-west1",
+            },
+            "locationId": "europe-west1-d",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west1-d",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Belgium",
+      "locationId": "europe-west1-d",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west1-d",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "BE",
+      "tag.cloud.googleapis.com/location": "europe-west1-d",
+      "tag.cloud.googleapis.com/region": "europe-west1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "London",
+            "labels": Object {
+              "cloud.googleapis.com/country": "GB",
+              "cloud.googleapis.com/location": "europe-west2-a",
+              "cloud.googleapis.com/region": "europe-west2",
+            },
+            "locationId": "europe-west2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "London",
+      "locationId": "europe-west2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "GB",
+      "tag.cloud.googleapis.com/location": "europe-west2-a",
+      "tag.cloud.googleapis.com/region": "europe-west2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "London",
+            "labels": Object {
+              "cloud.googleapis.com/country": "GB",
+              "cloud.googleapis.com/location": "europe-west2-b",
+              "cloud.googleapis.com/region": "europe-west2",
+            },
+            "locationId": "europe-west2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "London",
+      "locationId": "europe-west2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "GB",
+      "tag.cloud.googleapis.com/location": "europe-west2-b",
+      "tag.cloud.googleapis.com/region": "europe-west2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "London",
+            "labels": Object {
+              "cloud.googleapis.com/country": "GB",
+              "cloud.googleapis.com/location": "europe-west2-c",
+              "cloud.googleapis.com/region": "europe-west2",
+            },
+            "locationId": "europe-west2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "London",
+      "locationId": "europe-west2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "GB",
+      "tag.cloud.googleapis.com/location": "europe-west2-c",
+      "tag.cloud.googleapis.com/region": "europe-west2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west3-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Frankfurt",
+            "labels": Object {
+              "cloud.googleapis.com/country": "DE",
+              "cloud.googleapis.com/location": "europe-west3-a",
+              "cloud.googleapis.com/region": "europe-west3",
+            },
+            "locationId": "europe-west3-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west3-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Frankfurt",
+      "locationId": "europe-west3-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west3-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "DE",
+      "tag.cloud.googleapis.com/location": "europe-west3-a",
+      "tag.cloud.googleapis.com/region": "europe-west3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west3-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Frankfurt",
+            "labels": Object {
+              "cloud.googleapis.com/country": "DE",
+              "cloud.googleapis.com/location": "europe-west3-b",
+              "cloud.googleapis.com/region": "europe-west3",
+            },
+            "locationId": "europe-west3-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west3-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Frankfurt",
+      "locationId": "europe-west3-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west3-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "DE",
+      "tag.cloud.googleapis.com/location": "europe-west3-b",
+      "tag.cloud.googleapis.com/region": "europe-west3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west3-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Frankfurt",
+            "labels": Object {
+              "cloud.googleapis.com/country": "DE",
+              "cloud.googleapis.com/location": "europe-west3-c",
+              "cloud.googleapis.com/region": "europe-west3",
+            },
+            "locationId": "europe-west3-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west3-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Frankfurt",
+      "locationId": "europe-west3-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west3-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "DE",
+      "tag.cloud.googleapis.com/location": "europe-west3-c",
+      "tag.cloud.googleapis.com/region": "europe-west3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west4-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Netherlands",
+            "labels": Object {
+              "cloud.googleapis.com/country": "NL",
+              "cloud.googleapis.com/location": "europe-west4-a",
+              "cloud.googleapis.com/region": "europe-west4",
+            },
+            "locationId": "europe-west4-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west4-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Netherlands",
+      "locationId": "europe-west4-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west4-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "NL",
+      "tag.cloud.googleapis.com/location": "europe-west4-a",
+      "tag.cloud.googleapis.com/region": "europe-west4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west4-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Netherlands",
+            "labels": Object {
+              "cloud.googleapis.com/country": "NL",
+              "cloud.googleapis.com/location": "europe-west4-b",
+              "cloud.googleapis.com/region": "europe-west4",
+            },
+            "locationId": "europe-west4-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west4-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Netherlands",
+      "locationId": "europe-west4-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west4-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "NL",
+      "tag.cloud.googleapis.com/location": "europe-west4-b",
+      "tag.cloud.googleapis.com/region": "europe-west4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west4-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Netherlands",
+            "labels": Object {
+              "cloud.googleapis.com/country": "NL",
+              "cloud.googleapis.com/location": "europe-west4-c",
+              "cloud.googleapis.com/region": "europe-west4",
+            },
+            "locationId": "europe-west4-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west4-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Netherlands",
+      "locationId": "europe-west4-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west4-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "NL",
+      "tag.cloud.googleapis.com/location": "europe-west4-c",
+      "tag.cloud.googleapis.com/region": "europe-west4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west6-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Zurich",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CH",
+              "cloud.googleapis.com/location": "europe-west6-a",
+              "cloud.googleapis.com/region": "europe-west6",
+            },
+            "locationId": "europe-west6-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west6-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Zurich",
+      "locationId": "europe-west6-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west6-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CH",
+      "tag.cloud.googleapis.com/location": "europe-west6-a",
+      "tag.cloud.googleapis.com/region": "europe-west6",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west6-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Zurich",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CH",
+              "cloud.googleapis.com/location": "europe-west6-b",
+              "cloud.googleapis.com/region": "europe-west6",
+            },
+            "locationId": "europe-west6-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west6-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Zurich",
+      "locationId": "europe-west6-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west6-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CH",
+      "tag.cloud.googleapis.com/location": "europe-west6-b",
+      "tag.cloud.googleapis.com/region": "europe-west6",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:europe-west6-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Zurich",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CH",
+              "cloud.googleapis.com/location": "europe-west6-c",
+              "cloud.googleapis.com/region": "europe-west6",
+            },
+            "locationId": "europe-west6-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/europe-west6-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Zurich",
+      "locationId": "europe-west6-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/europe-west6-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CH",
+      "tag.cloud.googleapis.com/location": "europe-west6-c",
+      "tag.cloud.googleapis.com/region": "europe-west6",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:northamerica-northeast1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Montréal",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CA",
+              "cloud.googleapis.com/location": "northamerica-northeast1-a",
+              "cloud.googleapis.com/region": "northamerica-northeast1",
+            },
+            "locationId": "northamerica-northeast1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Montréal",
+      "locationId": "northamerica-northeast1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CA",
+      "tag.cloud.googleapis.com/location": "northamerica-northeast1-a",
+      "tag.cloud.googleapis.com/region": "northamerica-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:northamerica-northeast1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Montréal",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CA",
+              "cloud.googleapis.com/location": "northamerica-northeast1-b",
+              "cloud.googleapis.com/region": "northamerica-northeast1",
+            },
+            "locationId": "northamerica-northeast1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Montréal",
+      "locationId": "northamerica-northeast1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CA",
+      "tag.cloud.googleapis.com/location": "northamerica-northeast1-b",
+      "tag.cloud.googleapis.com/region": "northamerica-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:northamerica-northeast1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Montréal",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CA",
+              "cloud.googleapis.com/location": "northamerica-northeast1-c",
+              "cloud.googleapis.com/region": "northamerica-northeast1",
+            },
+            "locationId": "northamerica-northeast1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Montréal",
+      "locationId": "northamerica-northeast1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CA",
+      "tag.cloud.googleapis.com/location": "northamerica-northeast1-c",
+      "tag.cloud.googleapis.com/region": "northamerica-northeast1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:northamerica-northeast2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Toronto",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CA",
+              "cloud.googleapis.com/location": "northamerica-northeast2-a",
+              "cloud.googleapis.com/region": "northamerica-northeast2",
+            },
+            "locationId": "northamerica-northeast2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Toronto",
+      "locationId": "northamerica-northeast2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CA",
+      "tag.cloud.googleapis.com/location": "northamerica-northeast2-a",
+      "tag.cloud.googleapis.com/region": "northamerica-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:northamerica-northeast2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Toronto",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CA",
+              "cloud.googleapis.com/location": "northamerica-northeast2-b",
+              "cloud.googleapis.com/region": "northamerica-northeast2",
+            },
+            "locationId": "northamerica-northeast2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Toronto",
+      "locationId": "northamerica-northeast2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CA",
+      "tag.cloud.googleapis.com/location": "northamerica-northeast2-b",
+      "tag.cloud.googleapis.com/region": "northamerica-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:northamerica-northeast2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Toronto",
+            "labels": Object {
+              "cloud.googleapis.com/country": "CA",
+              "cloud.googleapis.com/location": "northamerica-northeast2-c",
+              "cloud.googleapis.com/region": "northamerica-northeast2",
+            },
+            "locationId": "northamerica-northeast2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Toronto",
+      "locationId": "northamerica-northeast2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/northamerica-northeast2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "CA",
+      "tag.cloud.googleapis.com/location": "northamerica-northeast2-c",
+      "tag.cloud.googleapis.com/region": "northamerica-northeast2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:southamerica-east1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "São Paulo",
+            "labels": Object {
+              "cloud.googleapis.com/country": "BR",
+              "cloud.googleapis.com/location": "southamerica-east1-a",
+              "cloud.googleapis.com/region": "southamerica-east1",
+            },
+            "locationId": "southamerica-east1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/southamerica-east1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "São Paulo",
+      "locationId": "southamerica-east1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/southamerica-east1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "BR",
+      "tag.cloud.googleapis.com/location": "southamerica-east1-a",
+      "tag.cloud.googleapis.com/region": "southamerica-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:southamerica-east1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "São Paulo",
+            "labels": Object {
+              "cloud.googleapis.com/country": "BR",
+              "cloud.googleapis.com/location": "southamerica-east1-b",
+              "cloud.googleapis.com/region": "southamerica-east1",
+            },
+            "locationId": "southamerica-east1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/southamerica-east1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "São Paulo",
+      "locationId": "southamerica-east1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/southamerica-east1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "BR",
+      "tag.cloud.googleapis.com/location": "southamerica-east1-b",
+      "tag.cloud.googleapis.com/region": "southamerica-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:southamerica-east1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "São Paulo",
+            "labels": Object {
+              "cloud.googleapis.com/country": "BR",
+              "cloud.googleapis.com/location": "southamerica-east1-c",
+              "cloud.googleapis.com/region": "southamerica-east1",
+            },
+            "locationId": "southamerica-east1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/southamerica-east1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "São Paulo",
+      "locationId": "southamerica-east1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/southamerica-east1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "BR",
+      "tag.cloud.googleapis.com/location": "southamerica-east1-c",
+      "tag.cloud.googleapis.com/region": "southamerica-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-central1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Iowa",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-central1-a",
+              "cloud.googleapis.com/region": "us-central1",
+            },
+            "locationId": "us-central1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Iowa",
+      "locationId": "us-central1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-central1-a",
+      "tag.cloud.googleapis.com/region": "us-central1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-central1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Iowa",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-central1-b",
+              "cloud.googleapis.com/region": "us-central1",
+            },
+            "locationId": "us-central1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Iowa",
+      "locationId": "us-central1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-central1-b",
+      "tag.cloud.googleapis.com/region": "us-central1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-central1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Iowa",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-central1-c",
+              "cloud.googleapis.com/region": "us-central1",
+            },
+            "locationId": "us-central1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Iowa",
+      "locationId": "us-central1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-central1-c",
+      "tag.cloud.googleapis.com/region": "us-central1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-central1-f",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Iowa",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-central1-f",
+              "cloud.googleapis.com/region": "us-central1",
+            },
+            "locationId": "us-central1-f",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-f",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Iowa",
+      "locationId": "us-central1-f",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-central1-f",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-central1-f",
+      "tag.cloud.googleapis.com/region": "us-central1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-east1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "South Carolina",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-east1-b",
+              "cloud.googleapis.com/region": "us-east1",
+            },
+            "locationId": "us-east1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-east1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "South Carolina",
+      "locationId": "us-east1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-east1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-east1-b",
+      "tag.cloud.googleapis.com/region": "us-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-east1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "South Carolina",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-east1-c",
+              "cloud.googleapis.com/region": "us-east1",
+            },
+            "locationId": "us-east1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-east1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "South Carolina",
+      "locationId": "us-east1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-east1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-east1-c",
+      "tag.cloud.googleapis.com/region": "us-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-east1-d",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "South Carolina",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-east1-d",
+              "cloud.googleapis.com/region": "us-east1",
+            },
+            "locationId": "us-east1-d",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-east1-d",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "South Carolina",
+      "locationId": "us-east1-d",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-east1-d",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-east1-d",
+      "tag.cloud.googleapis.com/region": "us-east1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-east4-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Northern Virginia",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-east4-a",
+              "cloud.googleapis.com/region": "us-east4",
+            },
+            "locationId": "us-east4-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-east4-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Northern Virginia",
+      "locationId": "us-east4-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-east4-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-east4-a",
+      "tag.cloud.googleapis.com/region": "us-east4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-east4-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Northern Virginia",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-east4-b",
+              "cloud.googleapis.com/region": "us-east4",
+            },
+            "locationId": "us-east4-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-east4-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Northern Virginia",
+      "locationId": "us-east4-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-east4-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-east4-b",
+      "tag.cloud.googleapis.com/region": "us-east4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-east4-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Northern Virginia",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-east4-c",
+              "cloud.googleapis.com/region": "us-east4",
+            },
+            "locationId": "us-east4-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-east4-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Northern Virginia",
+      "locationId": "us-east4-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-east4-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-east4-c",
+      "tag.cloud.googleapis.com/region": "us-east4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west1-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Oregon",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west1-a",
+              "cloud.googleapis.com/region": "us-west1",
+            },
+            "locationId": "us-west1-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west1-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Oregon",
+      "locationId": "us-west1-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west1-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west1-a",
+      "tag.cloud.googleapis.com/region": "us-west1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west1-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Oregon",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west1-b",
+              "cloud.googleapis.com/region": "us-west1",
+            },
+            "locationId": "us-west1-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west1-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Oregon",
+      "locationId": "us-west1-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west1-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west1-b",
+      "tag.cloud.googleapis.com/region": "us-west1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west1-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Oregon",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west1-c",
+              "cloud.googleapis.com/region": "us-west1",
+            },
+            "locationId": "us-west1-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west1-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Oregon",
+      "locationId": "us-west1-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west1-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west1-c",
+      "tag.cloud.googleapis.com/region": "us-west1",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west2-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Los Angeles",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west2-a",
+              "cloud.googleapis.com/region": "us-west2",
+            },
+            "locationId": "us-west2-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west2-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Los Angeles",
+      "locationId": "us-west2-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west2-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west2-a",
+      "tag.cloud.googleapis.com/region": "us-west2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west2-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Los Angeles",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west2-b",
+              "cloud.googleapis.com/region": "us-west2",
+            },
+            "locationId": "us-west2-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west2-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Los Angeles",
+      "locationId": "us-west2-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west2-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west2-b",
+      "tag.cloud.googleapis.com/region": "us-west2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west2-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Los Angeles",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west2-c",
+              "cloud.googleapis.com/region": "us-west2",
+            },
+            "locationId": "us-west2-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west2-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Los Angeles",
+      "locationId": "us-west2-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west2-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west2-c",
+      "tag.cloud.googleapis.com/region": "us-west2",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west3-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Salt Lake City",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west3-a",
+              "cloud.googleapis.com/region": "us-west3",
+            },
+            "locationId": "us-west3-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west3-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Salt Lake City",
+      "locationId": "us-west3-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west3-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west3-a",
+      "tag.cloud.googleapis.com/region": "us-west3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west3-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Salt Lake City",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west3-b",
+              "cloud.googleapis.com/region": "us-west3",
+            },
+            "locationId": "us-west3-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west3-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Salt Lake City",
+      "locationId": "us-west3-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west3-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west3-b",
+      "tag.cloud.googleapis.com/region": "us-west3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west3-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Salt Lake City",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west3-c",
+              "cloud.googleapis.com/region": "us-west3",
+            },
+            "locationId": "us-west3-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west3-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Salt Lake City",
+      "locationId": "us-west3-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west3-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west3-c",
+      "tag.cloud.googleapis.com/region": "us-west3",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west4-a",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Las Vegas",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west4-a",
+              "cloud.googleapis.com/region": "us-west4",
+            },
+            "locationId": "us-west4-a",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west4-a",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Las Vegas",
+      "locationId": "us-west4-a",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west4-a",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west4-a",
+      "tag.cloud.googleapis.com/region": "us-west4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west4-b",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Las Vegas",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west4-b",
+              "cloud.googleapis.com/region": "us-west4",
+            },
+            "locationId": "us-west4-b",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west4-b",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Las Vegas",
+      "locationId": "us-west4-b",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west4-b",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west4-b",
+      "tag.cloud.googleapis.com/region": "us-west4",
+    },
+    Object {
+      "_class": Array [
+        "Site",
+      ],
+      "_key": "bigtable_location:us-west4-c",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "displayName": "Las Vegas",
+            "labels": Object {
+              "cloud.googleapis.com/country": "US",
+              "cloud.googleapis.com/location": "us-west4-c",
+              "cloud.googleapis.com/region": "us-west4",
+            },
+            "locationId": "us-west4-c",
+            "name": "projects/j1-gc-integration-dev-v3/locations/us-west4-c",
+          },
+        },
+      ],
+      "_type": "google_bigtable_location",
+      "createdOn": undefined,
+      "displayName": "Las Vegas",
+      "locationId": "us-west4-c",
+      "name": "projects/j1-gc-integration-dev-v3/locations/us-west4-c",
+      "projectId": "j1-gc-integration-dev-v3",
+      "tag.cloud.googleapis.com/country": "US",
+      "tag.cloud.googleapis.com/location": "us-west4-c",
+      "tag.cloud.googleapis.com/region": "us-west4",
+    },
+  ],
+  "collectedRelationships": Array [],
+  "encounteredTypes": Array [
+    "google_bigtable_location",
+  ],
+  "numCollectedEntities": 85,
   "numCollectedRelationships": 0,
 }
 `;
 
 exports[`#fetchOperations should collect data 1`] = `
 Object {
-  "collectedEntities": Array [],
+  "collectedEntities": Array [
+    Object {
+      "_class": Array [
+        "Task",
+      ],
+      "_key": "bigtable_operation:operations/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/locations/asia-south1-a/operations/7455464913878901352",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "done": true,
+            "metadata": Object {
+              "@type": "type.googleapis.com/google.bigtable.admin.v2.CreateInstanceMetadata",
+              "finishTime": "2021-08-03T17:28:33.357677844Z",
+              "originalRequest": Object {
+                "clusters": Object {
+                  "j1-test-instance-c1": Object {
+                    "defaultStorageType": "HDD",
+                    "location": "projects/j1-gc-integration-dev-v3/locations/asia-south1-a",
+                    "serveNodes": 1,
+                  },
+                },
+                "instance": Object {
+                  "displayName": "j1-test-instance",
+                  "type": "PRODUCTION",
+                },
+                "instanceId": "j1-test-instance",
+                "parent": "projects/j1-gc-integration-dev-v3",
+              },
+              "requestTime": "2021-08-03T17:28:31.237448588Z",
+            },
+            "name": "operations/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/locations/asia-south1-a/operations/7455464913878901352",
+            "response": Object {
+              "@type": "type.googleapis.com/google.bigtable.admin.v2.Instance",
+              "displayName": "j1-test-instance",
+              "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+              "state": "READY",
+              "type": "PRODUCTION",
+            },
+          },
+        },
+      ],
+      "_type": "google_bigtable_operation",
+      "createdOn": undefined,
+      "displayName": "operations/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/locations/asia-south1-a/operations/7455464913878901352",
+      "done": true,
+      "name": "operations/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/locations/asia-south1-a/operations/7455464913878901352",
+      "projectId": "j1-gc-integration-dev-v3",
+    },
+  ],
   "collectedRelationships": Array [],
-  "encounteredTypes": Array [],
-  "numCollectedEntities": 0,
+  "encounteredTypes": Array [
+    "google_bigtable_operation",
+  ],
+  "numCollectedEntities": 1,
   "numCollectedRelationships": 0,
 }
 `;

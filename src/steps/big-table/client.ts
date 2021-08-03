@@ -58,7 +58,7 @@ export class BigTableClient extends Client {
         return await this.client.projects.instances.appProfiles.list({
           auth,
           pageToken: nextPageToken,
-          parent: `projects/${this.projectId}/instances/${instanceId}`,
+          parent: instanceId,
         });
       },
       async (data: bigtableadmin_v2.Schema$ListAppProfilesResponse) => {
@@ -80,7 +80,7 @@ export class BigTableClient extends Client {
         return await this.client.projects.instances.clusters.list({
           auth,
           pageToken: nextPageToken,
-          parent: `projects/${this.projectId}/instances/${instanceId}`,
+          parent: instanceId,
         });
       },
       async (data: bigtableadmin_v2.Schema$ListClustersResponse) => {
@@ -103,7 +103,7 @@ export class BigTableClient extends Client {
         return await this.client.projects.instances.clusters.backups.list({
           auth,
           pageToken: nextPageToken,
-          parent: `projects/${this.projectId}/instances/${instanceId}/clusters/${clusterId}`,
+          parent: clusterId,
         });
       },
       async (data: bigtableadmin_v2.Schema$ListBackupsResponse) => {
@@ -125,7 +125,7 @@ export class BigTableClient extends Client {
         return await this.client.projects.instances.tables.list({
           auth,
           pageToken: nextPageToken,
-          parent: `projects/${this.projectId}/instances/${instanceId}`,
+          parent: instanceId,
         });
       },
       async (data: bigtableadmin_v2.Schema$ListTablesResponse) => {

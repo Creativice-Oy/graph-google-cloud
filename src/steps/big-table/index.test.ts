@@ -15,7 +15,13 @@ import { integrationConfig } from '../../../test/config';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
 import {
-  bigTableEntities,
+  ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+  ENTITY_TYPE_BIG_TABLE_BACKUP,
+  ENTITY_TYPE_BIG_TABLE_CLUSTER,
+  ENTITY_TYPE_BIG_TABLE_INSTANCE,
+  ENTITY_TYPE_BIG_TABLE_LOCATION,
+  ENTITY_TYPE_BIG_TABLE_OPERATION,
+  ENTITY_TYPE_BIG_TABLE_TABLE,
   RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
   RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
   RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
@@ -53,7 +59,7 @@ describe('#fetchOperations', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e.type === bigTableEntities.OPERATIONS._type,
+        (e) => e.type === ENTITY_TYPE_BIG_TABLE_OPERATION,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Task'],
@@ -101,7 +107,7 @@ describe('#fetchInstances', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e.type === bigTableEntities.INSTANCES._type,
+        (e) => e.type === ENTITY_TYPE_BIG_TABLE_INSTANCE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Database'],
@@ -150,7 +156,7 @@ describe('#fetchAppProfiles', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e.type === bigTableEntities.APP_PROFILES._type,
+        (e) => e.type === ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Configuration'],
@@ -215,7 +221,7 @@ describe('#fetchClusters', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e.type === bigTableEntities.CLUSTERS._type,
+        (e) => e.type === ENTITY_TYPE_BIG_TABLE_CLUSTER,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Cluster'],
@@ -283,7 +289,7 @@ describe('#fetchBackups', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e.type === bigTableEntities.BACKUPS._type,
+        (e) => e.type === ENTITY_TYPE_BIG_TABLE_BACKUP,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Backup'],
@@ -355,7 +361,7 @@ describe('#fetchTables', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e.type === bigTableEntities.TABLES._type,
+        (e) => e.type === ENTITY_TYPE_BIG_TABLE_TABLE,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['DataCollection'],
@@ -420,7 +426,7 @@ describe('#fetchLocations', () => {
 
     expect(
       context.jobState.collectedEntities.filter(
-        (e) => e.type === bigTableEntities.LOCATIONS._type,
+        (e) => e.type === ENTITY_TYPE_BIG_TABLE_LOCATION,
       ),
     ).toMatchGraphObjectSchema({
       _class: ['Site'],
