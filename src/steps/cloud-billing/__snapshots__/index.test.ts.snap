@@ -220,6 +220,14 @@ Object {
     },
     Object {
       "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
+      "_toEntityKey": "billingAccounts/01694E-12D60B-BEBCE5/budgets/7fa6803c-0e1a-415e-ab30-69d953298d11",
+      "_type": "google_cloud_project_has_billing_budget",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
       "_key": "projects/538466736102|has|billingAccounts/01694E-12D60B-BEBCE5/budgets/c7f7c572-2c36-4d77-bd73-a5090d150177",
       "_mapping": Object {
         "relationshipDirection": "FORWARD",
@@ -273,7 +281,7 @@ Object {
     "google_cloud_project_has_billing_budget",
   ],
   "numCollectedEntities": 4,
-  "numCollectedRelationships": 3,
+  "numCollectedRelationships": 4,
 }
 `;
 

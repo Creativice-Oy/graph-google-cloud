@@ -14,6 +14,13 @@ import {
   ENTITY_TYPE_BILLING_BUDGET,
   RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
 } from './constants';
+import {
+  Entity,
+  ExplicitRelationship,
+  MappedRelationship,
+  Relationship,
+} from '@jupiterone/integration-sdk-core';
+import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 
 describe('#fetchBillingBudget', () => {
   let recording: Recording;
@@ -99,6 +106,18 @@ describe('#buildProjectBudgetRelationships', () => {
     await recording.stop();
   });
 
+  function separateRelationships(collectedRelationships: Relationship[]) {
+    const { targets: directRelationships, rest: mappedProjectRelationships } =
+      filterGraphObjects(collectedRelationships, (r) => !r._mapping) as {
+        targets: ExplicitRelationship[];
+        rest: MappedRelationship[];
+      };
+    return {
+      directRelationships,
+      mappedProjectRelationships,
+    };
+  }
+
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
       instanceConfig: {
@@ -180,37 +199,100 @@ describe('#buildProjectBudgetRelationships', () => {
       },
     });
 
-    console.log(
-      'context.jobState.collectedRelationships',
-      context.jobState.collectedRelationships,
+    const { directRelationships, mappedProjectRelationships } =
+      separateRelationships(context.jobState.collectedRelationships);
+
+    expect(
+      directRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_cloud_project_has_billing_budget',
+          },
+        },
+      },
+    });
+
+    expect(mappedProjectRelationships.length).toBeGreaterThan(0);
+    const budgetEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === ENTITY_TYPE_BILLING_BUDGET,
     );
-    // This now has both regular and mapped relationships if you use my HAR files (since I set CONFIGURE_ORGANIZATION_PROJECTS=true)
-    // So you can just use npx jest -t="#buildProjectBudgetRelationships" -u or of course you can just set it to true yourself
-
-    // Please split the regular and mapped relationships here and test them both separately
-    // See: steps/access-context-manager/index.test.ts
-    // Search for this:
-    // const {
-    //   directRelationships,
-    //   mappedProtectsProjectsRelationships,
-    //   mappedLimitsServicesRelationships,
-    // } = separateRelationships(context.jobState.collectedRelationships);
-    // You'll just want to be able to grab directRelationships and mappedProjectsRelationships
-    // Nothing too fancy :)
-
-    // expect(
-    //   context.jobState.collectedRelationships.filter(
-    //     (e) => e._type === RELATIONSHIP_TYPE_PROJECT_HAS_BUDGET,
-    //   ),
-    // ).toMatchDirectRelationshipSchema({
-    //   schema: {
-    //     properties: {
-    //       _class: { const: 'HAS' },
-    //       _type: {
-    //         const: 'google_cloud_project_has_billing_budget',
-    //       },
-    //     },
-    //   },
-    // });
+    expect(
+      mappedProjectRelationships.filter(
+        (e) => e._mapping.sourceEntityKey === 'projects/538466736102',
+      ),
+    ).toCreateValidRelationshipsToEntities(budgetEntities);
   });
+});
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R> {
+      toCreateValidRelationshipsToEntities(entities: Entity[]): R;
+    }
+  }
+}
+
+expect.extend({
+  toCreateValidRelationshipsToEntities(
+    mappedRelationships: MappedRelationship[],
+    entities: Entity[],
+  ) {
+    for (const mappedRelationship of mappedRelationships) {
+      const _mapping = mappedRelationship._mapping;
+      if (!_mapping) {
+        throw new Error(
+          'expect(mappedRelationships).toCreateValidRelationshipsToEntities() requires relationships with the `_mapping` property!',
+        );
+      }
+      const targetEntity = _mapping.targetEntity;
+      for (let targetFilterKey of _mapping.targetFilterKeys) {
+        /* type TargetFilterKey = string | string[]; */
+        if (!Array.isArray(targetFilterKey)) {
+          console.warn(
+            'WARNING: Found mapped relationship with targetFilterKey of type string. Please ensure the targetFilterKey was not intended to be of type string[]',
+          );
+          targetFilterKey = [targetFilterKey];
+        }
+        const mappingTargetEntities = entities.filter((entity) =>
+          (targetFilterKey as string[]).every(
+            (k) => targetEntity[k] === entity[k],
+          ),
+        );
+
+        if (mappingTargetEntities.length === 0) {
+          return {
+            message: () =>
+              `No target entity found for mapped relationship: ${JSON.stringify(
+                mappedRelationship,
+                null,
+                2,
+              )}`,
+            pass: false,
+          };
+        } else if (mappingTargetEntities.length > 1) {
+          return {
+            message: () =>
+              `Multiple target entities found for mapped relationship [${mappingTargetEntities.map(
+                (e) => e._key,
+              )}]; expected exactly one: ${JSON.stringify(
+                mappedRelationship,
+                null,
+                2,
+              )}`,
+            pass: false,
+          };
+        }
+      }
+    }
+    return {
+      message: () => '',
+      pass: true,
+    };
+  },
 });
