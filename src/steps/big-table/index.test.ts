@@ -68,7 +68,6 @@ describe('#fetchOperations', () => {
         properties: {
           _type: { const: 'google_bigtable_operation' },
           name: { type: 'string' },
-          projectId: { type: 'string' },
           done: { type: 'boolean' },
         },
       },
@@ -116,9 +115,9 @@ describe('#fetchInstances', () => {
         properties: {
           _type: { const: 'google_bigtable_instance' },
           name: { type: 'string' },
-          projectId: { type: 'string' },
           state: { type: 'string' },
           type: { type: 'string' },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -166,9 +165,9 @@ describe('#fetchAppProfiles', () => {
           _type: { const: 'google_bigtable_app_profile' },
           name: { type: 'string' },
           instanceId: { type: 'string' },
-          projectId: { type: 'string' },
           etag: { type: 'string' },
           description: { type: 'string' },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -230,13 +229,13 @@ describe('#fetchClusters', () => {
         properties: {
           _type: { const: 'google_bigtable_cluster' },
           name: { type: 'string' },
-          projectId: { type: 'string' },
           instanceId: { type: 'string' },
           state: { type: 'string' },
           location: { type: 'string' },
           defaultStorageType: { type: 'string' },
           serveNodes: { type: 'number' },
           kmsKeyName: { type: 'string' },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -298,7 +297,6 @@ describe('#fetchBackups', () => {
         properties: {
           _type: { const: 'google_bigtable_backup' },
           name: { type: 'string' },
-          projectId: { type: 'string' },
           instanceId: { type: 'string' },
           clusterId: { type: 'string' },
           sourceTable: { type: 'string' },
@@ -309,6 +307,7 @@ describe('#fetchBackups', () => {
           state: { type: 'string' },
           encryptionType: { type: 'string' },
           kmsKeyVersion: { type: 'string' },
+          webLink: { type: 'string' },
         },
       },
     });
@@ -370,10 +369,10 @@ describe('#fetchTables', () => {
         properties: {
           _type: { const: 'google_bigtable_table' },
           name: { type: 'string' },
-          projectId: { type: 'string' },
           instanceId: { type: 'string' },
           granularity: { type: 'string' },
           backup: { type: 'string' },
+          webLink: { type: 'string' },
         },
       },
     });

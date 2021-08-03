@@ -1,6 +1,7 @@
 // import { Entity } from '@jupiterone/integration-sdk-core';
 import { bigtableadmin_v2 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import { getGoogleCloudConsoleWebLink } from '../../utils/url';
 import {
   ENTITY_CLASS_BIG_TABLE_APP_PROFILE,
   ENTITY_CLASS_BIG_TABLE_BACKUP,
@@ -50,7 +51,6 @@ export function getLocationKey(location: bigtableadmin_v2.Schema$Location) {
 
 export function createOperationEntity({
   operation,
-  projectId,
 }: {
   operation: bigtableadmin_v2.Schema$Operation;
   projectId: string | undefined | null;
@@ -63,7 +63,6 @@ export function createOperationEntity({
         _type: ENTITY_TYPE_BIG_TABLE_OPERATION,
         _key: getOperationKey(operation),
         name: operation.name,
-        projectId,
         done: operation.done,
       },
     },
@@ -85,10 +84,12 @@ export function createInstanceEntity({
         _type: ENTITY_TYPE_BIG_TABLE_INSTANCE,
         _key: getInstanceKey(instance),
         name: instance.name,
-        projectId,
         displayName: instance.displayName!,
         state: instance.state,
         type: instance.type,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigtable/instances/${instance.name}/overview?project=${projectId}`,
+        ),
       },
     },
   });
@@ -111,10 +112,12 @@ export function createAppProfileEntity({
         _type: ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
         _key: getAppProfileKey(appProfile),
         name: appProfile.name,
-        projectId,
         instanceId,
         etag: appProfile.etag,
         description: appProfile.description,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigtable/instances/${instanceId}/app-profiles/${appProfile.name}?project=${projectId}`,
+        ),
       },
     },
   });
@@ -137,13 +140,15 @@ export function createClusterEntity({
         _type: ENTITY_TYPE_BIG_TABLE_CLUSTER,
         _key: getClusterKey(cluster),
         name: cluster.name,
-        projectId,
         instanceId,
         state: cluster.state,
         serveNodes: cluster.serveNodes,
         defaultStorageType: cluster.defaultStorageType,
         location: cluster.location,
         kmsKeyName: cluster.encryptionConfig?.kmsKeyName,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigtable/instances/${instanceId}/overview?project=${projectId}`,
+        ),
       },
     },
   });
@@ -168,7 +173,6 @@ export function createBackupEntity({
         _type: ENTITY_TYPE_BIG_TABLE_BACKUP,
         _key: getBackupKey(backup),
         name: backup.name,
-        projectId,
         instanceId,
         clusterId,
         sourceTable: backup.sourceTable,
@@ -179,6 +183,9 @@ export function createBackupEntity({
         state: backup.state,
         encryptionType: backup.encryptionInfo?.encryptionType,
         kmsKeyVersion: backup.encryptionInfo?.kmsKeyVersion,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigtable/instances/${instanceId}/backups?project=${projectId}`,
+        ),
       },
     },
   });
@@ -201,11 +208,14 @@ export function createTableEntity({
         _type: ENTITY_TYPE_BIG_TABLE_TABLE,
         _key: getTableKey(table),
         name: table.name,
-        projectId,
+        classification: 'unclassified', // not sure what to put here. this is a required field for the class DataCollection
         instanceId,
         granularity: table.granularity,
         sourceType: table.restoreInfo?.sourceType,
         backup: table.restoreInfo?.backupInfo?.backup,
+        webLink: getGoogleCloudConsoleWebLink(
+          `/bigtable/instances/${instanceId}/tables?project=${projectId}`,
+        ),
       },
     },
   });
@@ -213,7 +223,6 @@ export function createTableEntity({
 
 export function createLocationEntity({
   location,
-  projectId,
 }: {
   location: bigtableadmin_v2.Schema$Location;
   projectId: string | undefined | null;
@@ -226,7 +235,6 @@ export function createLocationEntity({
         _type: ENTITY_TYPE_BIG_TABLE_LOCATION,
         _key: getLocationKey(location),
         name: location.name,
-        projectId,
         locationId: location.locationId,
         displayName: location.displayName ? location.displayName : undefined,
       },
