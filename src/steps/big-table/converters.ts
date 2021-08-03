@@ -1,7 +1,22 @@
 // import { Entity } from '@jupiterone/integration-sdk-core';
 import { bigtableadmin_v2 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { bigTableEntities } from './constants';
+import {
+  ENTITY_CLASS_BIG_TABLE_APP_PROFILE,
+  ENTITY_CLASS_BIG_TABLE_BACKUP,
+  ENTITY_CLASS_BIG_TABLE_CLUSTER,
+  ENTITY_CLASS_BIG_TABLE_INSTANCE,
+  ENTITY_CLASS_BIG_TABLE_LOCATION,
+  ENTITY_CLASS_BIG_TABLE_OPERATION,
+  ENTITY_CLASS_BIG_TABLE_TABLE,
+  ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+  ENTITY_TYPE_BIG_TABLE_BACKUP,
+  ENTITY_TYPE_BIG_TABLE_CLUSTER,
+  ENTITY_TYPE_BIG_TABLE_INSTANCE,
+  ENTITY_TYPE_BIG_TABLE_LOCATION,
+  ENTITY_TYPE_BIG_TABLE_OPERATION,
+  ENTITY_TYPE_BIG_TABLE_TABLE,
+} from './constants';
 
 export function getOperationKey(operation: bigtableadmin_v2.Schema$Operation) {
   return `bigtable_operation:${operation.name}`;
@@ -44,8 +59,8 @@ export function createOperationEntity({
     entityData: {
       source: operation,
       assign: {
-        _class: bigTableEntities.OPERATIONS._class,
-        _type: bigTableEntities.OPERATIONS._type,
+        _class: ENTITY_CLASS_BIG_TABLE_OPERATION,
+        _type: ENTITY_TYPE_BIG_TABLE_OPERATION,
         _key: getOperationKey(operation),
         name: operation.name,
         projectId,
@@ -66,8 +81,8 @@ export function createInstanceEntity({
     entityData: {
       source: instance,
       assign: {
-        _class: bigTableEntities.INSTANCES._class,
-        _type: bigTableEntities.INSTANCES._type,
+        _class: ENTITY_CLASS_BIG_TABLE_INSTANCE,
+        _type: ENTITY_TYPE_BIG_TABLE_INSTANCE,
         _key: getInstanceKey(instance),
         name: instance.name,
         projectId,
@@ -92,8 +107,8 @@ export function createAppProfileEntity({
     entityData: {
       source: appProfile,
       assign: {
-        _class: bigTableEntities.APP_PROFILES._class,
-        _type: bigTableEntities.APP_PROFILES._type,
+        _class: ENTITY_CLASS_BIG_TABLE_APP_PROFILE,
+        _type: ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
         _key: getAppProfileKey(appProfile),
         name: appProfile.name,
         projectId,
@@ -118,8 +133,8 @@ export function createClusterEntity({
     entityData: {
       source: cluster,
       assign: {
-        _class: bigTableEntities.CLUSTERS._class,
-        _type: bigTableEntities.CLUSTERS._type,
+        _class: ENTITY_CLASS_BIG_TABLE_CLUSTER,
+        _type: ENTITY_TYPE_BIG_TABLE_CLUSTER,
         _key: getClusterKey(cluster),
         name: cluster.name,
         projectId,
@@ -149,8 +164,8 @@ export function createBackupEntity({
     entityData: {
       source: backup,
       assign: {
-        _class: bigTableEntities.BACKUPS._class,
-        _type: bigTableEntities.BACKUPS._type,
+        _class: ENTITY_CLASS_BIG_TABLE_BACKUP,
+        _type: ENTITY_TYPE_BIG_TABLE_BACKUP,
         _key: getBackupKey(backup),
         name: backup.name,
         projectId,
@@ -182,8 +197,8 @@ export function createTableEntity({
     entityData: {
       source: table,
       assign: {
-        _class: bigTableEntities.TABLES._class,
-        _type: bigTableEntities.TABLES._type,
+        _class: ENTITY_CLASS_BIG_TABLE_TABLE,
+        _type: ENTITY_TYPE_BIG_TABLE_TABLE,
         _key: getTableKey(table),
         name: table.name,
         projectId,
@@ -207,8 +222,8 @@ export function createLocationEntity({
     entityData: {
       source: location,
       assign: {
-        _class: bigTableEntities.LOCATIONS._class,
-        _type: bigTableEntities.LOCATIONS._type,
+        _class: ENTITY_CLASS_BIG_TABLE_LOCATION,
+        _type: ENTITY_TYPE_BIG_TABLE_LOCATION,
         _key: getLocationKey(location),
         name: location.name,
         projectId,

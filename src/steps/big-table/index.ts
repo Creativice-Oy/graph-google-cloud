@@ -6,7 +6,20 @@ import {
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { BigTableClient } from './client';
 import {
-  bigTableEntities,
+  ENTITY_CLASS_BIG_TABLE_APP_PROFILE,
+  ENTITY_CLASS_BIG_TABLE_BACKUP,
+  ENTITY_CLASS_BIG_TABLE_CLUSTER,
+  ENTITY_CLASS_BIG_TABLE_INSTANCE,
+  ENTITY_CLASS_BIG_TABLE_LOCATION,
+  ENTITY_CLASS_BIG_TABLE_OPERATION,
+  ENTITY_CLASS_BIG_TABLE_TABLE,
+  ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+  ENTITY_TYPE_BIG_TABLE_BACKUP,
+  ENTITY_TYPE_BIG_TABLE_CLUSTER,
+  ENTITY_TYPE_BIG_TABLE_INSTANCE,
+  ENTITY_TYPE_BIG_TABLE_LOCATION,
+  ENTITY_TYPE_BIG_TABLE_OPERATION,
+  ENTITY_TYPE_BIG_TABLE_TABLE,
   RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
   RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
   RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
@@ -71,7 +84,7 @@ export async function fetchAppProfiles(
   const projectId = client.projectId;
 
   await jobState.iterateEntities(
-    { _type: bigTableEntities.INSTANCES._type },
+    { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
     async (instanceEntity) => {
       await client.iterateAppProfiles(
         instanceEntity.name as string,
@@ -105,7 +118,7 @@ export async function fetchClusters(
   const projectId = client.projectId;
 
   await jobState.iterateEntities(
-    { _type: bigTableEntities.INSTANCES._type },
+    { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
     async (instanceEntity) => {
       await client.iterateClusters(
         instanceEntity.name as string,
@@ -139,7 +152,7 @@ export async function fetchBackups(
   const projectId = client.projectId;
 
   await jobState.iterateEntities(
-    { _type: bigTableEntities.CLUSTERS._type },
+    { _type: ENTITY_TYPE_BIG_TABLE_CLUSTER },
     async (clusterEntity) => {
       await client.iterateBackups(
         clusterEntity.instanceId as string,
@@ -175,7 +188,7 @@ export async function fetchTables(
   const projectId = client.projectId;
 
   await jobState.iterateEntities(
-    { _type: bigTableEntities.INSTANCES._type },
+    { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
     async (instanceEntity) => {
       await client.iterateTables(
         instanceEntity.name as string,
@@ -222,7 +235,13 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_OPERATIONS,
     name: 'Bigtable Operations',
-    entities: [bigTableEntities.OPERATIONS],
+    entities: [
+      {
+        _class: ENTITY_CLASS_BIG_TABLE_OPERATION,
+        _type: ENTITY_TYPE_BIG_TABLE_OPERATION,
+        resourceName: 'Bigtable Operation',
+      },
+    ],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchOperations,
@@ -230,7 +249,13 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_INSTANCES,
     name: 'Bigtable Instances',
-    entities: [bigTableEntities.INSTANCES],
+    entities: [
+      {
+        _class: ENTITY_CLASS_BIG_TABLE_INSTANCE,
+        _type: ENTITY_TYPE_BIG_TABLE_INSTANCE,
+        resourceName: 'Bigtable Instance',
+      },
+    ],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchInstances,
@@ -238,13 +263,19 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_APP_PROFILES,
     name: 'Bigtable AppProfiles',
-    entities: [bigTableEntities.APP_PROFILES],
+    entities: [
+      {
+        _class: ENTITY_CLASS_BIG_TABLE_APP_PROFILE,
+        _type: ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+        resourceName: 'Bigtable AppProfile',
+      },
+    ],
     relationships: [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
-        sourceType: bigTableEntities.INSTANCES._type,
-        targetType: bigTableEntities.APP_PROFILES._type,
+        sourceType: ENTITY_TYPE_BIG_TABLE_INSTANCE,
+        targetType: ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
       },
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
@@ -253,13 +284,19 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_CLUSTERS,
     name: 'Bigtable Clusters',
-    entities: [bigTableEntities.CLUSTERS],
+    entities: [
+      {
+        _class: ENTITY_CLASS_BIG_TABLE_CLUSTER,
+        _type: ENTITY_TYPE_BIG_TABLE_CLUSTER,
+        resourceName: 'Bigtable Cluster',
+      },
+    ],
     relationships: [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
-        sourceType: bigTableEntities.INSTANCES._type,
-        targetType: bigTableEntities.CLUSTERS._type,
+        sourceType: ENTITY_TYPE_BIG_TABLE_INSTANCE,
+        targetType: ENTITY_TYPE_BIG_TABLE_CLUSTER,
       },
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
@@ -268,13 +305,19 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_BACKUPS,
     name: 'Bigtable Backups',
-    entities: [bigTableEntities.BACKUPS],
+    entities: [
+      {
+        _class: ENTITY_CLASS_BIG_TABLE_BACKUP,
+        _type: ENTITY_TYPE_BIG_TABLE_BACKUP,
+        resourceName: 'Bigtable Backup',
+      },
+    ],
     relationships: [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
-        sourceType: bigTableEntities.CLUSTERS._type,
-        targetType: bigTableEntities.BACKUPS._type,
+        sourceType: ENTITY_TYPE_BIG_TABLE_CLUSTER,
+        targetType: ENTITY_TYPE_BIG_TABLE_BACKUP,
       },
     ],
     dependsOn: [STEP_BIG_TABLE_CLUSTERS, STEP_BIG_TABLE_INSTANCES],
@@ -283,13 +326,19 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_TABLES,
     name: 'Bigtable Tables',
-    entities: [bigTableEntities.TABLES],
+    entities: [
+      {
+        _class: ENTITY_CLASS_BIG_TABLE_TABLE,
+        _type: ENTITY_TYPE_BIG_TABLE_TABLE,
+        resourceName: 'Bigtable Table',
+      },
+    ],
     relationships: [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE,
-        sourceType: bigTableEntities.CLUSTERS._type,
-        targetType: bigTableEntities.TABLES._type,
+        sourceType: ENTITY_TYPE_BIG_TABLE_CLUSTER,
+        targetType: ENTITY_TYPE_BIG_TABLE_TABLE,
       },
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
@@ -298,7 +347,13 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_LOCATIONS,
     name: 'Bigtable Locations',
-    entities: [bigTableEntities.LOCATIONS],
+    entities: [
+      {
+        _class: ENTITY_CLASS_BIG_TABLE_LOCATION,
+        _type: ENTITY_TYPE_BIG_TABLE_LOCATION,
+        resourceName: 'Bigtable Location',
+      },
+    ],
     relationships: [],
     dependsOn: [],
     executionHandler: fetchLocations,

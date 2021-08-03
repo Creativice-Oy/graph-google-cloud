@@ -6,6 +6,27 @@ export const STEP_BIG_TABLE_BACKUPS = 'fetch-bigtable-backups';
 export const STEP_BIG_TABLE_TABLES = 'fetch-bigtable-tables';
 export const STEP_BIG_TABLE_LOCATIONS = 'fetch-bigtable-locations';
 
+export const ENTITY_CLASS_BIG_TABLE_OPERATION = 'Task';
+export const ENTITY_TYPE_BIG_TABLE_OPERATION = 'google_bigtable_operation';
+
+export const ENTITY_CLASS_BIG_TABLE_INSTANCE = 'Database';
+export const ENTITY_TYPE_BIG_TABLE_INSTANCE = 'google_bigtable_instance';
+
+export const ENTITY_CLASS_BIG_TABLE_APP_PROFILE = 'Configuration';
+export const ENTITY_TYPE_BIG_TABLE_APP_PROFILE = 'google_bigtable_app_profile';
+
+export const ENTITY_CLASS_BIG_TABLE_CLUSTER = 'Cluster';
+export const ENTITY_TYPE_BIG_TABLE_CLUSTER = 'google_bigtable_cluster';
+
+export const ENTITY_CLASS_BIG_TABLE_BACKUP = 'Backup';
+export const ENTITY_TYPE_BIG_TABLE_BACKUP = 'google_bigtable_backup';
+
+export const ENTITY_CLASS_BIG_TABLE_TABLE = 'DataCollection';
+export const ENTITY_TYPE_BIG_TABLE_TABLE = 'google_bigtable_table';
+
+export const ENTITY_CLASS_BIG_TABLE_LOCATION = 'Site';
+export const ENTITY_TYPE_BIG_TABLE_LOCATION = 'google_bigtable_location';
+
 export const RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE =
   'google_bigtable_instance_has_app_profile';
 
@@ -17,41 +38,3 @@ export const RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP =
 
 export const RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE =
   'google_bigtable_instance_has_table';
-
-export const bigTableEntities = {
-  OPERATIONS: {
-    _type: 'google_bigtable_operation',
-    _class: ['Task'],
-    resourceName: 'Bigtable Operation',
-  },
-  INSTANCES: {
-    _type: 'google_bigtable_instance',
-    _class: ['Database'],
-    resourceName: 'Bigtable Instance',
-  },
-  APP_PROFILES: {
-    _type: 'google_bigtable_app_profile',
-    _class: ['Configuration'],
-    resourceName: 'Bigtable AppProfile',
-  },
-  CLUSTERS: {
-    _type: 'google_bigtable_cluster',
-    _class: ['Cluster'],
-    resourceName: 'Bigtable Cluster',
-  },
-  BACKUPS: {
-    _type: 'google_bigtable_backup',
-    _class: ['Backup'],
-    resourceName: 'Bigtable Backup',
-  },
-  TABLES: {
-    _type: 'google_bigtable_table',
-    _class: ['DataCollection'],
-    resourceName: 'Bigtable Table',
-  },
-  LOCATIONS: {
-    _type: 'google_bigtable_location',
-    _class: ['Site'],
-    resourceName: 'Bigtable Location',
-  },
-};
