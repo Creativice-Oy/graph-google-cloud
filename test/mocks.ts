@@ -23,6 +23,7 @@ import {
   privateca_v1beta1,
   cloudresourcemanager_v3,
   accesscontextmanager_v1,
+  bigtableadmin_v2,
 } from 'googleapis';
 import { BigQueryTable } from '../src/steps/big-query/client';
 
@@ -2336,6 +2337,38 @@ export function getMockComputeAddress(
   };
 }
 
+export function getMockBigTableOperation(
+  partial?: Partial<bigtableadmin_v2.Schema$Operation>,
+): bigtableadmin_v2.Schema$Operation {
+  return {
+    name: 'operations/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup/locations/asia-south1-a/operations/1488335578085873703',
+    metadata: {
+      '@type':
+        'type.googleapis.com/google.bigtable.admin.v2.CreateBackupMetadata',
+      name: 'j1-backup',
+      sourceTable:
+        'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table',
+      startTime: '2021-08-03T19:37:45.359607354Z',
+      endTime: '2021-08-03T19:37:46.376183599Z',
+    },
+    done: true,
+    response: {
+      '@type': 'type.googleapis.com/google.bigtable.admin.v2.Backup',
+      name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup',
+      sourceTable:
+        'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table',
+      expireTime: '2021-08-04T19:37:45.191Z',
+      startTime: '2021-08-03T19:37:45.359529Z',
+      endTime: '2021-08-03T19:37:46.235458Z',
+      state: 'READY',
+      encryptionInfo: {
+        encryptionType: 'GOOGLE_DEFAULT_ENCRYPTION',
+      },
+    },
+    ...partial,
+  };
+}
+
 export function getMockComputeGlobalAddress(
   partial?: Partial<compute_v1.Schema$Address>,
 ): compute_v1.Schema$Address {
@@ -2354,6 +2387,18 @@ export function getMockComputeGlobalAddress(
     network:
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/global-address-example-network',
     kind: 'compute#address',
+    ...partial,
+  }
+}
+
+export function getMockBigTableInstance(
+  partial?: Partial<bigtableadmin_v2.Schema$Instance>,
+): bigtableadmin_v2.Schema$Instance {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance',
+    displayName: 'j1-test-instance',
+    state: 'READY',
+    type: 'PRODUCTION',
     ...partial,
   };
 }
@@ -2378,6 +2423,21 @@ export function getMockComputeGlobalForwardingRule(
     labelFingerprint: '42WmSpB8rSM=',
     fingerprint: 'TcR6S3PkYpw=',
     kind: 'compute#forwardingRule',
+    ...partial,
+  }
+}
+
+export function getMockBigTableAppProfile(
+  partial?: Partial<bigtableadmin_v2.Schema$AppProfile>,
+): bigtableadmin_v2.Schema$AppProfile {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default',
+    description:
+      'Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.',
+    singleClusterRouting: {
+      clusterId: 'j1-test-instance-c1',
+      allowTransactionalWrites: true,
+    },
     ...partial,
   };
 }
@@ -2404,6 +2464,62 @@ export function getMockComputeForwardingRule(
     labelFingerprint: '42WmSpB8rSM=',
     fingerprint: 'a9razc1zgQg=',
     kind: 'compute#forwardingRule',
+    ...partial,
+  }
+}
+    
+export function getMockBigTableCluster(
+  partial?: Partial<bigtableadmin_v2.Schema$Cluster>,
+): bigtableadmin_v2.Schema$Cluster {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1',
+    location: 'projects/j1-gc-integration-dev-v3/locations/asia-south1-a',
+    state: 'READY',
+    serveNodes: 1,
+    defaultStorageType: 'SSD',
+    ...partial,
+  };
+}
+
+export function getMockBigTableTable(
+  partial?: Partial<bigtableadmin_v2.Schema$Table>,
+): bigtableadmin_v2.Schema$Table {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table',
+    ...partial,
+  };
+}
+
+export function getMockBigTableBackup(
+  partial?: Partial<bigtableadmin_v2.Schema$Backup>,
+): bigtableadmin_v2.Schema$Backup {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup',
+    sourceTable:
+      'projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table',
+    expireTime: '2021-08-04T19:37:45.191Z',
+    startTime: '2021-08-03T19:37:45.359529Z',
+    endTime: '2021-08-03T19:37:46.235458Z',
+    state: 'READY',
+    encryptionInfo: {
+      encryptionType: 'GOOGLE_DEFAULT_ENCRYPTION',
+    },
+    ...partial,
+  };
+}
+
+export function getMockBigTableLocation(
+  partial?: Partial<bigtableadmin_v2.Schema$Location>,
+): bigtableadmin_v2.Schema$Location {
+  return {
+    name: 'projects/j1-gc-integration-dev-v3/locations/asia-east1-a',
+    labels: {
+      'cloud.googleapis.com/region': 'asia-east1',
+      'cloud.googleapis.com/location': 'asia-east1-a',
+      'cloud.googleapis.com/country': 'TW',
+    },
+    locationId: 'asia-east1-a',
+    displayName: 'Taiwan',
     ...partial,
   };
 }
