@@ -47,13 +47,11 @@ export async function fetchOperations(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = client.projectId;
 
   await client.iterateOperations(async (operation) => {
     await jobState.addEntity(
       createOperationEntity({
         operation,
-        projectId,
       }),
     );
   });
@@ -219,13 +217,11 @@ export async function fetchLocations(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = client.projectId;
 
   await client.iterateLocations(async (location) => {
     await jobState.addEntity(
       createLocationEntity({
         location,
-        projectId,
       }),
     );
   });
@@ -337,7 +333,7 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
       {
         _class: RelationshipClass.HAS,
         _type: RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE,
-        sourceType: ENTITY_TYPE_BIG_TABLE_CLUSTER,
+        sourceType: ENTITY_TYPE_BIG_TABLE_INSTANCE,
         targetType: ENTITY_TYPE_BIG_TABLE_TABLE,
       },
     ],

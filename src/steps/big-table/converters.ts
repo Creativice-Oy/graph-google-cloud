@@ -53,7 +53,6 @@ export function createOperationEntity({
   operation,
 }: {
   operation: bigtableadmin_v2.Schema$Operation;
-  projectId: string | undefined | null;
 }) {
   return createGoogleCloudIntegrationEntity(operation, {
     entityData: {
@@ -210,9 +209,9 @@ export function createTableEntity({
         name: table.name,
         classification: 'unclassified', // not sure what to put here. this is a required field for the class DataCollection
         instanceId,
-        granularity: table.granularity,
-        sourceType: table.restoreInfo?.sourceType,
-        backup: table.restoreInfo?.backupInfo?.backup,
+        granularity: table.granularity || undefined, // these value are there in the type definition in the docs, but are not being sent by the API. we're only getting the name
+        sourceType: table.restoreInfo?.sourceType || undefined,
+        backup: table.restoreInfo?.backupInfo?.backup || undefined,
         webLink: getGoogleCloudConsoleWebLink(
           `/bigtable/instances/${instanceId}/tables?project=${projectId}`,
         ),
@@ -225,7 +224,6 @@ export function createLocationEntity({
   location,
 }: {
   location: bigtableadmin_v2.Schema$Location;
-  projectId: string | undefined | null;
 }) {
   return createGoogleCloudIntegrationEntity(location, {
     entityData: {
@@ -236,7 +234,7 @@ export function createLocationEntity({
         _key: getLocationKey(location),
         name: location.name,
         locationId: location.locationId,
-        displayName: location.displayName ? location.displayName : undefined,
+        displayName: location.displayName || undefined,
       },
     },
   });
