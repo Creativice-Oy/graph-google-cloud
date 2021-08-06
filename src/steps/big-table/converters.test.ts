@@ -22,7 +22,6 @@ describe('#createOperationEntity', () => {
     expect(
       createOperationEntity({
         operation: getMockBigTableOperation(),
-        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       }),
     ).toMatchSnapshot();
   });
@@ -92,7 +91,6 @@ describe('#createLocationEntity', () => {
     expect(
       createLocationEntity({
         location: getMockBigTableLocation(),
-        projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
       }),
     ).toMatchSnapshot();
   });
