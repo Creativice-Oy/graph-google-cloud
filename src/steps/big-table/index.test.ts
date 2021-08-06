@@ -28,6 +28,20 @@ import {
   RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE,
 } from './constants';
 
+jest.setTimeout(50000);
+
+const tempNewAccountConfig = {
+  ...integrationConfig,
+  serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+    'j1-gc-integration-dev-v2',
+    'j1-gc-integration-dev-v3',
+  ),
+  serviceAccountKeyConfig: {
+    ...integrationConfig.serviceAccountKeyConfig,
+    project_id: 'j1-gc-integration-dev-v3',
+  },
+};
+
 describe('#fetchOperations', () => {
   let recording: Recording;
 
@@ -44,7 +58,7 @@ describe('#fetchOperations', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchOperations(context);
@@ -91,7 +105,7 @@ describe('#fetchInstances', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchInstances(context);
@@ -140,9 +154,10 @@ describe('#fetchAppProfiles', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
+    await fetchInstances(context);
     await fetchAppProfiles(context);
 
     expect({
@@ -205,9 +220,10 @@ describe('#fetchClusters', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
+    await fetchInstances(context);
     await fetchClusters(context);
 
     expect({
@@ -273,9 +289,11 @@ describe('#fetchBackups', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
+    await fetchInstances(context);
+    await fetchClusters(context);
     await fetchBackups(context);
 
     expect({
@@ -345,9 +363,10 @@ describe('#fetchTables', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
+    await fetchInstances(context);
     await fetchTables(context);
 
     expect({
@@ -410,7 +429,7 @@ describe('#fetchLocations', () => {
 
   test('should collect data', async () => {
     const context = createMockStepExecutionContext<IntegrationConfig>({
-      instanceConfig: integrationConfig,
+      instanceConfig: tempNewAccountConfig,
     });
 
     await fetchLocations(context);

@@ -13,7 +13,7 @@ resource "google_bigtable_instance" "instance" {
 
 resource "google_bigtable_app_profile" "ap" {
   count = var.enable_google_bigtable_example ? 1 : 0
-  instance       = google_bigtable_instance.instance.name
+  instance       = google_bigtable_instance.instance[count.index].name
   app_profile_id = "bt-profile"
 
   single_cluster_routing {
@@ -27,7 +27,7 @@ resource "google_bigtable_app_profile" "ap" {
 resource "google_bigtable_table" "table" {
   count = var.enable_google_bigtable_example ? 1 : 0
   name          = "tf-table"
-  instance_name = google_bigtable_instance.instance.name
+  instance_name = google_bigtable_instance.instance[count.index].name
   split_keys    = ["a", "b", "c"]
 
   lifecycle {

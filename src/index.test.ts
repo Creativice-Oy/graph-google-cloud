@@ -130,6 +130,15 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
+import {
+  STEP_BIG_TABLE_APP_PROFILES,
+  STEP_BIG_TABLE_BACKUPS,
+  STEP_BIG_TABLE_CLUSTERS,
+  STEP_BIG_TABLE_INSTANCES,
+  STEP_BIG_TABLE_LOCATIONS,
+  STEP_BIG_TABLE_OPERATIONS,
+  STEP_BIG_TABLE_TABLES,
+} from './steps/big-table/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -453,6 +462,27 @@ describe('#getStepStartStates success', () => {
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: false,
+      },
+      [STEP_BIG_TABLE_OPERATIONS]: {
+        disabled: true,
+      },
+      [STEP_BIG_TABLE_INSTANCES]: {
+        disabled: true,
+      },
+      [STEP_BIG_TABLE_APP_PROFILES]: {
+        disabled: true,
+      },
+      [STEP_BIG_TABLE_CLUSTERS]: {
+        disabled: true,
+      },
+      [STEP_BIG_TABLE_BACKUPS]: {
+        disabled: true,
+      },
+      [STEP_BIG_TABLE_TABLES]: {
+        disabled: true,
+      },
+      [STEP_BIG_TABLE_LOCATIONS]: {
+        disabled: true,
       },
     };
 

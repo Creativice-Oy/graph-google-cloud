@@ -2388,7 +2388,7 @@ export function getMockComputeGlobalAddress(
       'https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/networks/global-address-example-network',
     kind: 'compute#address',
     ...partial,
-  }
+  };
 }
 
 export function getMockBigTableInstance(
@@ -2424,7 +2424,7 @@ export function getMockComputeGlobalForwardingRule(
     fingerprint: 'TcR6S3PkYpw=',
     kind: 'compute#forwardingRule',
     ...partial,
-  }
+  };
 }
 
 export function getMockBigTableAppProfile(
@@ -2465,9 +2465,9 @@ export function getMockComputeForwardingRule(
     fingerprint: 'a9razc1zgQg=',
     kind: 'compute#forwardingRule',
     ...partial,
-  }
+  };
 }
-    
+
 export function getMockBigTableCluster(
   partial?: Partial<bigtableadmin_v2.Schema$Cluster>,
 ): bigtableadmin_v2.Schema$Cluster {
