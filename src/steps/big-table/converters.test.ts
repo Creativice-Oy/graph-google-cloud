@@ -4,7 +4,6 @@ import {
   getMockBigTableBackup,
   getMockBigTableCluster,
   getMockBigTableInstance,
-  getMockBigTableLocation,
   getMockBigTableOperation,
   getMockBigTableTable,
 } from '../../../test/mocks';

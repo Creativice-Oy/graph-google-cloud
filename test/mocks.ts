@@ -2507,19 +2507,3 @@ export function getMockBigTableBackup(
     ...partial,
   };
 }
-
-export function getMockBigTableLocation(
-  partial?: Partial<bigtableadmin_v2.Schema$Location>,
-): bigtableadmin_v2.Schema$Location {
-  return {
-    name: 'projects/j1-gc-integration-dev-v3/locations/asia-east1-a',
-    labels: {
-      'cloud.googleapis.com/region': 'asia-east1',
-      'cloud.googleapis.com/location': 'asia-east1-a',
-      'cloud.googleapis.com/country': 'TW',
-    },
-    locationId: 'asia-east1-a',
-    displayName: 'Taiwan',
-    ...partial,
-  };
-}
