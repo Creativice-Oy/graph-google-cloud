@@ -298,7 +298,6 @@ The following entities are created:
 | Bigtable Backup                                          | `google_bigtable_backup`                                          | `Backup`                           |
 | Bigtable Cluster                                         | `google_bigtable_cluster`                                         | `Cluster`                          |
 | Bigtable Instance                                        | `google_bigtable_instance`                                        | `Database`                         |
-| Bigtable Location                                        | `google_bigtable_location`                                        | `Site`                             |
 | Bigtable Operation                                       | `google_bigtable_operation`                                       | `Task`                             |
 | Bigtable Table                                           | `google_bigtable_table`                                           | `DataCollection`                   |
 | Binary Authorization Policy                              | `google_binary_authorization_policy`                              | `AccessPolicy`                     |

@@ -109,5 +109,5 @@ variable "enable_global_address_with_network_example" {
 
 variable "enable_google_bigtable_example" {
   type = bool
-  default = true # TODO: Switch to false once not needed
+  default = false
 }

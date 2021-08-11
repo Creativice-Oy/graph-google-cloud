@@ -12,18 +12,13 @@ import {
   createBackupEntity,
   createClusterEntity,
   createInstanceEntity,
-  createLocationEntity,
   createOperationEntity,
   createTableEntity,
 } from './converters';
 
 describe('#createOperationEntity', () => {
   it('should convert to entity', () => {
-    expect(
-      createOperationEntity({
-        operation: getMockBigTableOperation(),
-      }),
-    ).toMatchSnapshot();
+    expect(createOperationEntity(getMockBigTableOperation())).toMatchSnapshot();
   });
 });
 
@@ -81,16 +76,6 @@ describe('#createBackupEntity', () => {
         projectId: DEFAULT_INTEGRATION_CONFIG_PROJECT_ID,
         instanceId: 'mock-instance-id',
         clusterId: 'mock-cluster-id',
-      }),
-    ).toMatchSnapshot();
-  });
-});
-
-describe('#createLocationEntity', () => {
-  it('should convert to entity', () => {
-    expect(
-      createLocationEntity({
-        location: getMockBigTableLocation(),
       }),
     ).toMatchSnapshot();
   });

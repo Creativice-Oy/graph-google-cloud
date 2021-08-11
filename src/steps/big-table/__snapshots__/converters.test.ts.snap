@@ -20,13 +20,14 @@ Object {
     },
   ],
   "_type": "google_bigtable_instance",
+  "active": false,
   "createdOn": undefined,
   "description": "Default application profile for this instance. This profile is used if you do not supply a different profile ID at connection time.",
   "displayName": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
   "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
   "state": undefined,
   "type": undefined,
-  "webLink": "https://console.cloud.google.com/bigtable/instances/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default/overview?project=j1-gc-integration-dev-v2",
+  "webLink": "https://console.cloud.google.com/bigtable/instances/default/overview?project=j1-gc-integration-dev-v2",
 }
 `;
 
@@ -120,44 +121,13 @@ Object {
     },
   ],
   "_type": "google_bigtable_instance",
+  "active": true,
   "createdOn": undefined,
   "displayName": "j1-test-instance",
   "name": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
   "state": "READY",
   "type": "PRODUCTION",
-  "webLink": "https://console.cloud.google.com/bigtable/instances/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/overview?project=j1-gc-integration-dev-v2",
-}
-`;
-
-exports[`#createLocationEntity should convert to entity 1`] = `
-Object {
-  "_class": Array [
-    "Site",
-  ],
-  "_key": "bigtable_location:asia-east1-a",
-  "_rawData": Array [
-    Object {
-      "name": "default",
-      "rawData": Object {
-        "displayName": "Taiwan",
-        "labels": Object {
-          "cloud.googleapis.com/country": "TW",
-          "cloud.googleapis.com/location": "asia-east1-a",
-          "cloud.googleapis.com/region": "asia-east1",
-        },
-        "locationId": "asia-east1-a",
-        "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-a",
-      },
-    },
-  ],
-  "_type": "google_bigtable_location",
-  "createdOn": undefined,
-  "displayName": "Taiwan",
-  "locationId": "asia-east1-a",
-  "name": "projects/j1-gc-integration-dev-v3/locations/asia-east1-a",
-  "tag.cloud.googleapis.com/country": "TW",
-  "tag.cloud.googleapis.com/location": "asia-east1-a",
-  "tag.cloud.googleapis.com/region": "asia-east1",
+  "webLink": "https://console.cloud.google.com/bigtable/instances/j1-test-instance/overview?project=j1-gc-integration-dev-v2",
 }
 `;
 

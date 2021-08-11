@@ -1,20 +1,17 @@
-// import { Entity } from '@jupiterone/integration-sdk-core';
 import { bigtableadmin_v2 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
-import { getGoogleCloudConsoleWebLink } from '../../utils/url';
+import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
 import {
   ENTITY_CLASS_BIG_TABLE_APP_PROFILE,
   ENTITY_CLASS_BIG_TABLE_BACKUP,
   ENTITY_CLASS_BIG_TABLE_CLUSTER,
   ENTITY_CLASS_BIG_TABLE_INSTANCE,
-  ENTITY_CLASS_BIG_TABLE_LOCATION,
   ENTITY_CLASS_BIG_TABLE_OPERATION,
   ENTITY_CLASS_BIG_TABLE_TABLE,
   ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
   ENTITY_TYPE_BIG_TABLE_BACKUP,
   ENTITY_TYPE_BIG_TABLE_CLUSTER,
   ENTITY_TYPE_BIG_TABLE_INSTANCE,
-  ENTITY_TYPE_BIG_TABLE_LOCATION,
   ENTITY_TYPE_BIG_TABLE_OPERATION,
   ENTITY_TYPE_BIG_TABLE_TABLE,
 } from './constants';
@@ -49,11 +46,9 @@ export function getLocationKey(location: bigtableadmin_v2.Schema$Location) {
   return `bigtable_location:${location.locationId}`;
 }
 
-export function createOperationEntity({
-  operation,
-}: {
-  operation: bigtableadmin_v2.Schema$Operation;
-}) {
+export function createOperationEntity(
+  operation: bigtableadmin_v2.Schema$Operation,
+) {
   return createGoogleCloudIntegrationEntity(operation, {
     entityData: {
       source: operation,
@@ -75,6 +70,8 @@ export function createInstanceEntity({
   instance: bigtableadmin_v2.Schema$Instance;
   projectId: string | undefined | null;
 }) {
+  const instanceName = getLastUrlPart(instance.name!);
+
   return createGoogleCloudIntegrationEntity(instance, {
     entityData: {
       source: instance,
@@ -84,10 +81,11 @@ export function createInstanceEntity({
         _key: getInstanceKey(instance),
         name: instance.name,
         displayName: instance.displayName!,
+        active: instance.state === 'READY',
         state: instance.state,
         type: instance.type,
         webLink: getGoogleCloudConsoleWebLink(
-          `/bigtable/instances/${instance.name}/overview?project=${projectId}`,
+          `/bigtable/instances/${instanceName}/overview?project=${projectId}`,
         ),
       },
     },
@@ -103,6 +101,9 @@ export function createAppProfileEntity({
   projectId: string | undefined | null;
   instanceId: string | undefined | null;
 }) {
+  const instanceName = getLastUrlPart(instanceId!);
+  const appProfileName = getLastUrlPart(appProfile.name!);
+
   return createGoogleCloudIntegrationEntity(appProfile, {
     entityData: {
       source: appProfile,
@@ -115,7 +116,7 @@ export function createAppProfileEntity({
         etag: appProfile.etag,
         description: appProfile.description,
         webLink: getGoogleCloudConsoleWebLink(
-          `/bigtable/instances/${instanceId}/app-profiles/${appProfile.name}?project=${projectId}`,
+          `/bigtable/instances/${instanceName}/app-profiles/${appProfileName}?project=${projectId}`,
         ),
       },
     },
@@ -215,26 +216,6 @@ export function createTableEntity({
         webLink: getGoogleCloudConsoleWebLink(
           `/bigtable/instances/${instanceId}/tables?project=${projectId}`,
         ),
-      },
-    },
-  });
-}
-
-export function createLocationEntity({
-  location,
-}: {
-  location: bigtableadmin_v2.Schema$Location;
-}) {
-  return createGoogleCloudIntegrationEntity(location, {
-    entityData: {
-      source: location,
-      assign: {
-        _class: ENTITY_CLASS_BIG_TABLE_LOCATION,
-        _type: ENTITY_TYPE_BIG_TABLE_LOCATION,
-        _key: getLocationKey(location),
-        name: location.name,
-        locationId: location.locationId,
-        displayName: location.displayName || undefined,
       },
     },
   });

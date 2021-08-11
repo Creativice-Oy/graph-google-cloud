@@ -24,9 +24,6 @@ export const ENTITY_TYPE_BIG_TABLE_BACKUP = 'google_bigtable_backup';
 export const ENTITY_CLASS_BIG_TABLE_TABLE = 'DataCollection';
 export const ENTITY_TYPE_BIG_TABLE_TABLE = 'google_bigtable_table';
 
-export const ENTITY_CLASS_BIG_TABLE_LOCATION = 'Site';
-export const ENTITY_TYPE_BIG_TABLE_LOCATION = 'google_bigtable_location';
-
 export const RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE =
   'google_bigtable_instance_has_app_profile';
 

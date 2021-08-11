@@ -10,14 +10,12 @@ import {
   ENTITY_CLASS_BIG_TABLE_BACKUP,
   ENTITY_CLASS_BIG_TABLE_CLUSTER,
   ENTITY_CLASS_BIG_TABLE_INSTANCE,
-  ENTITY_CLASS_BIG_TABLE_LOCATION,
   ENTITY_CLASS_BIG_TABLE_OPERATION,
   ENTITY_CLASS_BIG_TABLE_TABLE,
   ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
   ENTITY_TYPE_BIG_TABLE_BACKUP,
   ENTITY_TYPE_BIG_TABLE_CLUSTER,
   ENTITY_TYPE_BIG_TABLE_INSTANCE,
-  ENTITY_TYPE_BIG_TABLE_LOCATION,
   ENTITY_TYPE_BIG_TABLE_OPERATION,
   ENTITY_TYPE_BIG_TABLE_TABLE,
   RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
@@ -28,7 +26,6 @@ import {
   STEP_BIG_TABLE_BACKUPS,
   STEP_BIG_TABLE_CLUSTERS,
   STEP_BIG_TABLE_INSTANCES,
-  STEP_BIG_TABLE_LOCATIONS,
   STEP_BIG_TABLE_OPERATIONS,
   STEP_BIG_TABLE_TABLES,
 } from './constants';
@@ -37,7 +34,6 @@ import {
   createBackupEntity,
   createClusterEntity,
   createInstanceEntity,
-  createLocationEntity,
   createOperationEntity,
   createTableEntity,
 } from './converters';
@@ -49,11 +45,7 @@ export async function fetchOperations(
   const client = new BigTableClient({ config: instance.config });
 
   await client.iterateOperations(async (operation) => {
-    await jobState.addEntity(
-      createOperationEntity({
-        operation,
-      }),
-    );
+    await jobState.addEntity(createOperationEntity(operation));
   });
 }
 
@@ -212,21 +204,6 @@ export async function fetchTables(
   );
 }
 
-export async function fetchLocations(
-  context: IntegrationStepContext,
-): Promise<void> {
-  const { instance, jobState } = context;
-  const client = new BigTableClient({ config: instance.config });
-
-  await client.iterateLocations(async (location) => {
-    await jobState.addEntity(
-      createLocationEntity({
-        location,
-      }),
-    );
-  });
-}
-
 export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_BIG_TABLE_OPERATIONS,
@@ -339,19 +316,5 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchTables,
-  },
-  {
-    id: STEP_BIG_TABLE_LOCATIONS,
-    name: 'Bigtable Locations',
-    entities: [
-      {
-        _class: ENTITY_CLASS_BIG_TABLE_LOCATION,
-        _type: ENTITY_TYPE_BIG_TABLE_LOCATION,
-        resourceName: 'Bigtable Location',
-      },
-    ],
-    relationships: [],
-    dependsOn: [],
-    executionHandler: fetchLocations,
   },
 ];
