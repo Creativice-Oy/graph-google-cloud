@@ -61,8 +61,6 @@ export async function createClusterStorageRelationships(
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_DATAPROC_CLUSTER },
     async (clusterEntity) => {
-      console.log('clusterEntity', clusterEntity);
-
       const configBucket = clusterEntity.configBucket as string;
       const tempBucket = clusterEntity.tempBucket as string;
 
