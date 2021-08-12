@@ -35,3 +35,9 @@ export const RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP =
 
 export const RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE =
   'google_bigtable_instance_has_table';
+
+export const RELATIONSHIP_TYPE_TABLE_HAS_BACKUP =
+  'google_bigtable_table_has_backup';
+
+export const RELATIONSHIP_TYPE_CLUSTER_USES_KMS_KEY =
+  'google_bigtable_cluster_uses_kms_key';

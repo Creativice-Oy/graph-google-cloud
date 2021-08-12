@@ -4,6 +4,8 @@ import {
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
+import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
+import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import { BigTableClient } from './client';
 import {
   ENTITY_CLASS_BIG_TABLE_APP_PROFILE,
@@ -19,9 +21,11 @@ import {
   ENTITY_TYPE_BIG_TABLE_OPERATION,
   ENTITY_TYPE_BIG_TABLE_TABLE,
   RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
+  RELATIONSHIP_TYPE_CLUSTER_USES_KMS_KEY,
   RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
   RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
   RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE,
+  RELATIONSHIP_TYPE_TABLE_HAS_BACKUP,
   STEP_BIG_TABLE_APP_PROFILES,
   STEP_BIG_TABLE_BACKUPS,
   STEP_BIG_TABLE_CLUSTERS,
@@ -54,13 +58,12 @@ export async function fetchInstances(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = client.projectId;
 
   await client.iterateInstances(async (instance) => {
     await jobState.addEntity(
       createInstanceEntity({
         instance,
-        projectId,
+        projectId: client.projectId,
       }),
     );
   });
@@ -71,7 +74,6 @@ export async function fetchAppProfiles(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = client.projectId;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
@@ -81,7 +83,7 @@ export async function fetchAppProfiles(
         async (appProfile) => {
           const appProfileEntity = createAppProfileEntity({
             appProfile,
-            projectId,
+            projectId: client.projectId,
             instanceId: instanceEntity.name as string,
           });
 
@@ -105,7 +107,6 @@ export async function fetchClusters(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = client.projectId;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
@@ -115,7 +116,7 @@ export async function fetchClusters(
         async (cluster) => {
           const clusterEntity = createClusterEntity({
             cluster,
-            projectId,
+            projectId: client.projectId,
             instanceId: instanceEntity.name as string,
           });
 
@@ -128,6 +129,24 @@ export async function fetchClusters(
               to: clusterEntity,
             }),
           );
+
+          if (cluster.encryptionConfig?.kmsKeyName) {
+            const kmsKeyEntity = await jobState.findEntity(
+              getKmsGraphObjectKeyFromKmsKeyName(
+                cluster.encryptionConfig?.kmsKeyName,
+              ),
+            );
+
+            if (kmsKeyEntity) {
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  _class: RelationshipClass.USES,
+                  from: clusterEntity,
+                  to: kmsKeyEntity,
+                }),
+              );
+            }
+          }
         },
       );
     },
@@ -139,18 +158,16 @@ export async function fetchBackups(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = client.projectId;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_CLUSTER },
     async (clusterEntity) => {
       await client.iterateBackups(
-        clusterEntity.instanceId as string,
         clusterEntity.name as string,
         async (backup) => {
           const backupEntity = createBackupEntity({
             backup,
-            projectId,
+            projectId: client.projectId,
             instanceId: clusterEntity.instanceId as string,
             clusterId: clusterEntity.name as string,
           });
@@ -164,6 +181,20 @@ export async function fetchBackups(
               to: backupEntity,
             }),
           );
+
+          const tableEntity = await jobState.findEntity(
+            `bigtable_table:projects/${client.projectId}/instances/${clusterEntity.instanceId}/tables/${backup.sourceTable}`,
+          );
+
+          if (tableEntity) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.HAS,
+                from: tableEntity,
+                to: backupEntity,
+              }),
+            );
+          }
         },
       );
     },
@@ -175,7 +206,6 @@ export async function fetchTables(
 ): Promise<void> {
   const { instance, jobState } = context;
   const client = new BigTableClient({ config: instance.config });
-  const projectId = client.projectId;
 
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_BIG_TABLE_INSTANCE },
@@ -185,7 +215,7 @@ export async function fetchTables(
         async (table) => {
           const tableEntity = createTableEntity({
             table,
-            projectId,
+            projectId: client.projectId,
             instanceId: instanceEntity.name as string,
           });
 
@@ -271,6 +301,12 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_BIG_TABLE_INSTANCE,
         targetType: ENTITY_TYPE_BIG_TABLE_CLUSTER,
       },
+      {
+        _class: RelationshipClass.USES,
+        _type: RELATIONSHIP_TYPE_CLUSTER_USES_KMS_KEY,
+        sourceType: ENTITY_TYPE_BIG_TABLE_CLUSTER,
+        targetType: ENTITY_TYPE_KMS_KEY,
+      },
     ],
     dependsOn: [STEP_BIG_TABLE_INSTANCES],
     executionHandler: fetchClusters,
@@ -292,8 +328,19 @@ export const bigTableSteps: IntegrationStep<IntegrationConfig>[] = [
         sourceType: ENTITY_TYPE_BIG_TABLE_CLUSTER,
         targetType: ENTITY_TYPE_BIG_TABLE_BACKUP,
       },
+      {
+        _class: RelationshipClass.HAS,
+        _type: RELATIONSHIP_TYPE_TABLE_HAS_BACKUP,
+        sourceType: ENTITY_TYPE_BIG_TABLE_TABLE,
+        targetType: ENTITY_TYPE_BIG_TABLE_BACKUP,
+      },
     ],
-    dependsOn: [STEP_BIG_TABLE_CLUSTERS, STEP_BIG_TABLE_INSTANCES],
+    dependsOn: [
+      STEP_BIG_TABLE_INSTANCES,
+      STEP_BIG_TABLE_CLUSTERS,
+      STEP_BIG_TABLE_TABLES,
+      STEP_CLOUD_KMS_KEYS,
+    ],
     executionHandler: fetchBackups,
   },
   {

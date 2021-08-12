@@ -21,9 +21,11 @@ import {
   ENTITY_TYPE_BIG_TABLE_OPERATION,
   ENTITY_TYPE_BIG_TABLE_TABLE,
   RELATIONSHIP_TYPE_CLUSTER_HAS_BACKUP,
+  RELATIONSHIP_TYPE_CLUSTER_USES_KMS_KEY,
   RELATIONSHIP_TYPE_INSTANCE_HAS_APP_PROFILE,
   RELATIONSHIP_TYPE_INSTANCE_HAS_CLUSTER,
   RELATIONSHIP_TYPE_INSTANCE_HAS_TABLE,
+  RELATIONSHIP_TYPE_TABLE_HAS_BACKUP,
 } from './constants';
 
 jest.setTimeout(50000);
@@ -268,6 +270,21 @@ describe('#fetchClusters', () => {
         },
       },
     });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_CLUSTER_USES_KMS_KEY,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'USES' },
+          _type: {
+            const: 'google_bigtable_cluster_uses_kms_key',
+          },
+        },
+      },
+    });
   });
 });
 
@@ -342,6 +359,21 @@ describe('#fetchBackups', () => {
         },
       },
     });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === RELATIONSHIP_TYPE_TABLE_HAS_BACKUP,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'HAS' },
+          _type: {
+            const: 'google_bigtable_table_has_backup',
+          },
+        },
+      },
+    });
   });
 });
 
@@ -390,6 +422,7 @@ describe('#fetchTables', () => {
           granularity: { type: 'string' },
           backup: { type: 'string' },
           webLink: { type: 'string' },
+          classification: { const: 'null' },
         },
       },
     });

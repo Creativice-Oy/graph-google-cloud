@@ -52,6 +52,8 @@ Object {
       "etag": undefined,
       "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/bt-profile",
+      "singleClusterRouting.allowTransactionalWrites": true,
+      "singleClusterRouting.clusterId": "bt-instance",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/app-profiles/bt-profile?project=j1-gc-integration-dev-v3",
     },
     Object {
@@ -79,6 +81,8 @@ Object {
       "etag": undefined,
       "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/appProfiles/default",
+      "singleClusterRouting.allowTransactionalWrites": true,
+      "singleClusterRouting.clusterId": "bt-instance",
       "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/app-profiles/default?project=j1-gc-integration-dev-v3",
     },
   ],
@@ -156,6 +160,7 @@ Object {
         },
       ],
       "_type": "google_bigtable_cluster",
+      "active": true,
       "createdOn": undefined,
       "defaultStorageType": "HDD",
       "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
@@ -165,7 +170,45 @@ Object {
       "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
       "serveNodes": 3,
       "state": "READY",
-      "webLink": "https://console.cloud.google.com/bigtable/instances/projects/j1-gc-integration-dev-v3/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+    },
+    Object {
+      "_class": Array [
+        "Backup",
+      ],
+      "_key": "bigtable_backup:projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "encryptionInfo": Object {
+              "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+            },
+            "endTime": "2021-08-12T00:46:40.026785Z",
+            "expireTime": "2021-08-13T00:46:37.503Z",
+            "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+            "sourceTable": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+            "startTime": "2021-08-12T00:46:39.326777Z",
+            "state": "READY",
+          },
+        },
+      ],
+      "_type": "google_bigtable_backup",
+      "active": true,
+      "clusterId": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "createdOn": undefined,
+      "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+      "endTime": 1628729200026,
+      "expireTime": 1628815597503,
+      "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+      "kmsKeyVersion": undefined,
+      "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "sizeBytes": undefined,
+      "sourceTable": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+      "startTime": 1628729199326,
+      "state": "READY",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/backups?project=j1-gc-integration-dev-v3",
     },
   ],
   "collectedRelationships": Array [
@@ -177,14 +220,24 @@ Object {
       "_type": "google_bigtable_instance_has_cluster",
       "displayName": "HAS",
     },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "bigtable_cluster:projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
+      "_key": "bigtable_cluster:projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance|has|bigtable_backup:projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "_toEntityKey": "bigtable_backup:projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+      "_type": "google_bigtable_cluster_has_backup",
+      "displayName": "HAS",
+    },
   ],
   "encounteredTypes": Array [
     "google_bigtable_instance",
     "google_bigtable_cluster",
     "google_bigtable_instance_has_cluster",
+    "google_bigtable_backup",
+    "google_bigtable_cluster_has_backup",
   ],
-  "numCollectedEntities": 2,
-  "numCollectedRelationships": 1,
+  "numCollectedEntities": 3,
+  "numCollectedRelationships": 2,
 }
 `;
 
@@ -234,6 +287,7 @@ Object {
         },
       ],
       "_type": "google_bigtable_cluster",
+      "active": true,
       "createdOn": undefined,
       "defaultStorageType": "HDD",
       "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
@@ -243,7 +297,7 @@ Object {
       "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance",
       "serveNodes": 3,
       "state": "READY",
-      "webLink": "https://console.cloud.google.com/bigtable/instances/projects/j1-gc-integration-dev-v3/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/overview?project=j1-gc-integration-dev-v3",
     },
   ],
   "collectedRelationships": Array [
@@ -311,6 +365,92 @@ Object {
       "_class": Array [
         "Task",
       ],
+      "_key": "bigtable_operation:operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup/locations/us-central1-b/operations/4865267906225648703",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "done": true,
+            "metadata": Object {
+              "@type": "type.googleapis.com/google.bigtable.admin.v2.CreateBackupMetadata",
+              "endTime": "2021-08-12T00:46:40.151706669Z",
+              "name": "tf-backup",
+              "sourceTable": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+              "startTime": "2021-08-12T00:46:39.327216499Z",
+            },
+            "name": "operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup/locations/us-central1-b/operations/4865267906225648703",
+            "response": Object {
+              "@type": "type.googleapis.com/google.bigtable.admin.v2.Backup",
+              "encryptionInfo": Object {
+                "encryptionType": "GOOGLE_DEFAULT_ENCRYPTION",
+              },
+              "endTime": "2021-08-12T00:46:40.026785Z",
+              "expireTime": "2021-08-13T00:46:37.503Z",
+              "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup",
+              "sourceTable": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
+              "startTime": "2021-08-12T00:46:39.326777Z",
+              "state": "READY",
+            },
+          },
+        },
+      ],
+      "_type": "google_bigtable_operation",
+      "createdOn": undefined,
+      "displayName": "operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup/locations/us-central1-b/operations/4865267906225648703",
+      "done": true,
+      "name": "operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/clusters/bt-instance/backups/tf-backup/locations/us-central1-b/operations/4865267906225648703",
+    },
+    Object {
+      "_class": Array [
+        "Task",
+      ],
+      "_key": "bigtable_operation:operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/locations/us-central1-b/operations/8951918535169126122",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "done": true,
+            "metadata": Object {
+              "@type": "type.googleapis.com/google.bigtable.admin.v2.CreateInstanceMetadata",
+              "finishTime": "2021-08-12T00:40:44.329046107Z",
+              "originalRequest": Object {
+                "clusters": Object {
+                  "bt-instance": Object {
+                    "defaultStorageType": "HDD",
+                    "location": "projects/j1-gc-integration-dev-v3/locations/us-central1-b",
+                    "serveNodes": 3,
+                  },
+                },
+                "instance": Object {
+                  "displayName": "bt-instance",
+                  "type": "PRODUCTION",
+                },
+                "instanceId": "bt-instance",
+                "parent": "projects/j1-gc-integration-dev-v3",
+              },
+              "requestTime": "2021-08-12T00:40:43.111693512Z",
+            },
+            "name": "operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/locations/us-central1-b/operations/8951918535169126122",
+            "response": Object {
+              "@type": "type.googleapis.com/google.bigtable.admin.v2.Instance",
+              "displayName": "bt-instance",
+              "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
+              "state": "READY",
+              "type": "PRODUCTION",
+            },
+          },
+        },
+      ],
+      "_type": "google_bigtable_operation",
+      "createdOn": undefined,
+      "displayName": "operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/locations/us-central1-b/operations/8951918535169126122",
+      "done": true,
+      "name": "operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/locations/us-central1-b/operations/8951918535169126122",
+    },
+    Object {
+      "_class": Array [
+        "Task",
+      ],
       "_key": "bigtable_operation:operations/projects/j1-gc-integration-dev-v3/instances/bt-instance/locations/us-central1-b/operations/5284587272113793734",
       "_rawData": Array [
         Object {
@@ -359,7 +499,7 @@ Object {
   "encounteredTypes": Array [
     "google_bigtable_operation",
   ],
-  "numCollectedEntities": 1,
+  "numCollectedEntities": 3,
   "numCollectedRelationships": 0,
 }
 `;
@@ -407,14 +547,14 @@ Object {
       ],
       "_type": "google_bigtable_table",
       "backup": undefined,
-      "classification": "unclassified",
+      "classification": null,
       "createdOn": undefined,
       "displayName": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
       "granularity": undefined,
       "instanceId": "projects/j1-gc-integration-dev-v3/instances/bt-instance",
       "name": "projects/j1-gc-integration-dev-v3/instances/bt-instance/tables/tf-table",
       "sourceType": undefined,
-      "webLink": "https://console.cloud.google.com/bigtable/instances/projects/j1-gc-integration-dev-v3/instances/bt-instance/tables?project=j1-gc-integration-dev-v3",
+      "webLink": "https://console.cloud.google.com/bigtable/instances/bt-instance/tables?project=j1-gc-integration-dev-v3",
     },
   ],
   "collectedRelationships": Array [

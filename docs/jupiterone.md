@@ -385,9 +385,11 @@ The following relationships are created/mapped:
 | `google_bigquery_dataset`                                        | **HAS**               | `google_bigquery_table`                                           |
 | `google_bigquery_dataset`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_bigtable_cluster`                                        | **HAS**               | `google_bigtable_backup`                                          |
+| `google_bigtable_cluster`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_app_profile`                                     |
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_cluster`                                         |
 | `google_bigtable_instance`                                       | **HAS**               | `google_bigtable_table`                                           |
+| `google_bigtable_table`                                          | **HAS**               | `google_bigtable_backup`                                          |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |

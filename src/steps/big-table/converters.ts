@@ -1,3 +1,4 @@
+import { parseTimePropertyValue } from '@jupiterone/integration-sdk-core';
 import { bigtableadmin_v2 } from 'googleapis';
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
 import { getGoogleCloudConsoleWebLink, getLastUrlPart } from '../../utils/url';
@@ -115,6 +116,20 @@ export function createAppProfileEntity({
         instanceId,
         etag: appProfile.etag,
         description: appProfile.description,
+        // TODO: These properties don't exist on the schema
+        // 'multiClusterRoutingUseAny.done':
+        //   appProfile.multiClusterRoutingUseAny?.done,
+        // 'multiClusterRoutingUseAny.error':
+        //   appProfile.multiClusterRoutingUseAny?.error.message,
+        // 'multiClusterRoutingUseAny.errorCode':
+        //   appProfile.multiClusterRoutingUseAny?.error.code,
+        // 'multiClusterRoutingUseAny.name':
+        //   appProfile.multiClusterRoutingUseAny?.name,
+        'singleClusterRouting.allowTransactionalWrites':
+          appProfile.singleClusterRouting?.allowTransactionalWrites,
+        'singleClusterRouting.clusterId':
+          appProfile.singleClusterRouting?.clusterId,
+
         webLink: getGoogleCloudConsoleWebLink(
           `/bigtable/instances/${instanceName}/app-profiles/${appProfileName}?project=${projectId}`,
         ),
@@ -132,6 +147,8 @@ export function createClusterEntity({
   projectId: string | undefined | null;
   instanceId: string | undefined | null;
 }) {
+  const instanceName = getLastUrlPart(instanceId!);
+
   return createGoogleCloudIntegrationEntity(cluster, {
     entityData: {
       source: cluster,
@@ -142,12 +159,13 @@ export function createClusterEntity({
         name: cluster.name,
         instanceId,
         state: cluster.state,
+        active: cluster.state === 'READY',
         serveNodes: cluster.serveNodes,
         defaultStorageType: cluster.defaultStorageType,
         location: cluster.location,
         kmsKeyName: cluster.encryptionConfig?.kmsKeyName,
         webLink: getGoogleCloudConsoleWebLink(
-          `/bigtable/instances/${instanceId}/overview?project=${projectId}`,
+          `/bigtable/instances/${instanceName}/overview?project=${projectId}`,
         ),
       },
     },
@@ -165,6 +183,8 @@ export function createBackupEntity({
   instanceId: string | undefined | null;
   clusterId: string | undefined | null;
 }) {
+  const instanceName = getLastUrlPart(instanceId!);
+
   return createGoogleCloudIntegrationEntity(backup, {
     entityData: {
       source: backup,
@@ -176,15 +196,16 @@ export function createBackupEntity({
         instanceId,
         clusterId,
         sourceTable: backup.sourceTable,
-        expireTime: backup.expireTime,
-        startTime: backup.startTime,
-        endTime: backup.endTime,
+        expireTime: parseTimePropertyValue(backup.expireTime),
+        startTime: parseTimePropertyValue(backup.startTime),
+        endTime: parseTimePropertyValue(backup.endTime),
         sizeBytes: backup.sizeBytes,
         state: backup.state,
+        active: backup.state === 'READY',
         encryptionType: backup.encryptionInfo?.encryptionType,
         kmsKeyVersion: backup.encryptionInfo?.kmsKeyVersion,
         webLink: getGoogleCloudConsoleWebLink(
-          `/bigtable/instances/${instanceId}/backups?project=${projectId}`,
+          `/bigtable/instances/${instanceName}/backups?project=${projectId}`,
         ),
       },
     },
@@ -200,6 +221,8 @@ export function createTableEntity({
   projectId: string | undefined | null;
   instanceId: string | undefined | null;
 }) {
+  const instanceName = getLastUrlPart(instanceId!);
+
   return createGoogleCloudIntegrationEntity(table, {
     entityData: {
       source: table,
@@ -208,13 +231,13 @@ export function createTableEntity({
         _type: ENTITY_TYPE_BIG_TABLE_TABLE,
         _key: getTableKey(table),
         name: table.name,
-        classification: 'unclassified', // not sure what to put here. this is a required field for the class DataCollection
+        classification: null, // not sure what to put here. this is a required field for the class DataCollection
         instanceId,
         granularity: table.granularity || undefined, // these value are there in the type definition in the docs, but are not being sent by the API. we're only getting the name
         sourceType: table.restoreInfo?.sourceType || undefined,
         backup: table.restoreInfo?.backupInfo?.backup || undefined,
         webLink: getGoogleCloudConsoleWebLink(
-          `/bigtable/instances/${instanceId}/tables?project=${projectId}`,
+          `/bigtable/instances/${instanceName}/tables?project=${projectId}`,
         ),
       },
     },

@@ -92,7 +92,6 @@ export class BigTableClient extends Client {
   }
 
   async iterateBackups(
-    instanceId: string,
     clusterId: string,
     callback: (data: bigtableadmin_v2.Schema$Backup) => Promise<void>,
   ): Promise<void> {
