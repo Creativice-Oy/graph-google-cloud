@@ -135,7 +135,6 @@ import {
   STEP_BIG_TABLE_BACKUPS,
   STEP_BIG_TABLE_CLUSTERS,
   STEP_BIG_TABLE_INSTANCES,
-  STEP_BIG_TABLE_LOCATIONS,
   STEP_BIG_TABLE_OPERATIONS,
   STEP_BIG_TABLE_TABLES,
 } from './steps/big-table/constants';
@@ -479,9 +478,6 @@ describe('#getStepStartStates success', () => {
         disabled: true,
       },
       [STEP_BIG_TABLE_TABLES]: {
-        disabled: true,
-      },
-      [STEP_BIG_TABLE_LOCATIONS]: {
         disabled: true,
       },
     };
