@@ -130,7 +130,10 @@ import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_POLICIES,
   STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS,
 } from './steps/access-context-manager/constants';
-import { STEP_DATAPROC_CLUSTERS } from './steps/dataproc/constants';
+import {
+  STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS,
+  STEP_DATAPROC_CLUSTERS,
+} from './steps/dataproc/constants';
 
 interface ValidateInvocationInvalidConfigTestParams {
   instanceConfig?: Partial<IntegrationConfig>;
@@ -456,6 +459,9 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_DATAPROC_CLUSTERS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_CLUSTER_IMAGE_RELATIONSHIPS]: {
         disabled: false,
       },
     };
