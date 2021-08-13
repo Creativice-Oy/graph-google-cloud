@@ -1,12 +1,12 @@
 import {
   createDirectRelationship,
+  Entity,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import { getKmsGraphObjectKeyFromKmsKeyName } from '../../utils/kms';
 import { ENTITY_TYPE_COMPUTE_IMAGE, STEP_COMPUTE_IMAGES } from '../compute';
-import { getComputeImageKey } from '../compute/converters';
 import { ENTITY_TYPE_KMS_KEY, STEP_CLOUD_KMS_KEYS } from '../kms';
 import { DataProcClient } from './client';
 import {
@@ -56,14 +56,28 @@ export async function createClusterImageRelationships(
 ): Promise<void> {
   const { jobState } = context;
 
+  const imageEntities: Entity[] = [];
+  await jobState.iterateEntities(
+    { _type: ENTITY_TYPE_COMPUTE_IMAGE },
+    (imageEntity) => {
+      imageEntities.push(imageEntity);
+    },
+  );
+
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_DATAPROC_CLUSTER },
     async (clusterEntity) => {
-      const imageUri = clusterEntity.imageUri as string;
-
-      const imageEntity = await jobState.findEntity(
-        getComputeImageKey(imageUri),
+      const imageUri = (clusterEntity.masterConfigImageUri as string).split(
+        '/',
       );
+      const imageName = imageUri[imageUri.length - 1];
+
+      let imageEntity: Entity | null = null;
+      if (imageUri) {
+        imageEntity = imageEntities.filter(
+          (imageEntity) => imageEntity.name === imageName,
+        )[0];
+      }
 
       if (imageEntity) {
         await jobState.addRelationship(
