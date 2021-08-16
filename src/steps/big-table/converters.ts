@@ -116,15 +116,6 @@ export function createAppProfileEntity({
         instanceId,
         etag: appProfile.etag,
         description: appProfile.description,
-        // TODO: These properties don't exist on the schema
-        // 'multiClusterRoutingUseAny.done':
-        //   appProfile.multiClusterRoutingUseAny?.done,
-        // 'multiClusterRoutingUseAny.error':
-        //   appProfile.multiClusterRoutingUseAny?.error.message,
-        // 'multiClusterRoutingUseAny.errorCode':
-        //   appProfile.multiClusterRoutingUseAny?.error.code,
-        // 'multiClusterRoutingUseAny.name':
-        //   appProfile.multiClusterRoutingUseAny?.name,
         'singleClusterRouting.allowTransactionalWrites':
           appProfile.singleClusterRouting?.allowTransactionalWrites,
         'singleClusterRouting.clusterId':
@@ -231,9 +222,9 @@ export function createTableEntity({
         _type: ENTITY_TYPE_BIG_TABLE_TABLE,
         _key: getTableKey(table),
         name: table.name,
-        classification: null, // not sure what to put here. this is a required field for the class DataCollection
+        classification: null,
         instanceId,
-        granularity: table.granularity || undefined, // these value are there in the type definition in the docs, but are not being sent by the API. we're only getting the name
+        granularity: table.granularity || undefined,
         sourceType: table.restoreInfo?.sourceType || undefined,
         backup: table.restoreInfo?.backupInfo?.backup || undefined,
         webLink: getGoogleCloudConsoleWebLink(
