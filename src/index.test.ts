@@ -463,22 +463,22 @@ describe('#getStepStartStates success', () => {
         disabled: false,
       },
       [STEP_BIG_TABLE_OPERATIONS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BIG_TABLE_INSTANCES]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BIG_TABLE_APP_PROFILES]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BIG_TABLE_CLUSTERS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BIG_TABLE_BACKUPS]: {
-        disabled: true,
+        disabled: false,
       },
       [STEP_BIG_TABLE_TABLES]: {
-        disabled: true,
+        disabled: false,
       },
     };
 
