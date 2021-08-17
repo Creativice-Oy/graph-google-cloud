@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "Database",
   ],
-  "_key": "bigtable_instance:projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/appProfiles/default",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -36,7 +36,7 @@ Object {
   "_class": Array [
     "Backup",
   ],
-  "_key": "bigtable_backup:projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup",
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -77,7 +77,7 @@ Object {
   "_class": Array [
     "Cluster",
   ],
-  "_key": "bigtable_cluster:projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -110,7 +110,7 @@ Object {
   "_class": Array [
     "Database",
   ],
-  "_key": "bigtable_instance:projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -138,7 +138,7 @@ Object {
   "_class": Array [
     "Task",
   ],
-  "_key": "bigtable_operation:operations/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup/locations/asia-south1-a/operations/1488335578085873703",
+  "_key": "operations/projects/j1-gc-integration-dev-v3/instances/j1-test-instance/clusters/j1-test-instance-c1/backups/j1-backup/locations/asia-south1-a/operations/1488335578085873703",
   "_rawData": Array [
     Object {
       "name": "default",
@@ -180,7 +180,7 @@ Object {
   "_class": Array [
     "DataCollection",
   ],
-  "_key": "bigtable_table:projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
+  "_key": "projects/j1-gc-integration-dev-v3/instances/j1-test-instance/tables/j1-table",
   "_rawData": Array [
     Object {
       "name": "default",

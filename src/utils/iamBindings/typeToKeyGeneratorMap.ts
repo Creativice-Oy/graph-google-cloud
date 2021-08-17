@@ -80,6 +80,14 @@ import { CLOUD_STORAGE_BUCKET_ENTITY_TYPE } from '../../steps/storage';
 import { getCloudStorageBucketKey } from '../../steps/storage/converters';
 import { StepExecutionContext } from '@jupiterone/integration-sdk-core';
 import { getProjectNameFromId } from '../jobState';
+import {
+  ENTITY_TYPE_BIG_TABLE_APP_PROFILE,
+  ENTITY_TYPE_BIG_TABLE_CLUSTER,
+  ENTITY_TYPE_BIG_TABLE_INSTANCE,
+  ENTITY_TYPE_BIG_TABLE_OPERATION,
+  ENTITY_TYPE_BIG_TABLE_TABLE,
+  ENTITY_TYPE_BIG_TABLE_BACKUP,
+} from '../../steps/big-table/constants';
 
 /**
  * A map of JupiterOne types to a function which can generate their _key
@@ -154,6 +162,12 @@ export const J1_TYPE_TO_KEY_GENERATOR_MAP: {
   [ENTITY_TYPE_MEMCACHE_INSTANCE]: customPrefixAndIdKeyMap(getMemcacheKey),
   [MONITORING_ALERT_POLICY_TYPE]: fullPathKeyMap,
   [MULTIPLE_J1_TYPES_FOR_RESOURCE_KIND]: selfLinkKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_OPERATION]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_INSTANCE]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_CLUSTER]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_APP_PROFILE]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_TABLE]: fullPathKeyMap,
+  [ENTITY_TYPE_BIG_TABLE_BACKUP]: fullPathKeyMap,
 };
 
 // ex: projects/j1-gc-integration-dev-v3/locations/us-central1/functions/j1-gc-integration-dev-v3testfunction

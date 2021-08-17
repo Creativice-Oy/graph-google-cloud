@@ -41,6 +41,16 @@ describe('getTypeAndKeyFromResourceIdentifier', () => {
         successfullyMappedTypes.push(type);
       }
     }
+
+    console.log(
+      'diff',
+      successfullyMappedTypes
+        .sort()
+        .filter(
+          (x) => !jupiterOneTypesWithMappedGoogleResources.sort().includes(x),
+        ),
+    );
+
     expect(successfullyMappedTypes.sort()).toEqual(
       expect.arrayContaining(jupiterOneTypesWithMappedGoogleResources.sort()),
     );

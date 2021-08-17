@@ -4,7 +4,6 @@ export const STEP_BIG_TABLE_APP_PROFILES = 'fetch-bigtable-app-profiles';
 export const STEP_BIG_TABLE_CLUSTERS = 'fetch-bigtable-clusters';
 export const STEP_BIG_TABLE_BACKUPS = 'fetch-bigtable-backups';
 export const STEP_BIG_TABLE_TABLES = 'fetch-bigtable-tables';
-export const STEP_BIG_TABLE_LOCATIONS = 'fetch-bigtable-locations';
 
 export const ENTITY_CLASS_BIG_TABLE_OPERATION = 'Task';
 export const ENTITY_TYPE_BIG_TABLE_OPERATION = 'google_bigtable_operation';

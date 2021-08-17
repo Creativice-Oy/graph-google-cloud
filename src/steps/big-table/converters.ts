@@ -18,33 +18,29 @@ import {
 } from './constants';
 
 export function getOperationKey(operation: bigtableadmin_v2.Schema$Operation) {
-  return `bigtable_operation:${operation.name}`;
+  return `${operation.name}`;
 }
 
 export function getInstanceKey(instance: bigtableadmin_v2.Schema$Instance) {
-  return `bigtable_instance:${instance.name}`;
+  return `${instance.name}`;
 }
 
 export function getAppProfileKey(
   appProfile: bigtableadmin_v2.Schema$AppProfile,
 ) {
-  return `bigtable_appProfile:${appProfile.name}`;
+  return `${appProfile.name}`;
 }
 
 export function getClusterKey(cluster: bigtableadmin_v2.Schema$Cluster) {
-  return `bigtable_cluster:${cluster.name}`;
+  return `${cluster.name}`;
 }
 
 export function getBackupKey(backup: bigtableadmin_v2.Schema$Backup) {
-  return `bigtable_backup:${backup.name}`;
+  return `${backup.name}`;
 }
 
 export function getTableKey(table: bigtableadmin_v2.Schema$Table) {
-  return `bigtable_table:${table.name}`;
-}
-
-export function getLocationKey(location: bigtableadmin_v2.Schema$Location) {
-  return `bigtable_location:${location.locationId}`;
+  return `${table.name}`;
 }
 
 export function createOperationEntity(
