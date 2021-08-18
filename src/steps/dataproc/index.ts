@@ -1,6 +1,5 @@
 import {
   createDirectRelationship,
-  Entity,
   IntegrationStep,
   RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
@@ -56,28 +55,12 @@ export async function createClusterImageRelationships(
 ): Promise<void> {
   const { jobState } = context;
 
-  const imageEntities: Entity[] = [];
-  await jobState.iterateEntities(
-    { _type: ENTITY_TYPE_COMPUTE_IMAGE },
-    (imageEntity) => {
-      imageEntities.push(imageEntity);
-    },
-  );
-
   await jobState.iterateEntities(
     { _type: ENTITY_TYPE_DATAPROC_CLUSTER },
     async (clusterEntity) => {
-      const imageUri = (clusterEntity.masterConfigImageUri as string).split(
-        '/',
+      const imageEntity = await jobState.findEntity(
+        clusterEntity.masterConfigImageUri as string,
       );
-      const imageName = imageUri[imageUri.length - 1];
-
-      let imageEntity: Entity | null = null;
-      if (imageUri) {
-        imageEntity = imageEntities.filter(
-          (imageEntity) => imageEntity.name === imageName,
-        )[0];
-      }
 
       if (imageEntity) {
         await jobState.addRelationship(
