@@ -237,7 +237,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:4458256484022351967",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/dataproc-image-sample",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -323,7 +323,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:3455131146476105975",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-disk-image",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -400,7 +400,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:6763584320471347416",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-snapshot-image",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -477,7 +477,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:7307438273773129842",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/example-source-image",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -554,7 +554,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:1190666273104526959",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/image-1",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -635,7 +635,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:7233253107557138230",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/j1-image2",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -720,7 +720,7 @@ Object {
       "_class": Array [
         "Image",
       ],
-      "_key": "image:282817071286254677",
+      "_key": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/j1-image3",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -803,8 +803,8 @@ Object {
     Object {
       "_class": "USES",
       "_fromEntityKey": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-6495",
-      "_key": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-6495|uses|image:4458256484022351967",
-      "_toEntityKey": "image:4458256484022351967",
+      "_key": "projects/j1-gc-integration-dev-v3/regions/us-central1/clusters/cluster-6495|uses|https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/dataproc-image-sample",
+      "_toEntityKey": "https://www.googleapis.com/compute/v1/projects/j1-gc-integration-dev-v3/global/images/dataproc-image-sample",
       "_type": "google_dataproc_cluster_uses_compute_image",
       "displayName": "USES",
     },
