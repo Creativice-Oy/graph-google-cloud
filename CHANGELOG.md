@@ -8,6 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                      | class      | Target                       |
+  |-----------------------------|------------|------------------------------|
+  | `google_cloud_audit_config` | **ALLOWS** | `google_iam_service_account` |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_user`                |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_domain`              |
+  | `google_cloud_audit_config` | **ALLOWS** | `google_group`               |
+
 ## 1.2.1 - 2021-10-25
 
 ### Fixed
@@ -64,13 +75,13 @@ and this project adheres to
 - Added support for ingesting the following **new** resources:
 
   | Service      | Resource / Entity           |
-  | ------------ | --------------------------- |
+  |--------------|-----------------------------|
   | Audit Config | `google_cloud_audit_config` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                     | class    | Target                      |
-  | -------------------------- | -------- | --------------------------- |
+  |----------------------------|----------|-----------------------------|
   | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
 - API calls will now have a `timeout` of one minute.
@@ -139,7 +150,7 @@ and this project adheres to
   Binding.
 
 | Source                             | class        | Target            |
-| ---------------------------------- | ------------ | ----------------- |
+|------------------------------------|--------------|-------------------|
 | `google_user`                      | **ASSIGNED** | `google_iam_role` |
 | `google_group`                     | **ASSIGNED** | `google_iam_role` |
 | `google_domain`                    | **ASSIGNED** | `google_iam_role` |
@@ -173,7 +184,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
 | Source                             | class      | Target                             |
-| ---------------------------------- | ---------- | ---------------------------------- |
+|------------------------------------|------------|------------------------------------|
 | `google_iam_binding`               | `ASSIGNED` | `google_cloud_authenticated_users` |
 | `google_iam_binding`               | `ASSIGNED` | `everyone`                         |
 | `google_iam_binding`               | `ASSIGNED` | `google_iam_role`                  |
@@ -184,7 +195,7 @@ and this project adheres to
 - New properties added to resources:
 
   | Entity                 | Properties     |
-  | ---------------------- | -------------- |
+  |------------------------|----------------|
   | `google_iam_binding`   | `permissions`  |
   | `google_iam_binding`   | `organization` |
   | `google_iam_binding`   | `folders`      |
@@ -224,7 +235,7 @@ and this project adheres to
 - New properties added to resources:
 
   | Entity                           | Properties    |
-  | -------------------------------- | ------------- |
+  |----------------------------------|---------------|
   | `google_bigquery_table`          | `kmsKeyName`  |
   | `google_sql_sql_server_instance` | `userOptions` |
 
@@ -235,7 +246,7 @@ and this project adheres to
 - Added support for ingesting the following **new** resources:
 
   | Service        | Resource / Entity                                                                                                                       |
-  | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+  |----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
   | Dataproc       | `google_dataproc_cluster`                                                                                                               |
   | Cloud Billing  | `google_billing_account`                                                                                                                |
   | N/A            | `google_billing_budget`                                                                                                                 |
@@ -244,7 +255,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
   | Source                     | class  | Target                        |
-  | -------------------------- | ------ | ----------------------------- |
+  |----------------------------|--------|-------------------------------|
   | `google_dataproc_cluster`  | `USES` | `google_kms_crypto_key`       |
   | `google_dataproc_cluster`  | `USES` | `google_compute_image`        |
   | `google_dataproc_cluster`  | `USES` | `google_storage_bucket`       |
@@ -260,7 +271,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
   | Source                           | class  | Target                  |
-  | -------------------------------- | ------ | ----------------------- |
+  |----------------------------------|--------|-------------------------|
   | `google_bigquery_dataset`        | `USES` | `google_kms_crypto_key` |
   | `google_compute_disk`            | `USES` | `google_kms_crypto_key` |
   | `google_compute_image`           | `USES` | `google_kms_crypto_key` |
@@ -273,7 +284,7 @@ and this project adheres to
 - New properties added to resources:
 
   | Entity                           | Properties               |
-  | -------------------------------- | ------------------------ |
+  |----------------------------------|--------------------------|
   | `google_sql_postgres_instance`   | `logMinMessages`         |
   | `google_sql_sql_server_instance` | `externalScriptsEnabled` |
   | `google_sql_sql_server_instance` | `userConnections`        |
@@ -287,13 +298,13 @@ and this project adheres to
 - Added support for ingesting the following **new** resources:
 
   | Service    | Resource / Entity   |
-  | ---------- | ------------------- |
+  |------------|---------------------|
   | DNS Policy | `google_dns_policy` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                   | class   | Target              |
-  | ------------------------ | ------- | ------------------- |
+  |--------------------------|---------|---------------------|
   | `google_compute_network` | **HAS** | `google_dns_policy` |
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
@@ -301,18 +312,13 @@ and this project adheres to
 - the following **mapped** relationships to skip target creation:
 
   | Source               | class        | Target                       |
-  | -------------------- | ------------ | ---------------------------- |
+  |----------------------|--------------|------------------------------|
   | `google_iam_binding` | **ALLOWS**   | `ANY_RESOURCE`               |
   | `google_iam_binding` | **ASSIGNED** | `google_group`               |
   | `google_iam_binding` | **ASSIGNED** | `google_iam_service_account` |
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
   | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
   | `google_user`        | **CREATED**  | `google_app_engine_version`  |
-
-- Separate the step to build `google_bigquery_dataset_uses_kms_crypto_key`
-  relationship
-- Modified `google_bigquery_dataset` step to be independent from
-  `google_kms_crypto_key` step
 
 ## 0.48.0 - 2021-08-27
 
@@ -321,7 +327,7 @@ and this project adheres to
 - New properties added to resources:
 
   | Entity                  | Properties              |
-  | ----------------------- | ----------------------- |
+  |-------------------------|-------------------------|
   | `google_storage_bucket` | `isSubjectToObjectAcls` |
   | `google_iam_binding`    | `readonly`              |
 
@@ -359,7 +365,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
   | Source               | class        | Target                           |
-  | -------------------- | ------------ | -------------------------------- |
+  |----------------------|--------------|----------------------------------|
   | `google_iam_binding` | **ALLOWS**   | `google_cloud_projects`          |
   | `google_iam_binding` | **ALLOWS**   | `google_sql_mysql_instance`      |
   | `google_iam_binding` | **ALLOWS**   | `google_sql_postgres_instance`   |
@@ -394,7 +400,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
   | Source               | class      | Target         |
-  | -------------------- | ---------- | -------------- |
+  |----------------------|------------|----------------|
   | `google_iam_binding` | **ALLOWS** | `ANY_RESOURCE` |
 
 ## 0.44.2 - 2021-07-20
@@ -418,7 +424,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
   | Source               | class        | Target                       |
-  | -------------------- | ------------ | ---------------------------- |
+  |----------------------|--------------|------------------------------|
   | `google_iam_binding` | **ASSIGNED** | `google_group`               |
   | `google_iam_binding` | **ASSIGNED** | `google_iam_service_account` |
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
@@ -457,7 +463,7 @@ and this project adheres to
 - New properties added to resources:
 
   | Entity                    | Properties             |
-  | ------------------------- | ---------------------- |
+  |---------------------------|------------------------|
   | `google_compute_instance` | `serviceAccountEmails` |
 
 ## 0.42.0 - 2021-06-22
@@ -467,7 +473,7 @@ and this project adheres to
 - New properties added to resources:
 
   | Entity                  | Properties            |
-  | ----------------------- | --------------------- |
+  |-------------------------|-----------------------|
   | `google_cloud_function` | `serviceAccountEmail` |
 
 ### Fixed
@@ -482,7 +488,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
   | Source                   | \_class    | Target                   |
-  | ------------------------ | ---------- | ------------------------ |
+  |--------------------------|------------|--------------------------|
   | `google_compute_network` | `CONNECTS` | `google_compute_network` |
 
 ## 0.40.0 - 2021-06-21
@@ -527,13 +533,13 @@ and this project adheres to
 - Added support for ingesting the following **new** resources:
 
   | Service                | Resource / Entity                                                                                                                                                                                                                                                                                                                                                                                                     |
-  | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  |------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
   | Access Context Manager | `google_access_context_manager_access_policy`, `google_access_context_manager_access_level`, `google_access_context_manager_service_perimeter`, `google_access_context_manager_service_perimeter_egress_policy`, `google_access_context_manager_service_perimeter_ingress_policy`, `google_access_context_manager_service_perimeter_api_operation`, `google_access_context_manager_service_perimeter_method_selector` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                                                           | \_class    | Target                                                            |
-  | ---------------------------------------------------------------- | ---------- | ----------------------------------------------------------------- |
+  |------------------------------------------------------------------|------------|-------------------------------------------------------------------|
   | `google_access_context_manager_access_policy`                    | `HAS`      | `google_access_context_manager_access_level`                      |
   | `google_access_context_manager_access_policy`                    | `HAS`      | `google_access_context_manager_service_perimeter`                 |
   | `google_access_context_manager_service_perimeter`                | `HAS`      | `google_access_context_manager_service_perimeter_egress_policy`   |
@@ -577,7 +583,7 @@ and this project adheres to
 - Added support for ingesting the following **new** resources:
 
   | Service     | Resource / Entity    |
-  | ----------- | -------------------- |
+  |-------------|----------------------|
   | IAM Binding | `google_iam_binding` |
 
 ## 0.34.2 - 2021-06-06
@@ -605,19 +611,19 @@ and this project adheres to
 - Added support for ingesting the following **new** resources:
 
   | Service  | Resource / Entity       |
-  | -------- | ----------------------- |
+  |----------|-------------------------|
   | BigQuery | `google_bigquery_model` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                    | \_class | Target                  |
-  | ------------------------- | ------- | ----------------------- |
+  |---------------------------|---------|-------------------------|
   | `google_bigquery_dataset` | `HAS`   | `google_bigquery_model` |
 
 - New properties added to resources:
 
   | Entity                                   | Properties                   |
-  | ---------------------------------------- | ---------------------------- |
+  |------------------------------------------|------------------------------|
   | `google_cloud_project`                   | `id`, `projectId`, `webLink` |
   | `google_api_gateway_api`                 | `function`                   |
   | `google_app_engine_version`              | `function`                   |
@@ -635,13 +641,13 @@ and this project adheres to
 - Added support for ingesting the following **new** resources:
 
   | Service                | Resource / Entity     |
-  | ---------------------- | --------------------- |
+  |------------------------|-----------------------|
   | Cloud Resource Manager | `google_cloud_folder` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                      | \_class | Target                 |
-  | --------------------------- | ------- | ---------------------- |
+  |-----------------------------|---------|------------------------|
   | `google_cloud_organization` | `HAS`   | `google_cloud_folder`  |
   | `google_cloud_folder`       | `HAS`   | `google_cloud_folder`  |
   | `google_cloud_organization` | `HAS`   | `google_cloud_project` |
