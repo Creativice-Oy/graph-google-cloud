@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service      | Resource / Entity           |
+  | ------------ | --------------------------- |
+  | Audit Config | `google_cloud_audit_config` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                      | class        | Target                     |
+  | --------------------------- | ------------ | -------------------------- |
+  | `google_cloud_audit_config` | **MONITORS** | `google_cloud_api_service` |
+
 ### Changed
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
