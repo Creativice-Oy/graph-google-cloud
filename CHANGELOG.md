@@ -13,7 +13,7 @@ and this project adheres to
 - Added support for ingesting the following **new** relationships:
 
   | Source                      | class      | Target                       |
-  |-----------------------------|------------|------------------------------|
+  | --------------------------- | ---------- | ---------------------------- |
   | `google_cloud_audit_config` | **ALLOWS** | `google_iam_service_account` |
   | `google_cloud_audit_config` | **ALLOWS** | `google_user`                |
   | `google_cloud_audit_config` | **ALLOWS** | `google_domain`              |
@@ -207,21 +207,18 @@ Will now have a type of `google_cloud_api_service_has_resource`
 
 ### Added
 
-<<<<<<< HEAD
-=======
 - Added support for ingesting the following **new** resources:
 
   | Service      | Resource / Entity           |
-  |--------------|-----------------------------|
+  | ------------ | --------------------------- |
   | Audit Config | `google_cloud_audit_config` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                     | class    | Target                      |
-  |----------------------------|----------|-----------------------------|
+  | -------------------------- | -------- | --------------------------- |
   | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
->>>>>>> 8213830... Ingest auditConfig in iamPolicy
 - API calls will now have a `timeout` of one minute.
 - Organization setup will now have an api `timeout` of five minutes when
   updating the organization IAM policy.
@@ -288,7 +285,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
   Binding.
 
 | Source                             | class        | Target            |
-|------------------------------------|--------------|-------------------|
+| ---------------------------------- | ------------ | ----------------- |
 | `google_user`                      | **ASSIGNED** | `google_iam_role` |
 | `google_group`                     | **ASSIGNED** | `google_iam_role` |
 | `google_domain`                    | **ASSIGNED** | `google_iam_role` |
@@ -322,7 +319,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** relationships:
 
 | Source                             | class      | Target                             |
-|------------------------------------|------------|------------------------------------|
+| ---------------------------------- | ---------- | ---------------------------------- |
 | `google_iam_binding`               | `ASSIGNED` | `google_cloud_authenticated_users` |
 | `google_iam_binding`               | `ASSIGNED` | `everyone`                         |
 | `google_iam_binding`               | `ASSIGNED` | `google_iam_role`                  |
@@ -333,7 +330,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - New properties added to resources:
 
   | Entity                 | Properties     |
-  |------------------------|----------------|
+  | ---------------------- | -------------- |
   | `google_iam_binding`   | `permissions`  |
   | `google_iam_binding`   | `organization` |
   | `google_iam_binding`   | `folders`      |
@@ -373,7 +370,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - New properties added to resources:
 
   | Entity                           | Properties    |
-  |----------------------------------|---------------|
+  | -------------------------------- | ------------- |
   | `google_bigquery_table`          | `kmsKeyName`  |
   | `google_sql_sql_server_instance` | `userOptions` |
 
@@ -384,7 +381,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** resources:
 
   | Service        | Resource / Entity                                                                                                                       |
-  |----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+  | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
   | Dataproc       | `google_dataproc_cluster`                                                                                                               |
   | Cloud Billing  | `google_billing_account`                                                                                                                |
   | N/A            | `google_billing_budget`                                                                                                                 |
@@ -393,7 +390,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** relationships:
 
   | Source                     | class  | Target                        |
-  |----------------------------|--------|-------------------------------|
+  | -------------------------- | ------ | ----------------------------- |
   | `google_dataproc_cluster`  | `USES` | `google_kms_crypto_key`       |
   | `google_dataproc_cluster`  | `USES` | `google_compute_image`        |
   | `google_dataproc_cluster`  | `USES` | `google_storage_bucket`       |
@@ -409,7 +406,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** relationships:
 
   | Source                           | class  | Target                  |
-  |----------------------------------|--------|-------------------------|
+  | -------------------------------- | ------ | ----------------------- |
   | `google_bigquery_dataset`        | `USES` | `google_kms_crypto_key` |
   | `google_compute_disk`            | `USES` | `google_kms_crypto_key` |
   | `google_compute_image`           | `USES` | `google_kms_crypto_key` |
@@ -422,7 +419,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - New properties added to resources:
 
   | Entity                           | Properties               |
-  |----------------------------------|--------------------------|
+  | -------------------------------- | ------------------------ |
   | `google_sql_postgres_instance`   | `logMinMessages`         |
   | `google_sql_sql_server_instance` | `externalScriptsEnabled` |
   | `google_sql_sql_server_instance` | `userConnections`        |
@@ -436,13 +433,13 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** resources:
 
   | Service    | Resource / Entity   |
-  |------------|---------------------|
+  | ---------- | ------------------- |
   | DNS Policy | `google_dns_policy` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                   | class   | Target              |
-  |--------------------------|---------|---------------------|
+  | ------------------------ | ------- | ------------------- |
   | `google_compute_network` | **HAS** | `google_dns_policy` |
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
@@ -450,7 +447,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - the following **mapped** relationships to skip target creation:
 
   | Source               | class        | Target                       |
-  |----------------------|--------------|------------------------------|
+  | -------------------- | ------------ | ---------------------------- |
   | `google_iam_binding` | **ALLOWS**   | `ANY_RESOURCE`               |
   | `google_iam_binding` | **ASSIGNED** | `google_group`               |
   | `google_iam_binding` | **ASSIGNED** | `google_iam_service_account` |
@@ -465,7 +462,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - New properties added to resources:
 
   | Entity                  | Properties              |
-  |-------------------------|-------------------------|
+  | ----------------------- | ----------------------- |
   | `google_storage_bucket` | `isSubjectToObjectAcls` |
   | `google_iam_binding`    | `readonly`              |
 
@@ -503,7 +500,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** relationships:
 
   | Source               | class        | Target                           |
-  |----------------------|--------------|----------------------------------|
+  | -------------------- | ------------ | -------------------------------- |
   | `google_iam_binding` | **ALLOWS**   | `google_cloud_projects`          |
   | `google_iam_binding` | **ALLOWS**   | `google_sql_mysql_instance`      |
   | `google_iam_binding` | **ALLOWS**   | `google_sql_postgres_instance`   |
@@ -538,7 +535,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** relationships:
 
   | Source               | class      | Target         |
-  |----------------------|------------|----------------|
+  | -------------------- | ---------- | -------------- |
   | `google_iam_binding` | **ALLOWS** | `ANY_RESOURCE` |
 
 ## 0.44.2 - 2021-07-20
@@ -562,7 +559,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** relationships:
 
   | Source               | class        | Target                       |
-  |----------------------|--------------|------------------------------|
+  | -------------------- | ------------ | ---------------------------- |
   | `google_iam_binding` | **ASSIGNED** | `google_group`               |
   | `google_iam_binding` | **ASSIGNED** | `google_iam_service_account` |
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
@@ -601,7 +598,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - New properties added to resources:
 
   | Entity                    | Properties             |
-  |---------------------------|------------------------|
+  | ------------------------- | ---------------------- |
   | `google_compute_instance` | `serviceAccountEmails` |
 
 ## 0.42.0 - 2021-06-22
@@ -611,7 +608,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - New properties added to resources:
 
   | Entity                  | Properties            |
-  |-------------------------|-----------------------|
+  | ----------------------- | --------------------- |
   | `google_cloud_function` | `serviceAccountEmail` |
 
 ### Fixed
@@ -626,7 +623,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** relationships:
 
   | Source                   | \_class    | Target                   |
-  |--------------------------|------------|--------------------------|
+  | ------------------------ | ---------- | ------------------------ |
   | `google_compute_network` | `CONNECTS` | `google_compute_network` |
 
 ## 0.40.0 - 2021-06-21
@@ -671,13 +668,13 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** resources:
 
   | Service                | Resource / Entity                                                                                                                                                                                                                                                                                                                                                                                                     |
-  |------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | Access Context Manager | `google_access_context_manager_access_policy`, `google_access_context_manager_access_level`, `google_access_context_manager_service_perimeter`, `google_access_context_manager_service_perimeter_egress_policy`, `google_access_context_manager_service_perimeter_ingress_policy`, `google_access_context_manager_service_perimeter_api_operation`, `google_access_context_manager_service_perimeter_method_selector` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                                                           | \_class    | Target                                                            |
-  |------------------------------------------------------------------|------------|-------------------------------------------------------------------|
+  | ---------------------------------------------------------------- | ---------- | ----------------------------------------------------------------- |
   | `google_access_context_manager_access_policy`                    | `HAS`      | `google_access_context_manager_access_level`                      |
   | `google_access_context_manager_access_policy`                    | `HAS`      | `google_access_context_manager_service_perimeter`                 |
   | `google_access_context_manager_service_perimeter`                | `HAS`      | `google_access_context_manager_service_perimeter_egress_policy`   |
@@ -721,7 +718,7 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** resources:
 
   | Service     | Resource / Entity    |
-  |-------------|----------------------|
+  | ----------- | -------------------- |
   | IAM Binding | `google_iam_binding` |
 
 ## 0.34.2 - 2021-06-06
@@ -749,19 +746,19 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** resources:
 
   | Service  | Resource / Entity       |
-  |----------|-------------------------|
+  | -------- | ----------------------- |
   | BigQuery | `google_bigquery_model` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                    | \_class | Target                  |
-  |---------------------------|---------|-------------------------|
+  | ------------------------- | ------- | ----------------------- |
   | `google_bigquery_dataset` | `HAS`   | `google_bigquery_model` |
 
 - New properties added to resources:
 
   | Entity                                   | Properties                   |
-  |------------------------------------------|------------------------------|
+  | ---------------------------------------- | ---------------------------- |
   | `google_cloud_project`                   | `id`, `projectId`, `webLink` |
   | `google_api_gateway_api`                 | `function`                   |
   | `google_app_engine_version`              | `function`                   |
@@ -779,13 +776,13 @@ Will now have a type of `google_cloud_api_service_has_resource`
 - Added support for ingesting the following **new** resources:
 
   | Service                | Resource / Entity     |
-  |------------------------|-----------------------|
+  | ---------------------- | --------------------- |
   | Cloud Resource Manager | `google_cloud_folder` |
 
 - Added support for ingesting the following **new** relationships:
 
   | Source                      | \_class | Target                 |
-  |-----------------------------|---------|------------------------|
+  | --------------------------- | ------- | ---------------------- |
   | `google_cloud_organization` | `HAS`   | `google_cloud_folder`  |
   | `google_cloud_folder`       | `HAS`   | `google_cloud_folder`  |
   | `google_cloud_organization` | `HAS`   | `google_cloud_project` |
