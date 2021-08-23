@@ -449,6 +449,9 @@ describe('#getStepStartStates success', () => {
       [STEP_AUDIT_CONFIG_IAM_POLICY]: {
         disabled: true,
       },
+      [STEP_AUDIT_CONFIG_IAM_POLICY]: {
+        disabled: true,
+      },
       [STEP_COMPUTE_DISKS]: {
         disabled: false,
       },
