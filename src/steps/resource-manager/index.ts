@@ -36,6 +36,7 @@ import {
   STEP_AUDIT_CONFIG_IAM_POLICY,
   AUDIT_CONFIG_ENTITY_CLASS,
   AUDIT_CONFIG_ENTITY_TYPE,
+  AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -62,6 +63,11 @@ import { createIamRoleEntity } from '../iam/converters';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
 import { CREATE_IAM_ENTITY_MAP } from './createIamEntities';
+import {
+  API_SERVICE_ENTITY_TYPE,
+  STEP_API_SERVICES,
+} from '../service-usage/constants';
+import { getServiceApiEntityKey } from '../service-usage/converters';
 
 export * from './constants';
 
@@ -410,6 +416,23 @@ export async function fetchIamPolicyAuditConfig(
     const auditConfigEntity = createAuditConfigEntity(auditConfig);
     if (auditConfigEntity) {
       await jobState.addEntity(auditConfigEntity);
+
+      const serviceEntity = await jobState.findEntity(
+        getServiceApiEntityKey({
+          projectId: client.projectId,
+          serviceApiName: auditConfig.service as string,
+        }),
+      );
+
+      if (serviceEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.MONITORS,
+            from: auditConfigEntity,
+            to: serviceEntity,
+          }),
+        );
+      }
     }
   });
 }
@@ -549,14 +572,21 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     name: 'Audit Config IAM Policy',
     entities: [
       {
-        resourceName: 'Configuration',
+        resourceName: 'Audit Config',
         _type: AUDIT_CONFIG_ENTITY_TYPE,
         _class: AUDIT_CONFIG_ENTITY_CLASS,
       },
     ],
-    relationships: [],
-    dependsOn: [],
+    relationships: [
+      {
+        _class: RelationshipClass.MONITORS,
+        _type: AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: API_SERVICE_ENTITY_TYPE,
+      },
+    ],
     executionHandler: fetchIamPolicyAuditConfig,
+    dependsOn: [STEP_API_SERVICES],
   },
   {
     id: STEP_RESOURCE_MANAGER_IAM_POLICY,

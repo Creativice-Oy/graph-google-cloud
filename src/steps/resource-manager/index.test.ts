@@ -20,6 +20,7 @@ import {
   ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
   FOLDER_HAS_FOLDER_RELATIONSHIP_TYPE,
   PROJECT_ENTITY_TYPE,
+  AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   Entity,
@@ -28,6 +29,7 @@ import {
   Relationship,
 } from '@jupiterone/integration-sdk-core';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
+import { fetchApiServices } from '../service-usage';
 
 async function executeIamSteps(
   context: MockIntegrationStepExecutionContext<IntegrationConfig>,
@@ -68,7 +70,9 @@ describe('#fetchIamPolicyAuditConfig', () => {
       },
     });
 
+    await fetchResourceManagerProject(context);
     await executeIamSteps(context);
+    await fetchApiServices(context);
     await fetchIamPolicyAuditConfig(context);
 
     expect({
@@ -78,6 +82,119 @@ describe('#fetchIamPolicyAuditConfig', () => {
       collectedRelationships: context.jobState.collectedRelationships,
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
+
+    const userEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === GOOGLE_USER_ENTITY_TYPE,
+    );
+    const iamServiceAccountEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === 'google_iam_service_account',
+    );
+    const iamServiceAccountKeyEntities =
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_iam_service_account_key',
+      );
+    const iamServiceAccountHasKeyRelationships =
+      context.jobState.collectedRelationships.filter(
+        (r) => r._type === 'google_iam_service_account_has_key',
+      );
+
+    expect(userEntities.length).toEqual(0);
+    expect(iamServiceAccountEntities.length).toBeGreaterThanOrEqual(1);
+    expect(iamServiceAccountKeyEntities.length).toBeGreaterThanOrEqual(1);
+    expect(iamServiceAccountHasKeyRelationships.length).toBeGreaterThanOrEqual(
+      1,
+    );
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_project',
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Account'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_project' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          projectId: { type: 'string' },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          parent: { type: 'string' },
+          lifecycleState: { type: 'string' },
+          createdOn: { type: 'number' },
+          updatedOn: { type: 'number' },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_api_service',
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Service'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_api_service' },
+          category: { const: ['infrastructure'] },
+          state: {
+            type: 'string',
+            enum: ['STATE_UNSPECIFIED', 'DISABLED', 'ENABLED'],
+          },
+          enabled: { type: 'boolean' },
+          usageRequirements: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          hasIamPermissions: { type: 'boolean' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedEntities.filter(
+        (e) => e._type === 'google_cloud_audit_config',
+      ),
+    ).toMatchGraphObjectSchema({
+      _class: ['Configuration'],
+      schema: {
+        additionalProperties: false,
+        properties: {
+          _type: { const: 'google_cloud_audit_config' },
+          _rawData: {
+            type: 'array',
+            items: { type: 'object' },
+          },
+          name: { type: 'string' },
+          displayName: { type: 'string' },
+          service: { type: 'string' },
+          logTypes: { type: 'array', items: { type: 'string' } },
+        },
+      },
+    });
+
+    expect(
+      context.jobState.collectedRelationships.filter(
+        (e) => e._type === AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
+      ),
+    ).toMatchDirectRelationshipSchema({
+      schema: {
+        properties: {
+          _class: { const: 'MONITORS' },
+          _type: {
+            const: 'google_cloud_audit_config_monitors_api_service',
+          },
+        },
+      },
+    });
   });
 });
 

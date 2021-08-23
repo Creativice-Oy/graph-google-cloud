@@ -291,6 +291,7 @@ The following entities are created:
 | AppEngine Instance                                       | `google_app_engine_instance`                                      | `Host`                             |
 | AppEngine Service                                        | `google_app_engine_service`                                       | `Container`                        |
 | AppEngine Version                                        | `google_app_engine_version`                                       | `Service`                          |
+| Audit Config                                             | `google_cloud_audit_config`                                       | `Configuration`                    |
 | Big Query Dataset                                        | `google_bigquery_dataset`                                         | `DataStore`, `Database`            |
 | Big Query Model                                          | `google_bigquery_model`                                           | `Model`                            |
 | Big Query Table                                          | `google_bigquery_table`                                           | `DataCollection`                   |
@@ -323,7 +324,6 @@ The following entities are created:
 | Compute Snapshot                                         | `google_compute_snapshot`                                         | `Image`                            |
 | Compute Subnetwork                                       | `google_compute_subnetwork`                                       | `Network`                          |
 | Compute Target SSL Proxy                                 | `google_compute_target_ssl_proxy`                                 | `Gateway`                          |
-| Configuration                                            | `google_cloud_audit_config`                                       | `Configuration`                    |
 | Container Cluster                                        | `google_container_cluster`                                        | `Cluster`                          |
 | Container Node Pool                                      | `google_container_node_pool`                                      | `Group`                            |
 | DNS Managed Zone                                         | `google_dns_managed_zone`                                         | `DomainZone`                       |
@@ -381,6 +381,7 @@ The following relationships are created/mapped:
 | `google_bigquery_dataset`                                        | **HAS**               | `google_bigquery_table`                                           |
 | `google_bigquery_dataset`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
+| `google_cloud_audit_config`                                      | **MONITORS**          | `google_cloud_api_service`                                        |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |
 | `google_cloud_function`                                          | **USES**              | `google_iam_service_account`                                      |
