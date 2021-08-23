@@ -8,6 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                      | class        | Target                       |
+  | --------------------------- | ------------ | ---------------------------- |
+  | `google_cloud_audit_config` | **ALLOWS**   | `google_iam_service_account` |
+  | `google_cloud_audit_config` | **ALLOWS**   | `google_user`                |
+  | `google_cloud_audit_config` | **ALLOWS**   | `google_domain`              |
+  | `google_cloud_audit_config` | **ALLOWS**   | `google_group`               |
+
 ## 0.49.0 - 2021-09-14
 
 ### Added
@@ -76,11 +87,6 @@ and this project adheres to
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
   | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
   | `google_user`        | **CREATED**  | `google_app_engine_version`  |
-
-- Separate the step to build `google_bigquery_dataset_uses_kms_crypto_key`
-  relationship
-- Modified `google_bigquery_dataset` step to be independent from
-  `google_kms_crypto_key` step
 
 ## 0.48.0 - 2021-08-27
 
