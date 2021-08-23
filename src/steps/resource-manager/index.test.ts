@@ -11,6 +11,7 @@ import {
   fetchResourceManagerOrganization,
   fetchResourceManagerProject,
   buildOrgFolderProjectMappedRelationships,
+  fetchIamPolicyAuditConfig,
 } from '.';
 import { integrationConfig } from '../../../test/config';
 import { iamSteps, GOOGLE_USER_ENTITY_TYPE } from '../iam';
@@ -35,6 +36,50 @@ async function executeIamSteps(
     await step.executionHandler(context);
   }
 }
+
+describe('#fetchIamPolicyAuditConfig', () => {
+  let recording: Recording;
+
+  beforeEach(() => {
+    recording = setupGoogleCloudRecording({
+      directory: __dirname,
+      name: 'fetchIamPolicyAuditConfig',
+    });
+  });
+
+  afterEach(async () => {
+    if (recording) {
+      await recording.stop();
+    }
+  });
+
+  test('should collect data', async () => {
+    const context = createMockStepExecutionContext<IntegrationConfig>({
+      instanceConfig: {
+        ...integrationConfig,
+        serviceAccountKeyFile: integrationConfig.serviceAccountKeyFile.replace(
+          'j1-gc-integration-dev-v2',
+          'j1-gc-integration-dev-v3',
+        ),
+        serviceAccountKeyConfig: {
+          ...integrationConfig.serviceAccountKeyConfig,
+          project_id: 'j1-gc-integration-dev-v3',
+        },
+      },
+    });
+
+    await executeIamSteps(context);
+    await fetchIamPolicyAuditConfig(context);
+
+    expect({
+      numCollectedEntities: context.jobState.collectedEntities.length,
+      numCollectedRelationships: context.jobState.collectedRelationships.length,
+      collectedEntities: context.jobState.collectedEntities,
+      collectedRelationships: context.jobState.collectedRelationships,
+      encounteredTypes: context.jobState.encounteredTypes,
+    }).toMatchSnapshot();
+  });
+});
 
 describe('#fetchResourceManagerIamPolicy', () => {
   let recording: Recording;

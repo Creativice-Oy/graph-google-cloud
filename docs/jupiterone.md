@@ -323,6 +323,7 @@ The following entities are created:
 | Compute Snapshot                                         | `google_compute_snapshot`                                         | `Image`                            |
 | Compute Subnetwork                                       | `google_compute_subnetwork`                                       | `Network`                          |
 | Compute Target SSL Proxy                                 | `google_compute_target_ssl_proxy`                                 | `Gateway`                          |
+| Configuration                                            | `google_cloud_audit_config`                                       | `Configuration`                    |
 | Container Cluster                                        | `google_container_cluster`                                        | `Cluster`                          |
 | Container Node Pool                                      | `google_container_node_pool`                                      | `Group`                            |
 | DNS Managed Zone                                         | `google_dns_managed_zone`                                         | `DomainZone`                       |

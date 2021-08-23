@@ -10,6 +10,7 @@ import {
 import { ResourceManagerClient } from './client';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
+  createAuditConfigEntity,
   createFolderEntity,
   createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship,
   createOrganizationEntity,
@@ -32,6 +33,9 @@ import {
   STEP_RESOURCE_MANAGER_ORG_PROJECT_RELATIONSHIPS,
   ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE,
   FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE,
+  STEP_AUDIT_CONFIG_IAM_POLICY,
+  AUDIT_CONFIG_ENTITY_CLASS,
+  AUDIT_CONFIG_ENTITY_TYPE,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -393,6 +397,23 @@ export async function fetchResourceManagerProject(
   await jobState.addEntity(projectEntity);
 }
 
+export async function fetchIamPolicyAuditConfig(
+  context: IntegrationStepContext,
+): Promise<void> {
+  const {
+    instance: { config },
+    jobState,
+  } = context;
+  const client = new ResourceManagerClient({ config });
+
+  await client.iteratePolicyAuditConfigs(async (auditConfig) => {
+    const auditConfigEntity = createAuditConfigEntity(auditConfig);
+    if (auditConfigEntity) {
+      await jobState.addEntity(auditConfigEntity);
+    }
+  });
+}
+
 export async function fetchResourceManagerIamPolicy(
   context: IntegrationStepContext,
 ): Promise<void> {
@@ -522,6 +543,20 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchResourceManagerProject,
+  },
+  {
+    id: STEP_AUDIT_CONFIG_IAM_POLICY,
+    name: 'Audit Config IAM Policy',
+    entities: [
+      {
+        resourceName: 'Configuration',
+        _type: AUDIT_CONFIG_ENTITY_TYPE,
+        _class: AUDIT_CONFIG_ENTITY_CLASS,
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchIamPolicyAuditConfig,
   },
   {
     id: STEP_RESOURCE_MANAGER_IAM_POLICY,

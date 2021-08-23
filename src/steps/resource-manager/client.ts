@@ -103,11 +103,21 @@ export class ResourceManagerClient extends Client {
     return result.data;
   }
 
+  async iteratePolicyAuditConfigs(
+    callback: (
+      data: cloudresourcemanager_v3.Schema$AuditConfig,
+    ) => Promise<void>,
+  ) {
+    const policy = await this.getServiceAccountPolicy();
+    for (const auditConfig of policy.auditConfigs || []) {
+      await callback(auditConfig);
+    }
+  }
+
   async iteratePolicyMemberBindings(
     callback: (data: PolicyMemberBinding) => Promise<void>,
   ) {
     const policy = await this.getServiceAccountPolicy();
-
     for (const binding of policy.bindings || []) {
       for (const member of binding.members || []) {
         await callback({
