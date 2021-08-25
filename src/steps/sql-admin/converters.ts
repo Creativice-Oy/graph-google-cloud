@@ -19,12 +19,21 @@ function getFlagValue(
   return targetFlag?.value;
 }
 
+function mapToBool(value: string | null | undefined): boolean | undefined {
+  if (!value) {
+    return undefined;
+  }
+  return value === 'on' ? true : false;
+}
+
 function getMySQLSpecificBenchmarkProperties(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
   return {
     // 6.1.2 Ensure that the 'local_infile' database flag for a Cloud SQL Mysql instance is set to 'off' (Scored)
     localInfile: getFlagValue(instance, 'local_infile'),
+    // (from the new CIS benchmark) 6.1.2 Ensure 'skip_show_database' database flag for Cloud SQL Mysql instance is set to 'on'
+    skipShowDatabase: mapToBool(getFlagValue(instance, 'skip_show_database')),
   };
 }
 
@@ -49,6 +58,10 @@ function getPostgresSpecificBenchmarkProperties(
       instance,
       'log_min_duration_statement',
     ),
+    // (from the new CIS benchmark) 6.2.5 Ensure 'log_duration' database flag for Cloud SQL PostgreSQL instance is set to 'on'
+    logDuration: getFlagValue(instance, 'log_duration'),
+    // (from the new CIS benchmark) 6.2.2 Ensure 'log_error_verbosity' database flag for Cloud SQL PostgreSQL instance is set to 'DEFAULT' or stricter
+    logErrorVerbosity: getFlagValue(instance, 'log_error_verbosity'),
   };
 }
 
