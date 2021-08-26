@@ -82,7 +82,7 @@ describe('#fetchSQLInstances', () => {
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
-          skipShowDatabase: { type: 'boolean' },
+          skipShowDatabase: { type: 'string' },
         },
       },
     });
@@ -232,7 +232,7 @@ describe('#fetchSQLInstances encrypted', () => {
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
-          skipShowDatabase: { type: 'boolean' },
+          skipShowDatabase: { type: 'string' },
         },
       },
     });
@@ -262,8 +262,8 @@ describe('#fetchSQLInstances encrypted', () => {
           logMinErrorStatement: { type: 'string' },
           logTempFiles: { type: 'string' },
           logMinDurationStatement: { type: 'string' },
-          // logDuration: { type: 'string ' },
-          // logErrorVerbosity: { type: 'string' },
+          logDuration: { type: 'string ' },
+          logErrorVerbosity: { type: 'string' },
           requireSSL: { type: 'boolean' },
           authorizedNetworks: {
             type: 'array',

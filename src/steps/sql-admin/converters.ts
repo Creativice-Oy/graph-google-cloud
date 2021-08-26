@@ -19,13 +19,6 @@ function getFlagValue(
   return targetFlag?.value;
 }
 
-function mapToBool(value: string | null | undefined): boolean | undefined {
-  if (!value) {
-    return undefined;
-  }
-  return value === 'on' ? true : false;
-}
-
 function getMySQLSpecificBenchmarkProperties(
   instance: sqladmin_v1beta4.Schema$DatabaseInstance,
 ) {
@@ -33,7 +26,7 @@ function getMySQLSpecificBenchmarkProperties(
     // 6.1.2 Ensure that the 'local_infile' database flag for a Cloud SQL Mysql instance is set to 'off' (Scored)
     localInfile: getFlagValue(instance, 'local_infile'),
     // (from the new CIS benchmark) 6.1.2 Ensure 'skip_show_database' database flag for Cloud SQL Mysql instance is set to 'on'
-    skipShowDatabase: mapToBool(getFlagValue(instance, 'skip_show_database')),
+    skipShowDatabase: getFlagValue(instance, 'skip_show_database'),
   };
 }
 
