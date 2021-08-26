@@ -1301,6 +1301,34 @@ Object {
     },
     Object {
       "_class": Array [
+        "AccessKey",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0c7fc9f96552549f3897d9bdcac5f6c3fa79f0e6",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "keyAlgorithm": "KEY_ALG_RSA_2048",
+            "keyOrigin": "GOOGLE_PROVIDED",
+            "keyType": "SYSTEM_MANAGED",
+            "name": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0c7fc9f96552549f3897d9bdcac5f6c3fa79f0e6",
+            "validAfterTime": "2021-08-25T17:52:33Z",
+            "validBeforeTime": "2021-09-10T17:52:33Z",
+          },
+        },
+      ],
+      "_type": "google_iam_service_account_key",
+      "algorithm": "KEY_ALG_RSA_2048",
+      "createdOn": 1629913953000,
+      "displayName": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0c7fc9f96552549f3897d9bdcac5f6c3fa79f0e6",
+      "expiresOn": 1631296353000,
+      "name": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0c7fc9f96552549f3897d9bdcac5f6c3fa79f0e6",
+      "origin": "GOOGLE_PROVIDED",
+      "type": "SYSTEM_MANAGED",
+      "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
+    },
+    Object {
+      "_class": Array [
         "User",
       ],
       "_key": "j1-gc-integration-dev-v3@appspot.gserviceaccount.com",
@@ -11434,6 +11462,7 @@ for a time period of 60 days.",
                       "key": "netapp.com/cloudvolume/volume_id",
                     },
                   ],
+                  "launchStage": "DEPRECATED",
                   "type": "cloudvolumesgcp-api.netapp.com/netapp_cloud_volume",
                 },
                 Object {
@@ -11453,24 +11482,32 @@ for a time period of 60 days.",
                       "key": "volume_id",
                     },
                   ],
-                  "launchStage": "BETA",
+                  "launchStage": "DEPRECATED",
                   "type": "cloudvolumesgcp-api.netapp.com/CloudVolumeSO",
                 },
                 Object {
-                  "description": "Monitored Resource for NetApp CVS-Replication.",
-                  "displayName": "Monitored Resource for NetApp CVS-Replication",
+                  "description": "Monitored Resource for NetApp CVS.",
+                  "displayName": "Monitored Resource for NetApp CVS",
                   "labels": Array [
                     Object {
                       "description": "Project information.",
                       "key": "resource_container",
                     },
                     Object {
-                      "description": "Region/Zone information for the volume.",
+                      "description": "Region/Zone information.",
                       "key": "location",
                     },
                     Object {
                       "description": "ID of the volume.",
                       "key": "volume_id",
+                    },
+                    Object {
+                      "description": "Service type of the volume or replication relationship.",
+                      "key": "service_type",
+                    },
+                    Object {
+                      "description": "Name of the volume or replication relationship.",
+                      "key": "name",
                     },
                   ],
                   "launchStage": "BETA",
@@ -11512,6 +11549,15 @@ for a time period of 60 days.",
                   },
                   Object {
                     "metrics": Array [
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/volume_usage",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/volume_size",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/operation_count",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/read_bytes_count",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/write_bytes_count",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/request_latencies",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/inode_allocation",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/inode_usage",
+                      "cloudvolumesgcp-api.netapp.com/cloudvolume/logical_bytes_backed_up",
                       "cloudvolumesgcp-api.netapp.com/cloudvolume/replication_healthy",
                       "cloudvolumesgcp-api.netapp.com/cloudvolume/replication_last_transfer_duration",
                       "cloudvolumesgcp-api.netapp.com/cloudvolume/replication_last_transfer_size",
@@ -11537,7 +11583,11 @@ for a time period of 60 days.",
               "name": "cloudvolumesgcp-api.netapp.com",
               "quota": Object {},
               "title": "NetApp Cloud Volumes API",
-              "usage": Object {},
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/service-procured",
+                ],
+              },
             },
             "name": "projects/167984947943/services/cloudvolumesgcp-api.netapp.com",
             "parent": "projects/167984947943",
@@ -11559,7 +11609,9 @@ for a time period of 60 days.",
       "hasIamPermissions": true,
       "name": "cloudvolumesgcp-api.netapp.com",
       "state": "DISABLED",
-      "usageRequirements": undefined,
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/service-procured",
+      ],
     },
     Object {
       "_class": Array [
@@ -14352,113 +14404,8 @@ for a time period of 60 days.",
                   "launchStage": "BETA",
                   "type": "datamigration.googleapis.com/ConnectionProfile",
                 },
-                Object {
-                  "labels": Array [
-                    Object {
-                      "key": "cloud.googleapis.com/location",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/uid",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/api_version",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/api_method",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/consumer_project",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/project",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/service",
-                    },
-                  ],
-                  "type": "serviceruntime.googleapis.com/api",
-                },
-                Object {
-                  "labels": Array [
-                    Object {
-                      "key": "cloud.googleapis.com/location",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/uid",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/service",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_id",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_node",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_metric",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_location",
-                    },
-                  ],
-                  "type": "serviceruntime.googleapis.com/consumer_quota",
-                },
-                Object {
-                  "labels": Array [
-                    Object {
-                      "key": "cloud.googleapis.com/location",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/uid",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/service",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_id",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_node",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/consumer_resource_node",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_metric",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_location",
-                    },
-                  ],
-                  "type": "serviceruntime.googleapis.com/producer_quota",
-                },
               ],
-              "monitoring": Object {
-                "consumerDestinations": Array [
-                  Object {
-                    "metrics": Array [
-                      "serviceruntime.googleapis.com/api/consumer/quota_used_count",
-                      "serviceruntime.googleapis.com/api/consumer/quota_refund_count",
-                      "serviceruntime.googleapis.com/quota/used",
-                      "serviceruntime.googleapis.com/quota/limit",
-                      "serviceruntime.googleapis.com/quota/exceeded",
-                      "serviceruntime.googleapis.com/allocation/consumer/quota_used_count",
-                    ],
-                    "monitoredResource": "serviceruntime.googleapis.com/api",
-                  },
-                  Object {
-                    "metrics": Array [
-                      "serviceruntime.googleapis.com/quota/rate/consumer/used_count",
-                      "serviceruntime.googleapis.com/quota/rate/consumer/refund_count",
-                      "serviceruntime.googleapis.com/quota/allocation/consumer/usage",
-                      "serviceruntime.googleapis.com/quota/consumer/limit",
-                      "serviceruntime.googleapis.com/quota/consumer/exceeded",
-                    ],
-                    "monitoredResource": "serviceruntime.googleapis.com/consumer_quota",
-                  },
-                ],
-              },
+              "monitoring": Object {},
               "name": "datamigration.googleapis.com",
               "quota": Object {},
               "title": "Database Migration API",
@@ -24328,6 +24275,46 @@ servers for fetching message definitions.
       "_class": Array [
         "Service",
       ],
+      "_key": "projects/j1-gc-integration-dev-v3/services/insightfinder-unified-intelligence-engine-uie.endpoints.insightfinder-public.cloud.goog",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {},
+              "monitoring": Object {},
+              "name": "insightfinder-unified-intelligence-engine-uie.endpoints.insightfinder-public.cloud.goog",
+              "quota": Object {},
+              "title": "InsightFinder Unified Intelligence Engine (UIE)",
+              "usage": Object {},
+            },
+            "name": "projects/167984947943/services/insightfinder-unified-intelligence-engine-uie.endpoints.insightfinder-public.cloud.goog",
+            "parent": "projects/167984947943",
+            "state": "DISABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "InsightFinder Unified Intelligence Engine (UIE)",
+      "enabled": false,
+      "function": Array [
+        "api-enablement",
+      ],
+      "hasIamPermissions": false,
+      "name": "insightfinder-unified-intelligence-engine-uie.endpoints.insightfinder-public.cloud.goog",
+      "state": "DISABLED",
+      "usageRequirements": undefined,
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
       "_key": "projects/j1-gc-integration-dev-v3/services/ionq.endpoints.ionq-public.cloud.goog",
       "_rawData": Array [
         Object {
@@ -28295,6 +28282,56 @@ The table entries below are presented in alphabetical order, not in order of com
       "_class": Array [
         "Service",
       ],
+      "_key": "projects/j1-gc-integration-dev-v3/services/mybusinessbusinessinformation.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "The My Business Business Information API provides an interface for managing business information on Google.",
+              },
+              "monitoring": Object {},
+              "name": "mybusinessbusinessinformation.googleapis.com",
+              "quota": Object {},
+              "title": "My Business Business Information API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/universal",
+                  "serviceusage.googleapis.com/tos/mybusiness",
+                ],
+              },
+            },
+            "name": "projects/167984947943/services/mybusinessbusinessinformation.googleapis.com",
+            "parent": "projects/167984947943",
+            "state": "DISABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "The My Business Business Information API provides an interface for managing business information on Google.",
+      "displayName": "My Business Business Information API",
+      "enabled": false,
+      "function": Array [
+        "api-enablement",
+      ],
+      "hasIamPermissions": false,
+      "name": "mybusinessbusinessinformation.googleapis.com",
+      "state": "DISABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/universal",
+        "serviceusage.googleapis.com/tos/mybusiness",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
       "_key": "projects/j1-gc-integration-dev-v3/services/mybusinesslodging.googleapis.com",
       "_rawData": Array [
         Object {
@@ -28445,6 +28482,96 @@ The table entries below are presented in alphabetical order, not in order of com
       "_class": Array [
         "Service",
       ],
+      "_key": "projects/j1-gc-integration-dev-v3/services/mybusinessverifications.googleapis.com",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {
+                "summary": "The My Business Verifications API provides an interface for taking verifications related actions for locations.",
+              },
+              "monitoring": Object {},
+              "name": "mybusinessverifications.googleapis.com",
+              "quota": Object {},
+              "title": "My Business Verifications API",
+              "usage": Object {
+                "requirements": Array [
+                  "serviceusage.googleapis.com/tos/universal",
+                  "serviceusage.googleapis.com/tos/mybusiness",
+                ],
+              },
+            },
+            "name": "projects/167984947943/services/mybusinessverifications.googleapis.com",
+            "parent": "projects/167984947943",
+            "state": "DISABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": "The My Business Verifications API provides an interface for taking verifications related actions for locations.",
+      "displayName": "My Business Verifications API",
+      "enabled": false,
+      "function": Array [
+        "api-enablement",
+      ],
+      "hasIamPermissions": false,
+      "name": "mybusinessverifications.googleapis.com",
+      "state": "DISABLED",
+      "usageRequirements": Array [
+        "serviceusage.googleapis.com/tos/universal",
+        "serviceusage.googleapis.com/tos/mybusiness",
+      ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/services/nasuni-edge-appliance.endpoints.nasuni-public.cloud.goog",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {},
+              "monitoring": Object {},
+              "name": "nasuni-edge-appliance.endpoints.nasuni-public.cloud.goog",
+              "quota": Object {},
+              "title": "Nasuni Edge Appliance",
+              "usage": Object {},
+            },
+            "name": "projects/167984947943/services/nasuni-edge-appliance.endpoints.nasuni-public.cloud.goog",
+            "parent": "projects/167984947943",
+            "state": "DISABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "Nasuni Edge Appliance",
+      "enabled": false,
+      "function": Array [
+        "api-enablement",
+      ],
+      "hasIamPermissions": false,
+      "name": "nasuni-edge-appliance.endpoints.nasuni-public.cloud.goog",
+      "state": "DISABLED",
+      "usageRequirements": undefined,
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
       "_key": "projects/j1-gc-integration-dev-v3/services/nasuni-files-for-google-cloud-platform.endpoints.nasuni-public.cloud.goog",
       "_rawData": Array [
         Object {
@@ -28518,6 +28645,46 @@ The table entries below are presented in alphabetical order, not in order of com
       ],
       "hasIamPermissions": false,
       "name": "nasuni-for-gcp.endpoints.nasuni-public.cloud.goog",
+      "state": "DISABLED",
+      "usageRequirements": undefined,
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/services/nasuni-management-console.endpoints.nasuni-public.cloud.goog",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {},
+              "monitoring": Object {},
+              "name": "nasuni-management-console.endpoints.nasuni-public.cloud.goog",
+              "quota": Object {},
+              "title": "Nasuni Management Console",
+              "usage": Object {},
+            },
+            "name": "projects/167984947943/services/nasuni-management-console.endpoints.nasuni-public.cloud.goog",
+            "parent": "projects/167984947943",
+            "state": "DISABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "Nasuni Management Console",
+      "enabled": false,
+      "function": Array [
+        "api-enablement",
+      ],
+      "hasIamPermissions": false,
+      "name": "nasuni-management-console.endpoints.nasuni-public.cloud.goog",
       "state": "DISABLED",
       "usageRequirements": undefined,
     },
@@ -31133,6 +31300,46 @@ The table entries below are presented in alphabetical order, not in order of com
       "usageRequirements": Array [
         "serviceusage.googleapis.com/tos/maps",
       ],
+    },
+    Object {
+      "_class": Array [
+        "Service",
+      ],
+      "_key": "projects/j1-gc-integration-dev-v3/services/plainsight-vision-ai.endpoints.plainsight-public.cloud.goog",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "config": Object {
+              "authentication": Object {},
+              "documentation": Object {},
+              "monitoring": Object {},
+              "name": "plainsight-vision-ai.endpoints.plainsight-public.cloud.goog",
+              "quota": Object {},
+              "title": "Plainsight",
+              "usage": Object {},
+            },
+            "name": "projects/167984947943/services/plainsight-vision-ai.endpoints.plainsight-public.cloud.goog",
+            "parent": "projects/167984947943",
+            "state": "DISABLED",
+          },
+        },
+      ],
+      "_type": "google_cloud_api_service",
+      "category": Array [
+        "infrastructure",
+      ],
+      "createdOn": undefined,
+      "description": undefined,
+      "displayName": "Plainsight",
+      "enabled": false,
+      "function": Array [
+        "api-enablement",
+      ],
+      "hasIamPermissions": false,
+      "name": "plainsight-vision-ai.endpoints.plainsight-public.cloud.goog",
+      "state": "DISABLED",
+      "usageRequirements": undefined,
     },
     Object {
       "_class": Array [
@@ -38135,44 +38342,7 @@ own APIs.",
               "documentation": Object {
                 "summary": "Transfers data from external data sources to a Google Cloud Storage bucket or between Google Cloud Storage buckets.",
               },
-              "monitoredResources": Array [
-                Object {
-                  "labels": Array [
-                    Object {
-                      "key": "cloud.googleapis.com/location",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/uid",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/api_version",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/api_method",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/consumer_project",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/project",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/service",
-                    },
-                  ],
-                  "type": "serviceruntime.googleapis.com/api",
-                },
-              ],
-              "monitoring": Object {
-                "consumerDestinations": Array [
-                  Object {
-                    "metrics": Array [
-                      "serviceruntime.googleapis.com/api/consumer/quota_used_count",
-                    ],
-                    "monitoredResource": "serviceruntime.googleapis.com/api",
-                  },
-                ],
-              },
+              "monitoring": Object {},
               "name": "storagetransfer.googleapis.com",
               "quota": Object {},
               "title": "Storage Transfer API",
@@ -40076,8 +40246,7 @@ own APIs.",
               "usage": Object {
                 "requirements": Array [
                   "serviceusage.googleapis.com/billing-enabled",
-                  "serviceusage.googleapis.com/tos/universal",
-                  "serviceusage.googleapis.com/tos/transcoder",
+                  "serviceusage.googleapis.com/tos/cloud",
                 ],
               },
             },
@@ -40104,8 +40273,7 @@ own APIs.",
       "state": "DISABLED",
       "usageRequirements": Array [
         "serviceusage.googleapis.com/billing-enabled",
-        "serviceusage.googleapis.com/tos/universal",
-        "serviceusage.googleapis.com/tos/transcoder",
+        "serviceusage.googleapis.com/tos/cloud",
       ],
     },
     Object {
@@ -41608,114 +41776,7 @@ own APIs.",
                 "summary": "The Google Web Fonts Developer API lets you retrieve information about web fonts served
     by Google.",
               },
-              "monitoredResources": Array [
-                Object {
-                  "labels": Array [
-                    Object {
-                      "key": "cloud.googleapis.com/location",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/uid",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/api_version",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/api_method",
-                    },
-                    Object {
-                      "key": "serviceruntime.googleapis.com/consumer_project",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/project",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/service",
-                    },
-                  ],
-                  "type": "serviceruntime.googleapis.com/api",
-                },
-                Object {
-                  "labels": Array [
-                    Object {
-                      "key": "cloud.googleapis.com/location",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/uid",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/service",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_id",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_node",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_metric",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_location",
-                    },
-                  ],
-                  "type": "serviceruntime.googleapis.com/consumer_quota",
-                },
-                Object {
-                  "labels": Array [
-                    Object {
-                      "key": "cloud.googleapis.com/location",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/uid",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/service",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_id",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/resource_node",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/consumer_resource_node",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_metric",
-                    },
-                    Object {
-                      "key": "cloud.googleapis.com/quota_location",
-                    },
-                  ],
-                  "type": "serviceruntime.googleapis.com/producer_quota",
-                },
-              ],
-              "monitoring": Object {
-                "consumerDestinations": Array [
-                  Object {
-                    "metrics": Array [
-                      "serviceruntime.googleapis.com/api/consumer/quota_used_count",
-                      "serviceruntime.googleapis.com/api/consumer/quota_refund_count",
-                      "serviceruntime.googleapis.com/quota/used",
-                      "serviceruntime.googleapis.com/quota/limit",
-                      "serviceruntime.googleapis.com/quota/exceeded",
-                      "serviceruntime.googleapis.com/allocation/consumer/quota_used_count",
-                    ],
-                    "monitoredResource": "serviceruntime.googleapis.com/api",
-                  },
-                  Object {
-                    "metrics": Array [
-                      "serviceruntime.googleapis.com/quota/rate/consumer/used_count",
-                      "serviceruntime.googleapis.com/quota/rate/consumer/refund_count",
-                      "serviceruntime.googleapis.com/quota/allocation/consumer/usage",
-                      "serviceruntime.googleapis.com/quota/consumer/limit",
-                      "serviceruntime.googleapis.com/quota/consumer/exceeded",
-                    ],
-                    "monitoredResource": "serviceruntime.googleapis.com/consumer_quota",
-                  },
-                ],
-              },
+              "monitoring": Object {},
               "name": "webfonts.googleapis.com",
               "quota": Object {},
               "title": "Web Fonts Developer API",
@@ -42721,6 +42782,33 @@ own APIs.",
       "_class": Array [
         "Configuration",
       ],
+      "_key": "auditConfig:allServices",
+      "_rawData": Array [
+        Object {
+          "name": "default",
+          "rawData": Object {
+            "auditLogConfigs": Array [
+              Object {
+                "logType": "ADMIN_READ",
+              },
+            ],
+            "service": "allServices",
+          },
+        },
+      ],
+      "_type": "google_cloud_audit_config",
+      "createdOn": undefined,
+      "displayName": "auditConfig:allServices",
+      "logTypes": Array [
+        "ADMIN_READ",
+      ],
+      "name": "auditConfig:allServices",
+      "service": "allServices",
+    },
+    Object {
+      "_class": Array [
+        "Configuration",
+      ],
       "_key": "auditConfig:dataproc.googleapis.com",
       "_rawData": Array [
         Object {
@@ -42766,9 +42854,6 @@ own APIs.",
                 "exemptedMembers": Array [
                   "serviceAccount:j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
                 ],
-                "logType": "DATA_READ",
-              },
-              Object {
                 "logType": "DATA_WRITE",
               },
             ],
@@ -42780,7 +42865,6 @@ own APIs.",
       "createdOn": undefined,
       "displayName": "auditConfig:binaryauthorization.googleapis.com",
       "logTypes": Array [
-        "DATA_READ",
         "DATA_WRITE",
       ],
       "name": "auditConfig:binaryauthorization.googleapis.com",
@@ -42982,6 +43066,15 @@ own APIs.",
       "_fromEntityKey": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
       "_key": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/1e957395666747707880728b1d282480fca184fd",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/1e957395666747707880728b1d282480fca184fd",
+      "_type": "google_iam_service_account_has_key",
+      "displayName": "HAS",
+      "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      "_key": "demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com|has|projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0c7fc9f96552549f3897d9bdcac5f6c3fa79f0e6",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/serviceAccounts/demo-j1-sa@j1-gc-integration-dev-v3.iam.gserviceaccount.com/keys/0c7fc9f96552549f3897d9bdcac5f6c3fa79f0e6",
       "_type": "google_iam_service_account_has_key",
       "displayName": "HAS",
       "webLink": "https://console.cloud.google.com/iam-admin/serviceaccounts/details/104510319565846337835?orgonly=true&project=j1-gc-integration-dev-v3&supportedpurview=organizationId",
@@ -44914,6 +45007,14 @@ own APIs.",
     Object {
       "_class": "HAS",
       "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/insightfinder-unified-intelligence-engine-uie.endpoints.insightfinder-public.cloud.goog",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/insightfinder-unified-intelligence-engine-uie.endpoints.insightfinder-public.cloud.goog",
+      "_type": "google_cloud_project_has_api_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/ionq.endpoints.ionq-public.cloud.goog",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/ionq.endpoints.ionq-public.cloud.goog",
       "_type": "google_cloud_project_has_api_service",
@@ -45218,6 +45319,14 @@ own APIs.",
     Object {
       "_class": "HAS",
       "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/mybusinessbusinessinformation.googleapis.com",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/mybusinessbusinessinformation.googleapis.com",
+      "_type": "google_cloud_project_has_api_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/mybusinesslodging.googleapis.com",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/mybusinesslodging.googleapis.com",
       "_type": "google_cloud_project_has_api_service",
@@ -45242,6 +45351,22 @@ own APIs.",
     Object {
       "_class": "HAS",
       "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/mybusinessverifications.googleapis.com",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/mybusinessverifications.googleapis.com",
+      "_type": "google_cloud_project_has_api_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/nasuni-edge-appliance.endpoints.nasuni-public.cloud.goog",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/nasuni-edge-appliance.endpoints.nasuni-public.cloud.goog",
+      "_type": "google_cloud_project_has_api_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/nasuni-files-for-google-cloud-platform.endpoints.nasuni-public.cloud.goog",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/nasuni-files-for-google-cloud-platform.endpoints.nasuni-public.cloud.goog",
       "_type": "google_cloud_project_has_api_service",
@@ -45252,6 +45377,14 @@ own APIs.",
       "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/nasuni-for-gcp.endpoints.nasuni-public.cloud.goog",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/nasuni-for-gcp.endpoints.nasuni-public.cloud.goog",
+      "_type": "google_cloud_project_has_api_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/nasuni-management-console.endpoints.nasuni-public.cloud.goog",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/nasuni-management-console.endpoints.nasuni-public.cloud.goog",
       "_type": "google_cloud_project_has_api_service",
       "displayName": "HAS",
     },
@@ -45492,6 +45625,14 @@ own APIs.",
       "_fromEntityKey": "projects/167984947943",
       "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/places-backend.googleapis.com",
       "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/places-backend.googleapis.com",
+      "_type": "google_cloud_project_has_api_service",
+      "displayName": "HAS",
+    },
+    Object {
+      "_class": "HAS",
+      "_fromEntityKey": "projects/167984947943",
+      "_key": "projects/167984947943|has|projects/j1-gc-integration-dev-v3/services/plainsight-vision-ai.endpoints.plainsight-public.cloud.goog",
+      "_toEntityKey": "projects/j1-gc-integration-dev-v3/services/plainsight-vision-ai.endpoints.plainsight-public.cloud.goog",
       "_type": "google_cloud_project_has_api_service",
       "displayName": "HAS",
     },
@@ -46539,8 +46680,8 @@ own APIs.",
     "google_cloud_audit_config",
     "google_cloud_audit_config_monitors_api_service",
   ],
-  "numCollectedEntities": 476,
-  "numCollectedRelationships": 464,
+  "numCollectedEntities": 484,
+  "numCollectedRelationships": 471,
 }
 `;
 
