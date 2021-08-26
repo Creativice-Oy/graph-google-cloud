@@ -262,7 +262,7 @@ describe('#fetchSQLInstances encrypted', () => {
           logMinErrorStatement: { type: 'string' },
           logTempFiles: { type: 'string' },
           logMinDurationStatement: { type: 'string' },
-          logDuration: { type: 'string ' },
+          logDuration: { type: 'string' },
           logErrorVerbosity: { type: 'string' },
           requireSSL: { type: 'boolean' },
           authorizedNetworks: {
