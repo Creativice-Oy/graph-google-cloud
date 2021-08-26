@@ -55,6 +55,18 @@ function getPostgresSpecificBenchmarkProperties(
     logDuration: getFlagValue(instance, 'log_duration'),
     // (from the new CIS benchmark) 6.2.2 Ensure 'log_error_verbosity' database flag for Cloud SQL PostgreSQL instance is set to 'DEFAULT' or stricter
     logErrorVerbosity: getFlagValue(instance, 'log_error_verbosity'),
+    // 6.2.7 (v1.2.0) Ensure 'log_statement' database flag for Cloud SQL PostgreSQL instance is set appropriately
+    logStatement: getFlagValue(instance, 'log_statement'),
+    // 6.2.8 Ensure 'log_hostname' database flag for Cloud SQL PostgreSQL instance is set appropriately
+    logHostname: getFlagValue(instance, 'log_hostname'),
+    // 6.2.9 Ensure 'log_parser_stats' database flag for Cloud SQL PostgreSQL instance is set to 'off'
+    logParserStats: getFlagValue(instance, 'log_parser_stats'),
+    // 6.2.10 Ensure 'log_planner_stats' database flag for Cloud SQL PostgreSQL instance is set to 'off'
+    logPlannerStats: getFlagValue(instance, 'log_planner_stats'),
+    // 6.2.11 Ensure 'log_executor_stats' database flag for Cloud SQL PostgreSQL instance is set to 'off'
+    logExecutorStats: getFlagValue(instance, 'log_executor_stats'),
+    // 6.2.12 Ensure 'log_statement_stats' database flag for Cloud SQL PostgreSQL instance is set to 'off'
+    logStatementStats: getFlagValue(instance, 'log_statement_stats'),
   };
 }
 
