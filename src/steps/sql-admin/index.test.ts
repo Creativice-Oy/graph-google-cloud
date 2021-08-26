@@ -1,4 +1,4 @@
-jest.setTimeout(1000 * 60 * 2);
+jest.setTimeout(60000);
 
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { fetchSQLAdminInstances } from '.';
