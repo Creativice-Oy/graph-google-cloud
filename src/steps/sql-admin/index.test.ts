@@ -1,5 +1,3 @@
-jest.setTimeout(60000);
-
 import { createMockStepExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { fetchSQLAdminInstances } from '.';
 import { integrationConfig } from '../../../test/config';
@@ -108,6 +106,7 @@ describe('#fetchSQLInstances', () => {
           logConnections: { type: 'string' },
           logDisconnections: { type: 'string' },
           logLockWaits: { type: 'string' },
+          logMinMessages: { type: 'string' },
           logMinErrorStatement: { type: 'string' },
           logTempFiles: { type: 'string' },
           logMinDurationStatement: { type: 'string' },
@@ -153,6 +152,10 @@ describe('#fetchSQLInstances', () => {
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
+          externalScriptsEnabled: { type: 'string' },
+          userConnections: { type: 'number' },
+          remoteAccess: { type: 'string' },
+          traceFlag: { type: 'string' },
         },
       },
     });
@@ -255,6 +258,7 @@ describe('#fetchSQLInstances encrypted', () => {
           logConnections: { type: 'string' },
           logDisconnections: { type: 'string' },
           logLockWaits: { type: 'string' },
+          logMinMessages: { type: 'string' },
           logMinErrorStatement: { type: 'string' },
           logTempFiles: { type: 'string' },
           logMinDurationStatement: { type: 'string' },
@@ -300,6 +304,10 @@ describe('#fetchSQLInstances encrypted', () => {
           automatedBackupsEnabled: { type: 'boolean' },
           kmsKeyName: { type: 'string' },
           connectionName: { type: 'string' },
+          externalScriptsEnabled: { type: 'string' },
+          userConnections: { type: 'number' },
+          remoteAccess: { type: 'string' },
+          traceFlag: { type: 'string' },
         },
       },
     });
