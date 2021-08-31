@@ -1,4 +1,3 @@
-jest.setTimeout(500000);
 import {
   Recording,
   createMockStepExecutionContext,
@@ -156,6 +155,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
             type: 'array',
             items: { type: 'object' },
           },
+          isAuditable: { type: 'boolean' },
         },
       },
     });

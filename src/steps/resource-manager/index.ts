@@ -416,23 +416,24 @@ export async function fetchIamPolicyAuditConfig(
     const auditConfigEntity = createAuditConfigEntity(auditConfig);
     if (auditConfigEntity) {
       await jobState.addEntity(auditConfigEntity);
-      let i = 0;
 
       if (auditConfig.service === 'allServices') {
-        console.log('auditConfig', auditConfig);
         await jobState.iterateEntities(
           {
             _type: API_SERVICE_ENTITY_TYPE,
           },
-          (serviceEntity) => {
-            const { hasIamPermissions, state } = serviceEntity;
-            if (hasIamPermissions && state === 'ENABLED') {
-              console.log(serviceEntity);
-              i += 1;
+          async (serviceEntity) => {
+            if (serviceEntity.isAuditable) {
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  _class: RelationshipClass.MONITORS,
+                  from: auditConfigEntity,
+                  to: serviceEntity,
+                }),
+              );
             }
           },
         );
-        console.log('i', i);
       } else {
         const serviceEntity = await jobState.findEntity(
           getServiceApiEntityKey({

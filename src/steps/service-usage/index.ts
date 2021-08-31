@@ -23,6 +23,7 @@ import {
   getIamManagedRoleData,
 } from '../../utils/iam';
 import { serviceusage_v1 } from 'googleapis';
+import { collectAuditableServicesForProject } from '../iam/client';
 
 export * from './constants';
 
@@ -56,6 +57,8 @@ export async function fetchApiServices(
     await getIamManagedRoleData(jobState),
   );
 
+  const auditableServices = await collectAuditableServicesForProject(config);
+
   await client.iterateServices(async (service) => {
     const permissions = getPermissionsForApiService(
       service,
@@ -67,6 +70,7 @@ export async function fetchApiServices(
         projectId: client.projectId,
         data: service,
         permissions,
+        isAuditable: auditableServices.includes(service.config?.name as string),
       }),
     );
 

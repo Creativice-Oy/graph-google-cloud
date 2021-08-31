@@ -1,4 +1,5 @@
 import { google, iam_v1 } from 'googleapis';
+import { IntegrationConfig } from '../..';
 import { Client } from '../../google-cloud/client';
 
 function isManagedRole(data: iam_v1.Schema$Role): boolean {
@@ -90,4 +91,42 @@ export class IamClient extends Client {
       await callback(k);
     }
   }
+
+  async iterateAuditableServices(
+    callback: (data: string) => Promise<void> | void,
+  ): Promise<void> {
+    const auth = await this.getAuthenticatedServiceClient();
+
+    const response = await this.client.iamPolicies.queryAuditableServices({
+      auth,
+      requestBody: {
+        fullResourceName: `//cloudresourcemanager.googleapis.com/projects/${this.projectId}`,
+      },
+    });
+
+    for (const service of response.data.services || []) {
+      const name = service.name;
+      if (name) {
+        await callback(name);
+      }
+    }
+  }
+
+  async collectAuditableServices(): Promise<string[]> {
+    const auditableServices: string[] = [];
+
+    await this.iterateAuditableServices((service) => {
+      auditableServices.push(service);
+    });
+
+    return auditableServices;
+  }
+}
+
+export async function collectAuditableServicesForProject(
+  config: IntegrationConfig,
+): Promise<string[]> {
+  const client = new IamClient({ config });
+  const auditableServices = await client.collectAuditableServices();
+  return auditableServices;
 }
