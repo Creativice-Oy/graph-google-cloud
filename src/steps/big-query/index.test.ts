@@ -84,6 +84,7 @@ describe('#fetchBigQueryDatasets', () => {
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
           webLink: { type: 'string' },
+          isCmekDefault: { type: 'boolean' },
         },
       },
     });
@@ -186,6 +187,7 @@ describe('#fetchBigQueryModels', () => {
           createdOn: { type: 'number' },
           updatedOn: { type: 'number' },
           webLink: { type: 'string' },
+          isCmekDefault: { type: 'boolean' },
         },
       },
     });
@@ -285,6 +287,7 @@ describe('#fetchBigQueryTables', () => {
           webLink: { type: 'string' },
           createdOn: { type: 'number' },
           expirationTime: { type: 'number' },
+          isUsingCmek: { type: 'boolean' },
         },
       },
     });
