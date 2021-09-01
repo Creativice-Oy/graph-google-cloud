@@ -414,43 +414,41 @@ export async function fetchIamPolicyAuditConfig(
 
   await client.iteratePolicyAuditConfigs(async (auditConfig) => {
     const auditConfigEntity = createAuditConfigEntity(auditConfig);
-    if (auditConfigEntity) {
-      await jobState.addEntity(auditConfigEntity);
+    await jobState.addEntity(auditConfigEntity);
 
-      if (auditConfig.service === 'allServices') {
-        await jobState.iterateEntities(
-          {
-            _type: API_SERVICE_ENTITY_TYPE,
-          },
-          async (serviceEntity) => {
-            if (serviceEntity.isAuditable) {
-              await jobState.addRelationship(
-                createDirectRelationship({
-                  _class: RelationshipClass.MONITORS,
-                  from: auditConfigEntity,
-                  to: serviceEntity,
-                }),
-              );
-            }
-          },
-        );
-      } else {
-        const serviceEntity = await jobState.findEntity(
-          getServiceApiEntityKey({
-            projectId: client.projectId,
-            serviceApiName: auditConfig.service as string,
+    if (auditConfig.service === 'allServices') {
+      await jobState.iterateEntities(
+        {
+          _type: API_SERVICE_ENTITY_TYPE,
+        },
+        async (serviceEntity) => {
+          if (serviceEntity.isAuditable) {
+            await jobState.addRelationship(
+              createDirectRelationship({
+                _class: RelationshipClass.MONITORS,
+                from: auditConfigEntity,
+                to: serviceEntity,
+              }),
+            );
+          }
+        },
+      );
+    } else {
+      const serviceEntity = await jobState.findEntity(
+        getServiceApiEntityKey({
+          projectId: client.projectId,
+          serviceApiName: auditConfig.service as string,
+        }),
+      );
+
+      if (serviceEntity) {
+        await jobState.addRelationship(
+          createDirectRelationship({
+            _class: RelationshipClass.MONITORS,
+            from: auditConfigEntity,
+            to: serviceEntity,
           }),
         );
-
-        if (serviceEntity) {
-          await jobState.addRelationship(
-            createDirectRelationship({
-              _class: RelationshipClass.MONITORS,
-              from: auditConfigEntity,
-              to: serviceEntity,
-            }),
-          );
-        }
       }
     }
   });
