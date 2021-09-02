@@ -47819,6 +47819,27 @@ own APIs.",
       "displayName": "MONITORS",
     },
     Object {
+      "_class": "LIMITS",
+      "_key": "auditConfig:binaryauthorization.googleapis.com|limits|j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+      "_mapping": Object {
+        "relationshipDirection": "FORWARD",
+        "sourceEntityKey": "auditConfig:binaryauthorization.googleapis.com",
+        "targetEntity": Object {
+          "_key": "j1-gc-integration-dev-v3@j1-gc-integration-dev-v3.iam.gserviceaccount.com",
+          "_type": "google_iam_service_account",
+        },
+        "targetFilterKeys": Array [
+          Array [
+            "_type",
+            "_key",
+          ],
+        ],
+      },
+      "_type": "google_cloud_audit_config_limits_service_account",
+      "displayName": "LIMITS",
+      "logType": "DATA_READ",
+    },
+    Object {
       "_class": "MONITORS",
       "_fromEntityKey": "auditConfig:dataproc.googleapis.com",
       "_key": "auditConfig:dataproc.googleapis.com|monitors|projects/j1-gc-integration-dev-v3/services/dataproc.googleapis.com",
@@ -47837,9 +47858,10 @@ own APIs.",
     "google_cloud_project_has_api_service",
     "google_cloud_audit_config",
     "google_cloud_audit_config_monitors_api_service",
+    "google_cloud_audit_config_limits_service_account",
   ],
   "numCollectedEntities": 485,
-  "numCollectedRelationships": 581,
+  "numCollectedRelationships": 582,
 }
 `;
 
