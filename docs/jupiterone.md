@@ -381,6 +381,10 @@ The following relationships are created/mapped:
 | `google_bigquery_dataset`                                        | **HAS**               | `google_bigquery_table`                                           |
 | `google_bigquery_dataset`                                        | **USES**              | `google_kms_crypto_key`                                           |
 | `google_cloud_api_service`                                       | **HAS**               | `google_iam_role`                                                 |
+| `google_cloud_audit_config`                                      | **LIMITS**            | `google_domain`                                                   |
+| `google_cloud_audit_config`                                      | **LIMITS**            | `UserGroup`                                                       |
+| `google_cloud_audit_config`                                      | **LIMITS**            | `google_cloud_api_service`                                        |
+| `google_cloud_audit_config`                                      | **LIMITS**            | `google_user`                                                     |
 | `google_cloud_audit_config`                                      | **MONITORS**          | `google_cloud_api_service`                                        |
 | `internet`                                                       | **ALLOWS**            | `google_compute_firewall`                                         |
 | `google_cloud_folder`                                            | **HAS**               | `google_cloud_folder`                                             |

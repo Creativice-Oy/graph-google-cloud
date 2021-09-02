@@ -37,6 +37,10 @@ import {
   AUDIT_CONFIG_ENTITY_CLASS,
   AUDIT_CONFIG_ENTITY_TYPE,
   AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_LIMITS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_LIMITS_USER_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_LIMITS_GROUP_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_LIMITS_DOMAIN_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -52,6 +56,7 @@ import {
   STEP_IAM_MANAGED_ROLES,
   GOOGLE_DOMAIN_ENTITY_TYPE,
   IAM_PRINCIPAL_TYPE,
+  GOOGLE_GROUP_ENTITY_CLASS,
 } from '../iam';
 import { cloudresourcemanager_v3 } from 'googleapis';
 import {
@@ -451,6 +456,102 @@ export async function fetchIamPolicyAuditConfig(
         );
       }
     }
+
+    auditConfig.auditLogConfigs?.forEach(async (auditLogConfig) => {
+      const exemptedMembers = auditLogConfig.exemptedMembers;
+      const logType = auditLogConfig.logType;
+      if (exemptedMembers) {
+        for (const exemptedMember of exemptedMembers) {
+          const parsedMember = parseIamMember(exemptedMember);
+          const { identifier, type } = parsedMember;
+
+          switch (type) {
+            case 'serviceAccount':
+              await jobState.addRelationship(
+                createMappedRelationship({
+                  _class: RelationshipClass.LIMITS,
+                  _type: AUDIT_CONFIG_LIMITS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+                  _mapping: {
+                    relationshipDirection: RelationshipDirection.FORWARD,
+                    sourceEntityKey: auditConfigEntity._key,
+                    targetFilterKeys: [['_type', '_key']],
+                    targetEntity: {
+                      _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+                      _key: identifier,
+                    },
+                  },
+                  properties: {
+                    logType,
+                  },
+                }),
+              );
+              break;
+            case 'user':
+              await jobState.addRelationship(
+                createMappedRelationship({
+                  _class: RelationshipClass.LIMITS,
+                  _type: AUDIT_CONFIG_LIMITS_USER_RELATIONSHIP_TYPE,
+                  _mapping: {
+                    relationshipDirection: RelationshipDirection.FORWARD,
+                    sourceEntityKey: auditConfigEntity._key,
+                    targetFilterKeys: [['_type', '_key']],
+                    targetEntity: {
+                      _type: GOOGLE_USER_ENTITY_TYPE,
+                      _key: identifier,
+                    },
+                  },
+                  properties: {
+                    logType,
+                  },
+                }),
+              );
+              break;
+            case 'group':
+              await jobState.addRelationship(
+                createMappedRelationship({
+                  _class: RelationshipClass.LIMITS,
+                  _type: AUDIT_CONFIG_LIMITS_GROUP_RELATIONSHIP_TYPE,
+                  _mapping: {
+                    relationshipDirection: RelationshipDirection.FORWARD,
+                    sourceEntityKey: auditConfigEntity._key,
+                    targetFilterKeys: [['_type', '_key']],
+                    targetEntity: {
+                      _type: GOOGLE_GROUP_ENTITY_TYPE,
+                      _key: identifier,
+                    },
+                  },
+                  properties: {
+                    logType,
+                  },
+                }),
+              );
+              break;
+            case 'domain':
+              await jobState.addRelationship(
+                createMappedRelationship({
+                  _class: RelationshipClass.LIMITS,
+                  _type: AUDIT_CONFIG_LIMITS_DOMAIN_RELATIONSHIP_TYPE,
+                  _mapping: {
+                    relationshipDirection: RelationshipDirection.FORWARD,
+                    sourceEntityKey: auditConfigEntity._key,
+                    targetFilterKeys: [['_type', '_key']],
+                    targetEntity: {
+                      _type: GOOGLE_DOMAIN_ENTITY_TYPE,
+                      _key: identifier,
+                    },
+                  },
+                  properties: {
+                    logType,
+                  },
+                }),
+              );
+              break;
+            default:
+              break;
+          }
+        }
+      }
+    });
   });
 }
 
@@ -600,6 +701,30 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
         _type: AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
         sourceType: AUDIT_CONFIG_ENTITY_TYPE,
         targetType: API_SERVICE_ENTITY_TYPE,
+      },
+      {
+        _class: RelationshipClass.LIMITS,
+        _type: AUDIT_CONFIG_LIMITS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: API_SERVICE_ENTITY_TYPE,
+      },
+      {
+        _class: RelationshipClass.LIMITS,
+        _type: AUDIT_CONFIG_LIMITS_USER_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: GOOGLE_USER_ENTITY_TYPE,
+      },
+      {
+        _class: RelationshipClass.LIMITS,
+        _type: AUDIT_CONFIG_LIMITS_GROUP_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: GOOGLE_GROUP_ENTITY_CLASS,
+      },
+      {
+        _class: RelationshipClass.LIMITS,
+        _type: AUDIT_CONFIG_LIMITS_DOMAIN_RELATIONSHIP_TYPE,
+        sourceType: AUDIT_CONFIG_ENTITY_TYPE,
+        targetType: GOOGLE_DOMAIN_ENTITY_TYPE,
       },
     ],
     executionHandler: fetchIamPolicyAuditConfig,

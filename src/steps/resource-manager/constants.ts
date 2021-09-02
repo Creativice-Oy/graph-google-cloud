@@ -31,3 +31,12 @@ export const ORGANIZATION_HAS_PROJECT_RELATIONSHIP_TYPE =
 export const FOLDER_HAS_PROJECT_RELATIONSHIP_TYPE = 'google_folder_has_project';
 export const AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE =
   'google_cloud_audit_config_monitors_api_service';
+
+export const AUDIT_CONFIG_LIMITS_SERVICE_ACCOUNT_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_limits_service_account';
+export const AUDIT_CONFIG_LIMITS_USER_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_limits_user';
+export const AUDIT_CONFIG_LIMITS_GROUP_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_limits_group';
+export const AUDIT_CONFIG_LIMITS_DOMAIN_RELATIONSHIP_TYPE =
+  'google_cloud_audit_config_limits_domain';
