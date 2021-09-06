@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity                    | Properties              |
+  | -----------------------   | ----------------------- |
+  | `google_bigquery_table`   | `isUsingCmek`           |
+  | `google_bigquery_dataset` | `isCmekDefault`         |
+
 ### Changed
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
