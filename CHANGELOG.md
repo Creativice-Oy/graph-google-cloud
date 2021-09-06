@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- New properties added to resources:
+
+  | Entity                  | Properties              |
+  | ----------------------- | ----------------------- |
+  | `google_sql_postgres_instance` | `logMinMessages` |
+  | `google_sql_sql_server_instance`    | `externalScriptsEnabled`              |
+  | `google_sql_sql_server_instance` | `userConnections` |
+  | `google_sql_sql_server_instance` | `remoteAccess` |
+  | `google_sql_sql_server_instance` | `traceFlag` |
+
+## 0.48.0 - 2021-08-27
+
 ### Changed
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
