@@ -18,9 +18,9 @@ and this project adheres to
 
 - Added support for ingesting the following **new** relationships:
 
-  | Source                      | class        | Target                     |
-  | --------------------------- | ------------ | -------------------------- |
-  | `google_cloud_audit_config` | **MONITORS** | `google_cloud_api_service` |
+  | Source                      | class    | Target                     |
+  | --------------------------- | -------- | -------------------------- |
+  | `google_cloud_audit_config` | **USES** | `google_cloud_api_service` |
 
 ### Changed
 
