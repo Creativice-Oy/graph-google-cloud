@@ -36,7 +36,7 @@ import {
   STEP_AUDIT_CONFIG_IAM_POLICY,
   AUDIT_CONFIG_ENTITY_CLASS,
   AUDIT_CONFIG_ENTITY_TYPE,
-  AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
+  AUDIT_CONFIG_USES_SERVICE_RELATIONSHIP_TYPE,
 } from './constants';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
@@ -424,7 +424,7 @@ export async function fetchIamPolicyAuditConfig(
           if (serviceEntity.isAuditable) {
             await jobState.addRelationship(
               createDirectRelationship({
-                _class: RelationshipClass.MONITORS,
+                _class: RelationshipClass.USES,
                 from: auditConfigEntity,
                 to: serviceEntity,
               }),
@@ -443,7 +443,7 @@ export async function fetchIamPolicyAuditConfig(
       if (serviceEntity) {
         await jobState.addRelationship(
           createDirectRelationship({
-            _class: RelationshipClass.MONITORS,
+            _class: RelationshipClass.USES,
             from: auditConfigEntity,
             to: serviceEntity,
           }),
@@ -595,8 +595,8 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     relationships: [
       {
-        _class: RelationshipClass.MONITORS,
-        _type: AUDIT_CONFIG_MONITORS_SERVICE_RELATIONSHIP_TYPE,
+        _class: RelationshipClass.USES,
+        _type: AUDIT_CONFIG_USES_SERVICE_RELATIONSHIP_TYPE,
         sourceType: AUDIT_CONFIG_ENTITY_TYPE,
         targetType: API_SERVICE_ENTITY_TYPE,
       },
