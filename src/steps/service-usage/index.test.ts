@@ -81,7 +81,7 @@ describe('#fetchApiServices', () => {
             type: 'array',
             items: { type: 'object' },
           },
-          isAuditable: { type: 'boolean' },
+          auditable: { type: 'boolean' },
         },
       },
     });
