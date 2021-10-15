@@ -155,7 +155,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
             type: 'array',
             items: { type: 'object' },
           },
-          isAuditable: { type: 'boolean' },
+          auditable: { type: 'boolean' },
         },
       },
     });
