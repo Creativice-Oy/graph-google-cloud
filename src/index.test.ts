@@ -32,7 +32,6 @@ import {
   STEP_IAM_SERVICE_ACCOUNTS,
 } from './steps/iam';
 import {
-  STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_RESOURCE_MANAGER_PROJECT,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   STEP_RESOURCE_MANAGER_FOLDERS,
@@ -81,7 +80,10 @@ import {
   STEP_BUILD_BIG_QUERY_DATASET_KMS_RELATIONSHIPS,
 } from './steps/big-query';
 import { STEP_SQL_ADMIN_INSTANCES } from './steps/sql-admin';
-import { STEP_DNS_MANAGED_ZONES } from './steps/dns/constants';
+import {
+  STEP_DNS_MANAGED_ZONES,
+  STEP_DNS_POLICIES,
+} from './steps/dns/constants';
 import { STEP_CONTAINER_CLUSTERS } from './steps/containers';
 import {
   STEP_LOGGING_METRICS,
@@ -125,7 +127,9 @@ import {
   STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS,
   STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS,
   STEP_CREATE_BINDING_ROLE_RELATIONSHIPS,
+  STEP_CREATE_BASIC_ROLES,
   STEP_IAM_BINDINGS,
+  STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS,
 } from './steps/cloud-asset/constants';
 import {
   STEP_ACCESS_CONTEXT_MANAGER_ACCESS_LEVELS,
@@ -271,9 +275,6 @@ describe('#getStepStartStates success', () => {
       [STEP_IAM_SERVICE_ACCOUNTS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
-        disabled: true,
-      },
       [STEP_AUDIT_CONFIG_IAM_POLICY]: {
         disabled: true,
       },
@@ -376,6 +377,9 @@ describe('#getStepStartStates success', () => {
       [STEP_DNS_MANAGED_ZONES]: {
         disabled: false,
       },
+      [STEP_DNS_POLICIES]: {
+        disabled: false,
+      },
       [STEP_CLOUD_KMS_KEY_RINGS]: {
         disabled: false,
       },
@@ -475,10 +479,16 @@ describe('#getStepStartStates success', () => {
       [STEP_CREATE_BINDING_PRINCIPAL_RELATIONSHIPS]: {
         disabled: false,
       },
+      [STEP_CREATE_BASIC_ROLES]: {
+        disabled: false,
+      },
       [STEP_CREATE_BINDING_ROLE_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: false,
+      },
+      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: false,
       },
       [STEP_DATAPROC_CLUSTERS]: {
@@ -564,13 +574,16 @@ describe('#getStepStartStates success', () => {
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: false,
       },
-      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
-        disabled: true,
-      },
       [STEP_IAM_BINDINGS]: {
         disabled: true,
       },
+      [STEP_CREATE_BASIC_ROLES]: {
+        disabled: true,
+      },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: true,
+      },
+      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
         disabled: true,
       },
       [STEP_BILLING_BUDGETS]: {
@@ -629,14 +642,17 @@ describe('#getStepStartStates success', () => {
       [STEP_ACCESS_CONTEXT_MANAGER_SERVICE_PERIMETERS]: {
         disabled: true,
       },
-      [STEP_RESOURCE_MANAGER_IAM_POLICY]: {
+      [STEP_IAM_BINDINGS]: {
         disabled: false,
       },
-      [STEP_IAM_BINDINGS]: {
-        disabled: true,
+      [STEP_CREATE_BASIC_ROLES]: {
+        disabled: false,
       },
       [STEP_CREATE_BINDING_ANY_RESOURCE_RELATIONSHIPS]: {
-        disabled: true,
+        disabled: false,
+      },
+      [STEP_CREATE_API_SERVICE_ANY_RESOURCE_RELATIONSHIPS]: {
+        disabled: false,
       },
       [STEP_BILLING_BUDGETS]: {
         disabled: false,

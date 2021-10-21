@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+
 import { bigquery_v2, google } from 'googleapis';
 import { Client } from '../../google-cloud/client';
 
@@ -51,12 +53,29 @@ export class BigQueryClient extends Client {
 
   async getTablePolicy(
     data: BigQueryTable,
-  ): Promise<bigquery_v2.Schema$Policy> {
+  ): Promise<bigquery_v2.Schema$Policy | undefined> {
+    const auth = await this.getAuthenticatedServiceClient();
+    const { projectId, datasetId, tableId } = data.tableReference ?? {};
+    if (!projectId || !datasetId || !tableId) {
+      return undefined;
+    }
+    const policyResponse = await this.client.tables.getIamPolicy({
+      auth,
+      resource: `projects/${projectId}/datasets/${datasetId}/tables/${tableId}`,
+    });
+    return policyResponse?.data;
+  }
+
+  async getTableResource(
+    data: BigQueryTable,
+  ): Promise<bigquery_v2.Schema$Table> {
     const auth = await this.getAuthenticatedServiceClient();
 
-    const resp = await this.client.tables.getIamPolicy({
+    const resp = await this.client.tables.get({
       auth,
-      resource: `projects/${data.tableReference?.projectId}/datasets/${data.tableReference?.datasetId}/tables/${data.tableReference?.tableId}`,
+      projectId: data.tableReference?.projectId!,
+      datasetId: data.tableReference?.datasetId!,
+      tableId: data.tableReference?.tableId!,
     });
 
     return resp.data;

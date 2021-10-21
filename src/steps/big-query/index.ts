@@ -1,7 +1,9 @@
 import {
   createDirectRelationship,
+  createMappedRelationship,
   IntegrationStep,
   RelationshipClass,
+  RelationshipDirection,
 } from '@jupiterone/integration-sdk-core';
 import { bigquery_v2 } from 'googleapis';
 import { IntegrationConfig, IntegrationStepContext } from '../../types';
@@ -34,8 +36,11 @@ import {
 export * from './constants';
 
 function isBigQueryPolicyPublicAccess(
-  bigQueryPolicy: bigquery_v2.Schema$Policy,
-): boolean {
+  bigQueryPolicy: bigquery_v2.Schema$Policy | undefined,
+): boolean | undefined {
+  if (!bigQueryPolicy) {
+    return undefined;
+  }
   for (const binding of bigQueryPolicy.bindings || []) {
     for (const member of binding.members || []) {
       if (isMemberPublic(member)) {
@@ -72,11 +77,10 @@ export async function buildBigQueryDatasetKMSRelationships(
     },
     async (datasetEntity) => {
       if (datasetEntity.kmsKeyName) {
-        const kmsKeyEntity = await jobState.findEntity(
-          getKmsGraphObjectKeyFromKmsKeyName(
-            datasetEntity.kmsKeyName as string,
-          ),
+        const kmsKey = getKmsGraphObjectKeyFromKmsKeyName(
+          datasetEntity.kmsKeyName as string,
         );
+        const kmsKeyEntity = await jobState.findEntity(kmsKey);
 
         if (kmsKeyEntity) {
           await jobState.addRelationship(
@@ -84,6 +88,23 @@ export async function buildBigQueryDatasetKMSRelationships(
               _class: RelationshipClass.USES,
               from: datasetEntity,
               to: kmsKeyEntity,
+            }),
+          );
+        } else {
+          await jobState.addRelationship(
+            createMappedRelationship({
+              _class: RelationshipClass.USES,
+              _type: RELATIONSHIP_TYPE_DATASET_USES_KMS_CRYPTO_KEY,
+              _mapping: {
+                relationshipDirection: RelationshipDirection.FORWARD,
+                sourceEntityKey: datasetEntity._key,
+                targetFilterKeys: [['_type', '_key']],
+                skipTargetCreation: true,
+                targetEntity: {
+                  _type: ENTITY_TYPE_KMS_KEY,
+                  _key: kmsKey,
+                },
+              },
             }),
           );
         }
@@ -132,6 +153,7 @@ export async function fetchBigQueryTables(
 ): Promise<void> {
   const {
     jobState,
+    logger,
     instance: { config },
   } = context;
   const client = new BigQueryClient({ config });
@@ -145,11 +167,24 @@ export async function fetchBigQueryTables(
         await client.iterateBigQueryTables(
           datasetEntity.name as string,
           async (table) => {
-            const tablePolicy = await client.getTablePolicy(table);
+            let tablePolicy: bigquery_v2.Schema$Policy | undefined = undefined;
+            try {
+              tablePolicy = await client.getTablePolicy(table);
+            } catch (error) {
+              logger.warn(
+                { tableId: table.id },
+                'Unable to fetch IAM policy for BigQuery table. Property `isPublic` will not be set.',
+              );
+            }
+            const tableResource = await client.getTableResource(table);
+
             const tableEntity = createBigQueryTableEntity({
               data: table,
               projectId: client.projectId,
               isPublic: isBigQueryPolicyPublicAccess(tablePolicy),
+              kmsKeyName: tableResource.encryptionConfiguration?.kmsKeyName
+                ? tableResource.encryptionConfiguration?.kmsKeyName
+                : undefined,
             });
 
             await jobState.addEntity(tableEntity);

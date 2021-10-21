@@ -42,7 +42,6 @@ import {
   CLOUD_STORAGE_BUCKET_ENTITY_TYPE,
   STEP_CLOUD_STORAGE_BUCKETS,
 } from '../storage';
-import { STEP_RESOURCE_MANAGER_IAM_POLICY } from '../resource-manager';
 import {
   IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_TYPE,
@@ -275,14 +274,13 @@ export async function fetchAppEngineServiceVersions(
                         sourceEntityKey: versionEntity._key,
                         targetFilterKeys: [['_type', 'email']],
                         /**
-                         * The mapper does properly remove mapper-created entities at the moment. These
+                         * The mapper does not properly remove mapper-created entities at the moment. These
                          * entities will never be cleaned up which will cause duplicates.
                          *
                          * Until this is fixed, we should not create mapped relationships with target creation
                          * enabled, thus only creating version relationships to google users that have already
                          * been ingested by other integrations.
                          */
-                        // skipTargetCreation: false, // true is the default
                         targetEntity: {
                           _type: GOOGLE_USER_ENTITY_TYPE,
                           email: version.createdBy,
@@ -420,11 +418,7 @@ export const appEngineSteps: IntegrationStep<IntegrationConfig>[] = [
         targetType: ENTITY_TYPE_APP_ENGINE_VERSION,
       },
     ],
-    dependsOn: [
-      STEP_APP_ENGINE_SERVICES,
-      STEP_RESOURCE_MANAGER_IAM_POLICY,
-      STEP_IAM_SERVICE_ACCOUNTS,
-    ],
+    dependsOn: [STEP_APP_ENGINE_SERVICES, STEP_IAM_SERVICE_ACCOUNTS],
     executionHandler: fetchAppEngineServiceVersions,
   },
   {

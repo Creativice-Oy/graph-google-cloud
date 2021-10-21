@@ -4,6 +4,7 @@ import { snakeCase } from 'lodash';
 import { hashArray } from '../../utils/crypto';
 
 import { createGoogleCloudIntegrationEntity } from '../../utils/entity';
+import { isReadOnlyPermission } from '../../utils/iam';
 import { bindingEntities } from './constants';
 
 export interface BindingEntity extends Entity {
@@ -11,6 +12,9 @@ export interface BindingEntity extends Entity {
   role: string;
   members: string;
   projectId: string;
+  projectName?: string;
+  folders?: string[];
+  organization?: string;
   'condition.title': string;
   'condition.description': string;
   'condition.expression': string;
@@ -36,28 +40,36 @@ export function buildIamBindingEntityKey({
   if (binding.role) keyBuilders.push('role:' + binding.role);
   if (binding.members)
     keyBuilders.push('members:' + hashArray(binding.members));
+  if (binding.condition?.expression)
+    keyBuilders.push('condition:' + binding.condition.expression);
 
   return keyBuilders.join('|');
 }
 
 export function createIamBindingEntity({
   _key,
-  projectId,
   binding,
+  projectId,
+  projectName,
   resource,
-  isReadOnly,
+  folders,
+  organization,
+  permissions,
 }: {
   _key: string;
-  projectId?: string;
   binding: cloudasset_v1.Schema$Binding;
-  resource: string | undefined | null;
-  isReadOnly: boolean;
+  projectId?: string;
+  projectName?: string | null;
+  resource?: string | null;
+  folders?: string[] | null;
+  organization?: string | null;
+  permissions?: string[] | null;
 }): BindingEntity {
   const namePrefix = 'Role Binding for Resource: ';
 
   return createGoogleCloudIntegrationEntity(binding, {
     entityData: {
-      source: binding,
+      source: {}, // rawData was removed to prevent `Request must be smaller than 6291456 bytes for the InvokeFunction operation` errors
       assign: {
         _class: bindingEntities.BINDINGS._class,
         _type: bindingEntities.BINDINGS._type,
@@ -74,11 +86,15 @@ export function createIamBindingEntity({
         role: binding.role,
         members: binding.members,
         projectId,
+        projectName,
+        folders,
+        organization,
         'condition.title': binding.condition?.title,
         'condition.description': binding.condition?.description,
         'condition.expression': binding.condition?.expression,
         'condition.location': binding.condition?.location,
-        readonly: isReadOnly, // Are all the permissions associated with this binding read only permissions
+        permissions: permissions?.join(','),
+        readonly: permissions?.some((p) => !isReadOnlyPermission(p)) ?? true, // default to true if there are no permissions
       },
     },
   }) as BindingEntity;

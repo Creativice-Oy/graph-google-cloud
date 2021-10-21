@@ -1,25 +1,57 @@
 import {
+  ALL_AUTHENTICATED_USERS_TYPE,
+  EVERYONE_TYPE,
   GOOGLE_DOMAIN_ENTITY_CLASS,
   GOOGLE_DOMAIN_ENTITY_TYPE,
   GOOGLE_GROUP_ENTITY_CLASS,
   GOOGLE_GROUP_ENTITY_TYPE,
   GOOGLE_USER_ENTITY_CLASS,
   GOOGLE_USER_ENTITY_TYPE,
-  IAM_PRINCIPAL_TYPE,
+  IAM_ROLE_ENTITY_CLASS,
+  IAM_ROLE_ENTITY_TYPE,
+  IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
+  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
 } from '../iam';
+import {
+  ConvenienceMemberType,
+  getRoleKeyFromConvienenceMember,
+  ParsedIamMember,
+  ParsedIamMemberType,
+} from '../../utils/iam';
 import {
   IntegrationError,
   PrimitiveEntity,
 } from '@jupiterone/integration-sdk-core';
-import { IamUserEntityWithParsedMember } from '.';
+
+// https://github.com/JupiterOne/jupiter-integration-aws/blob/84c3685ba9f4d54a134b00ba553cbb84fffb9d19/src/util/everyone.ts#L1
+function CreateIamAllUsers(_parsedMember: ParsedIamMember) {
+  return {
+    _class: ['UserGroup', 'Everyone'],
+    _type: EVERYONE_TYPE,
+    _key: 'global:everyone',
+    public: true,
+    displayName: 'Everyone (Public Global)',
+  };
+}
+
+// https://github.com/JupiterOne/jupiter-integration-aws/blob/84c3685ba9f4d54a134b00ba553cbb84fffb9d19/src/util/everyone.ts#L10
+function CreateIamAllAuthenticatedUsers(_parsedMember: ParsedIamMember) {
+  return {
+    _class: ['UserGroup', 'Everyone'],
+    _type: ALL_AUTHENTICATED_USERS_TYPE,
+    _key: 'global:google-cloud:authenticated-users',
+    public: true,
+    displayName: 'Everyone (All Google Cloud Authenticated Users)',
+  };
+}
 
 // https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/domains/converters.ts#L6
-function createIamDomain(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const domainName = iamUserEntityWithParsedMember.parsedMember.identifier!;
+function createIamDomain(parsedMember: ParsedIamMember) {
+  const domainName = parsedMember.identifier;
   return {
-    _key: generateIamEntityKey(GOOGLE_DOMAIN_ENTITY_TYPE, domainName),
+    _key: domainName
+      ? generateIamEntityKey(GOOGLE_DOMAIN_ENTITY_TYPE, domainName)
+      : undefined,
     _type: GOOGLE_DOMAIN_ENTITY_TYPE,
     _class: GOOGLE_DOMAIN_ENTITY_CLASS,
     id: domainName,
@@ -30,11 +62,10 @@ function createIamDomain(
 }
 
 // https://github.com/JupiterOne/graph-google/blob/3e3d51e036d32f121374ae856cbdf5516711dc6d/src/steps/groups/converters.ts#L23
-function createIamGroup(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const email = iamUserEntityWithParsedMember.parsedMember.identifier!;
-  const groupId = iamUserEntityWithParsedMember.parsedMember.uniqueid!;
+function createIamGroup(parsedMember: ParsedIamMember) {
+  const email = parsedMember.identifier;
+  const groupId = parsedMember.uniqueid;
+  const deleted = parsedMember.deleted;
   return {
     _key: groupId
       ? generateIamEntityKey(GOOGLE_GROUP_ENTITY_TYPE, groupId)
@@ -43,48 +74,77 @@ function createIamGroup(
     _class: GOOGLE_GROUP_ENTITY_CLASS,
     id: groupId,
     email: email,
-    // // We do not have access to the group name which makes the entities look incomplete
-    // name: undefined,
-    // displayName: undefined,
+    deleted: deleted ?? false,
+  };
+}
+
+function createIamRole(parsedMember: ParsedIamMember) {
+  const projectId = parsedMember.identifier;
+  const roleName = getRoleKeyFromConvienenceMember(
+    parsedMember.type as ConvenienceMemberType,
+  );
+  const deleted = parsedMember.deleted;
+  return {
+    _class: IAM_ROLE_ENTITY_CLASS,
+    _type: IAM_ROLE_ENTITY_TYPE,
+    _key: roleName,
+    name: roleName,
+    displayName: roleName,
+    deleted: deleted ?? false,
+    projectId,
+    custom: false,
+  };
+}
+
+// https://github.com/JupiterOne/graph-google-cloud/blob/7b9af8f8193246fb8202ba7051da92d1f9f4b9be/src/steps/iam/converters.ts#L68
+function createIamServiceAccount(parsedMember: ParsedIamMember) {
+  const email = parsedMember.identifier;
+  const serviceAccountId = parsedMember.uniqueid;
+  const deleted = parsedMember.deleted;
+  return {
+    _class: IAM_SERVICE_ACCOUNT_ENTITY_CLASS,
+    _type: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
+    _key: email,
+    id: serviceAccountId,
+    username: email,
+    email,
+    deleted: deleted ?? false,
   };
 }
 
 // https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L44
-function createIamUser(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  const email = iamUserEntityWithParsedMember.parsedMember.identifier!;
-  const userId = iamUserEntityWithParsedMember.parsedMember.uniqueid!;
-  const user: {
-    _key?: string;
-    _type: string;
-    _class: string;
-    id?: string;
-    email: string;
-    username: string | null;
-    deleted: boolean;
-  } = {
+function createIamUser(parsedMember: ParsedIamMember) {
+  const email = parsedMember.identifier;
+  const userId = parsedMember.uniqueid;
+  const deleted = parsedMember.deleted;
+  return {
     _type: GOOGLE_USER_ENTITY_TYPE,
     _class: GOOGLE_USER_ENTITY_CLASS,
+    _key: userId
+      ? generateIamEntityKey(GOOGLE_USER_ENTITY_TYPE, userId)
+      : undefined,
+    id: userId,
     email: email,
-    username: getUsername(email),
-    deleted: false,
-    // // We do not have access to the user's name which makes the entities look incomplete
-    // name: undefined,
-    // displayName: undefined,
+    username: email ? getUsername(email) : undefined,
+    deleted: deleted ?? false,
+    emailDomain: email ? getDomain(email) : undefined,
   };
-  if (userId) {
-    // the _key will not be defined when the userId is not used when making the google_iam_binding
-    user._key = generateIamEntityKey(GOOGLE_USER_ENTITY_TYPE, userId);
-    user.id = userId;
-  }
-  return user;
 }
 
-// https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L159
+// https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L161
 function getUsername(email: string): string | null {
   const usernameMatch = /(.*?)@.*/.exec(email);
   return usernameMatch && usernameMatch[1];
+}
+
+function last<T>(arr: T[] | undefined): T | undefined {
+  if (!arr || !arr.length) return undefined;
+  return arr[arr.length - 1];
+}
+
+// https://github.com/JupiterOne/graph-google/blob/ad4d88d0151cd7dc4ad93dc30d1aa40e6c97778e/src/steps/users/converters.ts#L166
+function getDomain(email: string): string | undefined {
+  return last(email.split('@'));
 }
 
 /**
@@ -104,11 +164,19 @@ function generateIamEntityKey(prefix: string, id: string | number) {
 }
 
 export const CREATE_IAM_ENTITY_MAP: {
-  [key in IAM_PRINCIPAL_TYPE]: (
-    iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
+  [K in ParsedIamMemberType]: (
+    parsedMember: ParsedIamMember,
   ) => Partial<PrimitiveEntity>;
 } = {
-  [GOOGLE_DOMAIN_ENTITY_TYPE]: createIamDomain,
-  [GOOGLE_GROUP_ENTITY_TYPE]: createIamGroup,
-  [GOOGLE_USER_ENTITY_TYPE]: createIamUser,
+  ['domain']: createIamDomain,
+  ['group']: createIamGroup,
+  ['user']: createIamUser,
+  ['serviceAccount']: createIamServiceAccount,
+  ['allUsers']: CreateIamAllUsers,
+  ['allAuthenticatedUsers']: CreateIamAllAuthenticatedUsers,
+  // Google Storage buckets have extra "Convenience" members that need to be handled differently
+  // https://cloud.google.com/storage/docs/access-control/iam#convenience-values
+  ['projectEditor']: createIamRole,
+  ['projectOwner']: createIamRole,
+  ['projectViewer']: createIamRole,
 };

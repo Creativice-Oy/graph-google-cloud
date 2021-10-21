@@ -22,7 +22,222 @@ and this project adheres to
   | -------------------------- | -------- | --------------------------- |
   | `google_cloud_api_service` | **USES** | `google_cloud_audit_config` |
 
+### Fixed
+
+- TypeError from when there is no condition in `fetch-logging-metrics`
+
+## 1.0.6 - 2021-10-15
+
+### Removed
+
+- `rawData` on Basic `google_iam_role`s and `google_iam_bindings` to prevent
+  upload errors.
+
+## 1.0.5 - 2021-10-14
+
+### Fixed
+
+- Only store the first 500 members in the rawData for `google_iam_binding`s to
+  prevent upload error.
+- Only store the first 500 permissions in the rawData for `google_iam_role`s to
+  prevent upload error.
+- Only store the first 500 characters of the role description in the rawData for
+  `google_iam_role`s to prevent upload error.
+- Prevent `DUPLICATE_KEY_ERROR`s in steps
+  `create-binding-principal-relationships` and
+  `create-binding-any-resource-relationships`.
+
+## 1.0.4 - 2021-10-14
+
+### Fixed
+
+- Prevent an error in `getTablePolicy` from causing `fetch-big-query-tables` to
+  error out.
+
+## 1.0.3 - 2021-10-11
+
+### Fixed
+
+- Managed questions that used `Find google_user ASSIGNED google_iam_role`
+  traversals to use
+  `Find google_user that ASSIGNED google_iam_binding that USES google_iam_role`
+  instead.
+
+## 1.0.1 - 2021-10-08
+
+### Fixed
+
+- Basic `google_iam_roles` will now properly set the `permissions` property.
+
+## 1.0.0 - 2021-10-08
+
+### Removed
+
+- **Breaking** Relationships between `google_iam_role`s and principal members.
+  These traversals will now need to go through the `google_iam_binding` first.
+  Ex: `Find google_user ASSIGNED google_iam_role` will need to change to be
+  `Find google_user that ASSIGNED google_iam_binding that USES google_iam_role`.
+  This is done because in Google Cloud IAM, a principal is not directly assigned
+  a role, they are only assigned a role for a specific reasource via an IAM
+  Binding.
+
+| Source                             | class        | Target            |
+| ---------------------------------- | ------------ | ----------------- |
+| `google_user`                      | **ASSIGNED** | `google_iam_role` |
+| `google_group`                     | **ASSIGNED** | `google_iam_role` |
+| `google_domain`                    | **ASSIGNED** | `google_iam_role` |
+| `everyone`                         | **ASSIGNED** | `google_iam_role` |
+| `google_cloud_authenticated_users` | **ASSIGNED** | `google_iam_role` |
+| `google_iam_service_account`       | **ASSIGNED** | `google_iam_role` |
+
+- **Breaking** Step `fetch-resource-manager-iam-policy` was removed. IAM Policy
+  analysis for projects will now be done in the `fetch-iam-bindings` step, which
+  requires the Cloud Asset API to be enabled. In order to continue having the
+  project level IAM Policy analyzed, ensure your gcloud account has
+  `cloudasset.googleapis.com` enabled (instructions
+  [here](https://github.com/JupiterOne/graph-google-cloud/blob/main/docs/jupiterone.md#in-google-cloud))
+
 ### Changed
+
+- `google_iam_binding`'s `_key` property will now contain the `condition`
+  property of the binding in order to ensure all conditions are properly
+  captured in binding entities.
+- New `google_iam_role`s for `google_cloud_project`s, `google_cloud_folder`s,
+  and `google_cloud_organization`s will get created for each Google Cloud Basic
+  Role (`roles/editor`, `roles/owner`, ...) that is attached via a role binding,
+  instead of having a single `google_iam_role` that all relate to.
+- Step `fetch-iam-bindings` will fetch IAM Policies using the project scope when
+  triggered by an integration without an `organizationId` in its
+  integrationConfig.
+
+### Added
+
+- Create relationships for every member of `google_iam_binding`s.
+- Added support for ingesting the following **new** relationships:
+
+| Source                             | class      | Target                             |
+| ---------------------------------- | ---------- | ---------------------------------- |
+| `google_iam_binding`               | `ASSIGNED` | `google_cloud_authenticated_users` |
+| `google_iam_binding`               | `ASSIGNED` | `everyone`                         |
+| `google_iam_binding`               | `ASSIGNED` | `google_iam_role`                  |
+| `everyone`                         | `ASSIGNED` | `google_iam_role`                  |
+| `google_cloud_authenticated_users` | `ASSIGNED` | `google_iam_role`                  |
+| `google_cloud_api_service`         | `HAS`      | `ANY_RESOURCE`                     |
+
+- New properties added to resources:
+
+  | Entity                 | Properties     |
+  | ---------------------- | -------------- |
+  | `google_iam_binding`   | `permissions`  |
+  | `google_iam_binding`   | `organization` |
+  | `google_iam_binding`   | `folders`      |
+  | `google_cloud_folder`  | `parent`       |
+  | (mapped) `google_user` | `emailDomain`  |
+
+- Custom `google_iam_roles` will be ingested from the Organization level as well
+  as the Project level.
+
+### Fixed
+
+- Mapped relationships were not getting between `google_iam_bindings` and
+  principals.
+
+## 0.51.5 - 2021-10-01
+
+### Fixed
+
+- Removed unnecessary "UNABLE_TO_FIND_PROJECT_ID" error.
+
+## 0.51.4 - 2021-09-27
+
+### Added
+
+- Initial managed JupiterOne questions moved into this project
+
+### Fixed
+
+- `Internet` **ALLOWS** `google_compute_firewall` relationship for
+  `0.0.0.0/0`/`::/0` source CIDR blocks restored by adding `_type` to the target
+  filter keys.
+
+## 0.50.0 - 2021-09-15
+
+### Added
+
+- New properties added to resources:
+
+  | Entity                           | Properties    |
+  | -------------------------------- | ------------- |
+  | `google_bigquery_table`          | `kmsKeyName`  |
+  | `google_sql_sql_server_instance` | `userOptions` |
+
+## 0.49.0 - 2021-09-14
+
+### Added
+
+- Added support for ingesting the following **new** resources:
+
+  | Service        | Resource / Entity                                                                                                                       |
+  | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+  | Dataproc       | `google_dataproc_cluster`                                                                                                               |
+  | Cloud Billing  | `google_billing_account`                                                                                                                |
+  | N/A            | `google_billing_budget`                                                                                                                 |
+  | Cloud Bigtable | `google_bigtable_app_profile`, `google_bigtable_backup`, `google_bigtable_cluster`, `google_bigtable_instance`, `google_bigtable_table` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                     | class  | Target                        |
+  | -------------------------- | ------ | ----------------------------- |
+  | `google_dataproc_cluster`  | `USES` | `google_kms_crypto_key`       |
+  | `google_dataproc_cluster`  | `USES` | `google_compute_image`        |
+  | `google_dataproc_cluster`  | `USES` | `google_storage_bucket`       |
+  | `google_billing_account`   | `HAS`  | `google_billing_budget`       |
+  | `google_cloud_project`     | `USES` | `google_billing_budget`       |
+  | `google_bigtable_cluster`  | `HAS`  | `google_bigtable_backup`      |
+  | `google_bigtable_cluster`  | `USES` | `google_kms_crypto_key`       |
+  | `google_bigtable_instance` | `HAS`  | `google_bigtable_app_profile` |
+  | `google_bigtable_instance` | `HAS`  | `google_bigtable_cluster`     |
+  | `google_bigtable_instance` | `HAS`  | `google_bigtable_table`       |
+  | `google_bigtable_table`    | `HAS`  | `google_bigtable_backup`      |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                           | class  | Target                  |
+  | -------------------------------- | ------ | ----------------------- |
+  | `google_bigquery_dataset`        | `USES` | `google_kms_crypto_key` |
+  | `google_compute_disk`            | `USES` | `google_kms_crypto_key` |
+  | `google_compute_image`           | `USES` | `google_kms_crypto_key` |
+  | `google_pubsub_topic`            | `USES` | `google_kms_crypto_key` |
+  | `google_spanner_database`        | `USES` | `google_kms_crypto_key` |
+  | `google_sql_mysql_instance`      | `USES` | `google_kms_crypto_key` |
+  | `google_sql_postgres_instance`   | `USES` | `google_kms_crypto_key` |
+  | `google_sql_sql_server_instance` | `USES` | `google_kms_crypto_key` |
+
+- New properties added to resources:
+
+  | Entity                           | Properties               |
+  | -------------------------------- | ------------------------ |
+  | `google_sql_postgres_instance`   | `logMinMessages`         |
+  | `google_sql_sql_server_instance` | `externalScriptsEnabled` |
+  | `google_sql_sql_server_instance` | `userConnections`        |
+  | `google_sql_sql_server_instance` | `remoteAccess`           |
+  | `google_sql_sql_server_instance` | `traceFlag`              |
+
+## 0.48.0 - 2021-08-27
+
+### Changed
+
+- Added support for ingesting the following **new** resources:
+
+  | Service    | Resource / Entity   |
+  | ---------- | ------------------- |
+  | DNS Policy | `google_dns_policy` |
+
+- Added support for ingesting the following **new** relationships:
+
+  | Source                   | class   | Target              |
+  | ------------------------ | ------- | ------------------- |
+  | `google_compute_network` | **HAS** | `google_dns_policy` |
 
 - Relationships from `google_cloud_organization`s and `google_cloud_folder`s to
   `google_cloud_project`s will also be made for deleted projects as well.
@@ -36,6 +251,11 @@ and this project adheres to
   | `google_iam_binding` | **ASSIGNED** | `google_user`                |
   | `google_iam_binding` | **ASSIGNED** | `google_domain`              |
   | `google_user`        | **CREATED**  | `google_app_engine_version`  |
+
+- Separate the step to build `google_bigquery_dataset_uses_kms_crypto_key`
+  relationship
+- Modified `google_bigquery_dataset` step to be independent from
+  `google_kms_crypto_key` step
 
 ## 0.48.0 - 2021-08-27
 

@@ -1,8 +1,6 @@
 import {
   IntegrationStep,
   Entity,
-  JobState,
-  Relationship,
   createDirectRelationship,
   createMappedRelationship,
   RelationshipDirection,
@@ -12,15 +10,11 @@ import { IntegrationConfig, IntegrationStepContext } from '../../types';
 import {
   createAuditConfigEntity,
   createFolderEntity,
-  createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship,
   createOrganizationEntity,
   createProjectEntity,
-  getConditionRelationshipProperties,
 } from './converters';
 import {
-  STEP_RESOURCE_MANAGER_IAM_POLICY,
   STEP_RESOURCE_MANAGER_PROJECT,
-  IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
   PROJECT_ENTITY_TYPE,
   STEP_RESOURCE_MANAGER_ORGANIZATION,
   ORGANIZATION_ENTITY_TYPE,
@@ -38,31 +32,9 @@ import {
   AUDIT_CONFIG_ENTITY_TYPE,
   SERVICE_USES_AUDIT_CONFIG_RELATIONSHIP_TYPE,
 } from './constants';
-import {
-  IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-  IAM_ROLE_ENTITY_TYPE,
-  GOOGLE_USER_ENTITY_TYPE,
-  GOOGLE_GROUP_ENTITY_TYPE,
-  IAM_ROLE_ENTITY_CLASS,
-  IAM_USER_ENTITY_CLASS,
-  STEP_IAM_CUSTOM_ROLES,
-  STEP_IAM_SERVICE_ACCOUNTS,
-  GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
-  GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
-  STEP_IAM_MANAGED_ROLES,
-  GOOGLE_DOMAIN_ENTITY_TYPE,
-  IAM_PRINCIPAL_TYPE,
-} from '../iam';
-import { cloudresourcemanager_v3 } from 'googleapis';
-import {
-  getIamManagedRoleData,
-  ParsedIamMember,
-  parseIamMember,
-} from '../../utils/iam';
-import { createIamRoleEntity } from '../iam/converters';
+import { ParsedIamMember, parseIamMember } from '../../utils/iam';
 import { RelationshipClass } from '@jupiterone/data-model';
 import { cacheProjectNameAndId } from '../../utils/jobState';
-import { CREATE_IAM_ENTITY_MAP } from './createIamEntities';
 import {
   API_SERVICE_ENTITY_TYPE,
   STEP_API_SERVICES,
@@ -77,156 +49,25 @@ export interface IamUserEntityWithParsedMember {
 }
 
 export async function maybeFindIamUserEntityWithParsedMember({
-  jobState,
+  context,
   member,
 }: {
-  jobState: JobState;
+  context: IntegrationStepContext;
   member: string;
 }): Promise<IamUserEntityWithParsedMember> {
+  const { jobState } = context;
   const parsedMember = parseIamMember(member);
   const { identifier: parsedIdentifier, type: parsedMemberType } = parsedMember;
+  let userEntity: Entity | null = null;
 
-  if (
-    !parsedIdentifier ||
-    parsedMemberType === 'domain' ||
-    parsedMemberType === 'group'
-  ) {
-    // This is a member that we do not want to create. For example: `allAuthenticatedUsers`
-    // or `domain:{domain}` or `group:abc@123.com`
-    return {
-      parsedMember,
-      userEntity: null,
-    };
-  }
-
-  // We always want to find or create relationships to user entities. Since
-  // the same user can have multiple roles, there is a possibility that a
-  // user is created earlier in this step. In order to avoid duplicate entity
-  // keys, we need to look for the user before creating anything.
-  if (parsedMember.type === 'serviceAccount') {
-    const userEntity = await jobState.findEntity(parsedIdentifier);
-
-    // We already created service accounts in another step. If this service
-    // account does not exist, it's possible that it was created in between
-    // steps. The caller handles the case that not entity is returned, so we
-    // will just ignore it.
-    return {
-      parsedMember,
-      userEntity,
-    };
+  if (parsedIdentifier && parsedMemberType === 'serviceAccount') {
+    userEntity = await jobState.findEntity(parsedIdentifier);
   }
 
   return {
     parsedMember,
-    userEntity: null,
+    userEntity,
   };
-}
-
-export async function getPermissionsForManagedRole(
-  jobState: JobState,
-  roleName: string,
-): Promise<string[] | null | undefined> {
-  const iamManagedRoleData = await getIamManagedRoleData(jobState);
-  return iamManagedRoleData[roleName]?.includedPermissions;
-}
-
-export async function findOrCreateIamRoleEntity({
-  jobState,
-  roleName,
-}: {
-  jobState: JobState;
-  roleName: string;
-}) {
-  const roleEntity = await jobState.findEntity(roleName);
-  if (roleEntity) {
-    return roleEntity;
-  }
-
-  const includedPermissions = await getPermissionsForManagedRole(
-    jobState,
-    roleName,
-  );
-  return jobState.addEntity(
-    createIamRoleEntity(
-      {
-        name: roleName,
-        title: roleName,
-        includedPermissions,
-      },
-      {
-        custom: false,
-      },
-    ),
-  );
-}
-
-// This is an optimization to only fetch the iam_role if it is needed for a relationship
-export function shouldMakeTargetIamRelationships(
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember,
-) {
-  return (
-    iamUserEntityWithParsedMember.userEntity ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'domain' ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'group' ||
-    iamUserEntityWithParsedMember.parsedMember.type === 'user'
-  );
-}
-
-export function buildIamTargetRelationship({
-  iamEntity,
-  iamUserEntityWithParsedMember,
-  projectId,
-  condition,
-  relationshipDirection,
-}: {
-  iamEntity: Entity;
-  iamUserEntityWithParsedMember: IamUserEntityWithParsedMember;
-  relationshipDirection: RelationshipDirection;
-  projectId?: string;
-  condition?: cloudresourcemanager_v3.Schema$Expr;
-}): Relationship | undefined {
-  const iamEntityToTargetRelationship =
-    relationshipDirection === RelationshipDirection.FORWARD;
-
-  if (iamUserEntityWithParsedMember.userEntity) {
-    // Create a direct relationship. This is a user entity that _only_ exists
-    // in the Google Cloud integration (e.g. a GCP service account)
-    return createDirectRelationship({
-      _class: RelationshipClass.ASSIGNED,
-      from: iamEntityToTargetRelationship
-        ? iamEntity
-        : iamUserEntityWithParsedMember.userEntity,
-      to: iamEntityToTargetRelationship
-        ? iamUserEntityWithParsedMember.userEntity
-        : iamEntity,
-      properties: {
-        projectId: projectId,
-        ...(condition && getConditionRelationshipProperties(condition)),
-      },
-    });
-  } else {
-    let targetEntityType: IAM_PRINCIPAL_TYPE;
-    const parsedMemberType = iamUserEntityWithParsedMember.parsedMember.type;
-    if (parsedMemberType === 'domain') {
-      targetEntityType = GOOGLE_DOMAIN_ENTITY_TYPE;
-    } else if (parsedMemberType === 'group') {
-      targetEntityType = GOOGLE_GROUP_ENTITY_TYPE;
-    } else if (parsedMemberType === 'user') {
-      targetEntityType = GOOGLE_USER_ENTITY_TYPE;
-    }
-
-    // Create a mapped relationship where the target entity exists is owned
-    // by the Google Workspace integration.
-    return createGoogleWorkspaceEntityTypeAssignedIamRoleMappedRelationship({
-      iamEntity: iamEntity,
-      targetEntity: CREATE_IAM_ENTITY_MAP[targetEntityType!](
-        iamUserEntityWithParsedMember,
-      ),
-      relationshipDirection,
-      projectId,
-      condition,
-    });
-  }
 }
 
 export async function fetchResourceManagerOrganization(
@@ -453,56 +294,6 @@ export async function fetchIamPolicyAuditConfig(
   });
 }
 
-export async function fetchResourceManagerIamPolicy(
-  context: IntegrationStepContext,
-): Promise<void> {
-  const {
-    jobState,
-    instance: { config },
-    logger,
-  } = context;
-  const client = new ResourceManagerClient({ config });
-  const relationships = new Set<string>();
-
-  await client.iteratePolicyMemberBindings(async (data) => {
-    if (!data.binding.role) {
-      logger.warn(
-        { binding: data.binding },
-        'Unable to build relationships for binding. Binding does not have an associated role.',
-      );
-      return;
-    }
-
-    const iamUserEntityWithParsedMember =
-      await maybeFindIamUserEntityWithParsedMember({
-        jobState,
-        member: data.member,
-      });
-
-    if (shouldMakeTargetIamRelationships(iamUserEntityWithParsedMember)) {
-      const iamRoleEntity = await findOrCreateIamRoleEntity({
-        jobState,
-        roleName: data.binding.role,
-      });
-
-      const relationship = buildIamTargetRelationship({
-        iamUserEntityWithParsedMember,
-        iamEntity: iamRoleEntity,
-        relationshipDirection: RelationshipDirection.REVERSE,
-        projectId: client.projectId,
-        condition: data.binding.condition,
-      });
-
-      if (!relationship || relationships.has(relationship._key)) {
-        return;
-      }
-
-      await jobState.addRelationship(relationship);
-      relationships.add(relationship._key);
-    }
-  });
-}
-
 export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: STEP_RESOURCE_MANAGER_ORGANIZATION,
@@ -603,47 +394,5 @@ export const resourceManagerSteps: IntegrationStep<IntegrationConfig>[] = [
     ],
     executionHandler: fetchIamPolicyAuditConfig,
     dependsOn: [STEP_API_SERVICES],
-  },
-  {
-    id: STEP_RESOURCE_MANAGER_IAM_POLICY,
-    name: 'Resource Manager IAM Policy',
-    entities: [
-      {
-        resourceName: 'IAM Role',
-        _type: IAM_ROLE_ENTITY_TYPE,
-        _class: IAM_ROLE_ENTITY_CLASS,
-      },
-      {
-        resourceName: 'IAM User',
-        _type: GOOGLE_USER_ENTITY_TYPE,
-        _class: IAM_USER_ENTITY_CLASS,
-      },
-    ],
-    relationships: [
-      {
-        _class: RelationshipClass.ASSIGNED,
-        _type: IAM_SERVICE_ACCOUNT_ASSIGNED_ROLE_RELATIONSHIP_TYPE,
-        sourceType: IAM_SERVICE_ACCOUNT_ENTITY_TYPE,
-        targetType: IAM_ROLE_ENTITY_TYPE,
-      },
-      {
-        _type: GOOGLE_GROUP_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
-        _class: RelationshipClass.ASSIGNED,
-        sourceType: GOOGLE_GROUP_ENTITY_TYPE,
-        targetType: IAM_ROLE_ENTITY_TYPE,
-      },
-      {
-        _type: GOOGLE_USER_ASSIGNED_IAM_ROLE_RELATIONSHIP_TYPE,
-        _class: RelationshipClass.ASSIGNED,
-        sourceType: GOOGLE_USER_ENTITY_TYPE,
-        targetType: IAM_ROLE_ENTITY_TYPE,
-      },
-    ],
-    dependsOn: [
-      STEP_IAM_CUSTOM_ROLES,
-      STEP_IAM_SERVICE_ACCOUNTS,
-      STEP_IAM_MANAGED_ROLES,
-    ],
-    executionHandler: fetchResourceManagerIamPolicy,
   },
 ];
