@@ -1,6 +1,7 @@
 import {
   Recording,
   createMockStepExecutionContext,
+  MockIntegrationStepExecutionContext,
 } from '@jupiterone/integration-sdk-testing';
 import { setupGoogleCloudRecording } from '../../../test/recording';
 import { IntegrationConfig } from '../../types';
@@ -12,6 +13,7 @@ import {
   fetchIamPolicyAuditConfig,
 } from '.';
 import { integrationConfig } from '../../../test/config';
+import { iamSteps, GOOGLE_USER_ENTITY_TYPE } from '../iam';
 import {
   FOLDER_ENTITY_TYPE,
   ORGANIZATION_HAS_FOLDER_RELATIONSHIP_TYPE,
@@ -27,6 +29,14 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { filterGraphObjects } from '../../../test/helpers/filterGraphObjects';
 import { fetchApiServices } from '../service-usage';
+
+async function executeIamSteps(
+  context: MockIntegrationStepExecutionContext<IntegrationConfig>,
+) {
+  for (const step of iamSteps) {
+    await step.executionHandler(context);
+  }
+}
 
 describe('#fetchIamPolicyAuditConfig', () => {
   let recording: Recording;
@@ -60,6 +70,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
     });
 
     await fetchResourceManagerProject(context);
+    await executeIamSteps(context);
     await fetchApiServices(context);
     await fetchIamPolicyAuditConfig(context);
 
@@ -71,6 +82,9 @@ describe('#fetchIamPolicyAuditConfig', () => {
       encounteredTypes: context.jobState.encounteredTypes,
     }).toMatchSnapshot();
 
+    const userEntities = context.jobState.collectedEntities.filter(
+      (e) => e._type === GOOGLE_USER_ENTITY_TYPE,
+    );
     const iamServiceAccountEntities = context.jobState.collectedEntities.filter(
       (e) => e._type === 'google_iam_service_account',
     );
@@ -83,6 +97,7 @@ describe('#fetchIamPolicyAuditConfig', () => {
         (r) => r._type === 'google_iam_service_account_has_key',
       );
 
+    expect(userEntities.length).toEqual(0);
     expect(iamServiceAccountEntities.length).toBeGreaterThanOrEqual(1);
     expect(iamServiceAccountKeyEntities.length).toBeGreaterThanOrEqual(1);
     expect(iamServiceAccountHasKeyRelationships.length).toBeGreaterThanOrEqual(
